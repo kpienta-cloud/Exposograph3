@@ -1,0 +1,57 @@
+{
+  "module_id": "EG3.MOD.MODIFIER.POPGEN.v1",
+  "module_name": "Susceptibility Modifier Module — Population Genomics",
+  "module_class": "Modifier",
+  "maturity_class": "C",
+  "extends": [
+    "SusceptibilityModifierModule"
+  ],
+  "scope": {
+    "species": "human",
+    "modifier_type": "germline_variant"
+  },
+  "version": "1.0.0",
+  "evidence_bundle": [
+    {
+      "source": "graph node variant field"
+    }
+  ],
+  "graph_nodes": [
+    "AHR",
+    "CYP1A2",
+    "ADH1B",
+    "GSTM1",
+    "AS3MT",
+    "MT2A",
+    "MT1A",
+    "ALDH2",
+    "ADH1C",
+    "CYP3A4",
+    "GSTO2",
+    "GSTP1",
+    "GSTO1",
+    "NAT2",
+    "CYP2E1",
+    "SLC11A1",
+    "ARNT",
+    "HLA_DPB1",
+    "GSTT1",
+    "PARP1",
+    "NQO1"
+  ],
+  "graph_edges": [],
+  "input_ports": [],
+  "output_ports": [],
+  "internal_state": [],
+  "causal_role_map": {},
+  "causal_edges": [],
+  "parameters": [],
+  "uncertainty": {
+    "confidence": "seed",
+    "notes": "Phase 1 seed record; no formal validation yet."
+  },
+  "validation_status": "literature-only",
+  "cedt_mapping": {},
+  "promotion_status": "registry",
+  "extra_notes": "Nodes with a 'variant' field assigned. Formal genotype_modifier data is internal to the scoring engine (not a separate JSON in the 2.0 source); Phase 1 seed only. Membership may be sparse — expand in Phase 2."
+}

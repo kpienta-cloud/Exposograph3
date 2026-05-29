@@ -1,0 +1,26 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "ontology_class.schema.json",
+  "title": "ExposoGraph 3.0 Ontology Class",
+  "type": "object",
+  "required": [
+    "class_id",
+    "label",
+    "description"
+  ],
+  "properties": {
+    "class_id": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "parent": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

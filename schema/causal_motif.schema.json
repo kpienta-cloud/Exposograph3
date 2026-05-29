@@ -1,0 +1,41 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "causal_motif.schema.json",
+  "title": "ExposoGraph 3.0 Causal Motif",
+  "type": "object",
+  "required": [
+    "motif_id",
+    "name",
+    "description",
+    "roles",
+    "edge_types",
+    "status"
+  ],
+  "properties": {
+    "motif_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "edge_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "status": {
+      "type": "string"
+    }
+  },
+  "additionalProperties": true
+}

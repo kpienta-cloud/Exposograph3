@@ -1,0 +1,64 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "module.schema.json",
+  "title": "ExposoGraph 3.0 Module Record",
+  "type": "object",
+  "required": [
+    "module_id",
+    "module_name",
+    "module_class",
+    "maturity_class",
+    "extends",
+    "scope",
+    "version",
+    "evidence_bundle"
+  ],
+  "properties": {
+    "module_id": {
+      "type": "string"
+    },
+    "module_name": {
+      "type": "string"
+    },
+    "module_class": {
+      "type": "string"
+    },
+    "maturity_class": {
+      "type": "string",
+      "enum": [
+        "D",
+        "C",
+        "E",
+        "T"
+      ]
+    },
+    "extends": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "scope": {
+      "type": "object"
+    },
+    "version": {
+      "type": "string"
+    },
+    "evidence_bundle": {
+      "type": "array"
+    },
+    "graph_nodes": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "graph_edges": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  },
+  "additionalProperties": true
+}

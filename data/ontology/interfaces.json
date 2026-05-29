@@ -1,0 +1,86 @@
+{
+  "schema_version": "3.0.0",
+  "description": "ExposoGraph 3.0 base interface definitions (Layer 0 seed)",
+  "interfaces": [
+    {
+      "interface_id": "ExposureSourceModule",
+      "description": "Represents exogenous agents, mixtures, and exposure families.",
+      "required_fields": [
+        "module_id",
+        "module_name",
+        "module_class",
+        "maturity_class",
+        "scope",
+        "evidence_bundle"
+      ]
+    },
+    {
+      "interface_id": "BiotransformationModule",
+      "description": "Represents uptake, transport, metabolic activation, detoxification, conjugation, and elimination.",
+      "required_fields": [
+        "module_id",
+        "module_class",
+        "input_ports",
+        "output_ports",
+        "parameters"
+      ]
+    },
+    {
+      "interface_id": "MechanismModule",
+      "description": "Represents pathway perturbation and carcinogenic process logic.",
+      "required_fields": [
+        "module_id",
+        "module_class",
+        "mechanism_type",
+        "causal_edges"
+      ]
+    },
+    {
+      "interface_id": "TissueContextModule",
+      "description": "Represents tissue-specific context, expression weighting, and local modifiers.",
+      "required_fields": [
+        "module_id",
+        "module_class",
+        "scope"
+      ]
+    },
+    {
+      "interface_id": "SusceptibilityModifierModule",
+      "description": "Represents host-side modifiers: germline variation, somatic modifiers, age, sex, ancestry.",
+      "required_fields": [
+        "module_id",
+        "module_class",
+        "scope"
+      ]
+    },
+    {
+      "interface_id": "OutcomeModule",
+      "description": "Represents intermediate and endpoint states: adduct burden, pathway activation, precancer phenotypes.",
+      "required_fields": [
+        "module_id",
+        "module_class",
+        "output_ports"
+      ]
+    },
+    {
+      "interface_id": "EvidenceAndProvenanceModule",
+      "description": "Represents support structure for mechanistic claims.",
+      "required_fields": [
+        "module_id",
+        "module_class",
+        "evidence_bundle"
+      ]
+    },
+    {
+      "interface_id": "ExecutableModule",
+      "description": "Module with typed inputs, outputs, and a scoring or update rule.",
+      "required_fields": [
+        "module_id",
+        "input_ports",
+        "output_ports",
+        "update_rule",
+        "equation_type"
+      ]
+    }
+  ]
+}

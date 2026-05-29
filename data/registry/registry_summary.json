@@ -1,0 +1,100 @@
+{
+  "bundle": "Registry Graph v2-compat",
+  "version_origin": "ExposoGraph 2.0 (v0.0.5; 212 nodes / 313 edges reference bundle)",
+  "node_count": 212,
+  "edge_count": 313,
+  "module_count": 8,
+  "node_type_distribution": {
+    "Carcinogen": 56,
+    "Enzyme": 58,
+    "Metabolite": 59,
+    "DNA_Adduct": 27,
+    "Pathway": 12
+  },
+  "edge_type_distribution": {
+    "FORMS_ADDUCT": 37,
+    "PATHWAY": 88,
+    "ACTIVATES": 104,
+    "DETOXIFIES": 47,
+    "TRANSPORTS": 9,
+    "REPAIRS": 25,
+    "INDUCES": 2,
+    "INHIBITS": 1
+  },
+  "edge_family_distribution": {
+    "causal": 225,
+    "registry": 88
+  },
+  "modules": [
+    {
+      "module_id": "EG3.MOD.BIOTRANS.FLUX.v1",
+      "module_name": "Biotransformation / Flux Engine",
+      "module_class": "BiotransformationProcess",
+      "maturity_class": "E",
+      "graph_nodes_count": 58,
+      "graph_edges_count": 188
+    },
+    {
+      "module_id": "EG3.MOD.EVIDENCE.PROVENANCE.v1",
+      "module_name": "Evidence and Provenance Module",
+      "module_class": "EvidenceAssertion",
+      "maturity_class": "D",
+      "graph_nodes_count": 85,
+      "graph_edges_count": 198
+    },
+    {
+      "module_id": "EG3.MOD.EXPOSURE.WAVE2.v1",
+      "module_name": "Exposure Source Module — Wave 2 Carcinogen Classes",
+      "module_class": "ExposureSource",
+      "maturity_class": "D",
+      "graph_nodes_count": 56,
+      "graph_edges_count": 0
+    },
+    {
+      "module_id": "EG3.MOD.MECHANISM.INTERACTION.v1",
+      "module_name": "Multi-Carcinogen Interaction Mechanism Module",
+      "module_class": "Mechanism",
+      "maturity_class": "C",
+      "graph_nodes_count": 20,
+      "graph_edges_count": 0
+    },
+    {
+      "module_id": "EG3.MOD.MECHANISM.OXSTRESS.v1",
+      "module_name": "Oxidative Stress Mechanism Module",
+      "module_class": "Mechanism",
+      "maturity_class": "C",
+      "graph_nodes_count": 12,
+      "graph_edges_count": 25
+    },
+    {
+      "module_id": "EG3.MOD.MODIFIER.POPGEN.v1",
+      "module_name": "Susceptibility Modifier Module — Population Genomics",
+      "module_class": "Modifier",
+      "maturity_class": "C",
+      "graph_nodes_count": 21,
+      "graph_edges_count": 0
+    },
+    {
+      "module_id": "EG3.MOD.OUTCOME.MUTSIG.v1",
+      "module_name": "Outcome Module — Mutational Signatures",
+      "module_class": "Outcome",
+      "maturity_class": "C",
+      "graph_nodes_count": 27,
+      "graph_edges_count": 37
+    },
+    {
+      "module_id": "EG3.MOD.TISSUE.SUBGRAPH.v1",
+      "module_name": "Tissue Context Module",
+      "module_class": "TissueContext",
+      "maturity_class": "D",
+      "graph_nodes_count": 53,
+      "graph_edges_count": 88
+    }
+  ],
+  "phase1_metadata_completeness": {
+    "nodes_complete": 212,
+    "nodes_total": 212,
+    "edges_complete": 313,
+    "edges_total": 313
+  }
+}

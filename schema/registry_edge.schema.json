@@ -1,0 +1,63 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "registry_edge.schema.json",
+  "title": "ExposoGraph 3.0 Registry Edge",
+  "type": "object",
+  "required": [
+    "source",
+    "target",
+    "edge_family",
+    "module_membership",
+    "version_origin",
+    "promotion_status"
+  ],
+  "properties": {
+    "source": {
+      "type": "string"
+    },
+    "target": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string"
+    },
+    "edge_family": {
+      "type": "string",
+      "enum": [
+        "registry",
+        "causal",
+        "execution"
+      ]
+    },
+    "entity_type": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "module_membership": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "version_origin": {
+      "type": "string"
+    },
+    "promotion_status": {
+      "type": "string",
+      "enum": [
+        "registry",
+        "causal",
+        "execution"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

@@ -1,0 +1,66 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "registry_node.schema.json",
+  "title": "ExposoGraph 3.0 Registry Node",
+  "type": "object",
+  "required": [
+    "id",
+    "label",
+    "type",
+    "entity_type",
+    "module_membership",
+    "version_origin",
+    "promotion_status"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Carcinogen",
+        "Enzyme",
+        "Metabolite",
+        "DNA_Adduct",
+        "Pathway"
+      ]
+    },
+    "entity_type": {
+      "type": "string"
+    },
+    "edge_family": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "module_membership": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "evidence_id": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "version_origin": {
+      "type": "string"
+    },
+    "promotion_status": {
+      "type": "string",
+      "enum": [
+        "registry",
+        "causal",
+        "execution"
+      ]
+    }
+  },
+  "additionalProperties": true
+}

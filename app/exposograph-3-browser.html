@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ExposoGraph 3.0 — Registry Browser</title>
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --border: #2d3148;
+      --accent: #5b8dee;
+      --accent2: #7c5cbf;
+      --text: #e0e4f0;
+      --text-dim: #7a8099;
+      --causal: #e05c5c;
+      --registry-edge: #4caf7d;
+      --carcinogen: #e05c5c;
+      --enzyme: #5b8dee;
+      --metabolite: #f5a623;
+      --dna-adduct: #c459d8;
+      --pathway: #4caf7d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; }
+    header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+    header h1 { font-size: 20px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; }
+    header h1 span { color: var(--text-dim); font-size: 13px; font-weight: 400; margin-left: 8px; }
+    .stat-badge {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 14px;
+      font-size: 13px;
+      color: var(--text-dim);
+    }
+    .stat-badge b { color: var(--text); }
+    #loading { padding: 40px 24px; color: var(--text-dim); text-align: center; }
+    .controls {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 12px 24px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    select, input[type=text] {
+      background: var(--bg);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      font-size: 13px;
+      outline: none;
+    }
+    select:focus, input:focus { border-color: var(--accent); }
+    label { color: var(--text-dim); font-size: 13px; }
+    .controls-group { display: flex; gap: 8px; align-items: center; }
+    #main { display: flex; height: calc(100vh - 110px); overflow: hidden; }
+    #sidebar {
+      width: 320px;
+      min-width: 220px;
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      background: var(--surface);
+      padding: 0;
+    }
+    #sidebar h2 { font-size: 13px; color: var(--text-dim); padding: 12px 16px 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 1px; }
+    .node-item {
+      padding: 10px 16px;
+      border-bottom: 1px solid #1e2138;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .node-item:hover { background: #222540; }
+    .node-item.selected { background: #1f2e52; border-left: 3px solid var(--accent); }
+    .node-label { font-weight: 600; font-size: 13px; }
+    .node-meta { font-size: 11px; color: var(--text-dim); margin-top: 2px; }
+    .type-badge {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+    .type-Carcinogen   { background: #3a1a1a; color: var(--carcinogen); }
+    .type-Enzyme       { background: #1a2240; color: var(--enzyme); }
+    .type-Metabolite   { background: #3a2800; color: var(--metabolite); }
+    .type-DNA_Adduct   { background: #2d1040; color: var(--dna-adduct); }
+    .type-Pathway      { background: #122a1e; color: var(--pathway); }
+    #detail {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      background: var(--bg);
+    }
+    #detail h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    #detail .detail-type { margin-bottom: 16px; }
+    .field-grid { display: grid; grid-template-columns: 160px 1fr; gap: 6px 16px; margin-bottom: 20px; }
+    .field-key { color: var(--text-dim); font-size: 12px; text-align: right; padding-top: 2px; }
+    .field-val { font-size: 13px; word-break: break-word; }
+    .field-val a { color: var(--accent); text-decoration: none; }
+    .field-val a:hover { text-decoration: underline; }
+    .section-title { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+    .mod-tag {
+      display: inline-block;
+      background: #1e2a4a;
+      color: var(--accent);
+      border: 1px solid #2d3f6e;
+      border-radius: 4px;
+      font-size: 11px;
+      padding: 2px 8px;
+      margin: 2px;
+    }
+    .edge-row { padding: 7px 0; border-bottom: 1px solid #1e2138; font-size: 12px; }
+    .edge-type { font-weight: 600; color: var(--text-dim); }
+    .edge-fam-causal   { color: var(--causal); }
+    .edge-fam-registry { color: var(--registry-edge); }
+    .placeholder {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      height: 100%; color: var(--text-dim); gap: 8px;
+    }
+    .placeholder .big { font-size: 48px; }
+    .pager { display: flex; gap: 8px; align-items: center; padding: 10px 16px; border-top: 1px solid var(--border); font-size: 12px; color: var(--text-dim); }
+    .pager button {
+      background: var(--bg); color: var(--text); border: 1px solid var(--border);
+      border-radius: 4px; padding: 3px 10px; cursor: pointer; font-size: 12px;
+    }
+    .pager button:hover { border-color: var(--accent); }
+  </style>
+</head>
+<body>
+<header>
+  <h1>ExposoGraph 3.0 <span>Registry Browser — Phase 1</span></h1>
+  <div class="stat-badge" id="stat-nodes">Nodes: <b>—</b></div>
+  <div class="stat-badge" id="stat-edges">Edges: <b>—</b></div>
+  <div class="stat-badge" id="stat-modules">Modules: <b>—</b></div>
+  <div class="stat-badge" id="stat-bundle" style="max-width:340px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></div>
+</header>
+
+<div class="controls">
+  <div class="controls-group">
+    <label>Node type:</label>
+    <select id="filter-type">
+      <option value="">All types</option>
+      <option>Carcinogen</option>
+      <option>Enzyme</option>
+      <option>Metabolite</option>
+      <option>DNA_Adduct</option>
+      <option>Pathway</option>
+    </select>
+  </div>
+  <div class="controls-group">
+    <label>Edge family:</label>
+    <select id="filter-family">
+      <option value="">All families</option>
+      <option>causal</option>
+      <option>registry</option>
+    </select>
+  </div>
+  <div class="controls-group">
+    <label>Module:</label>
+    <select id="filter-module">
+      <option value="">All modules</option>
+    </select>
+  </div>
+  <div class="controls-group">
+    <input type="text" id="search" placeholder="Search label / ID…" style="width:200px;" />
+  </div>
+</div>
+
+<div id="main">
+  <div id="sidebar">
+    <h2 id="sidebar-count">Nodes</h2>
+    <div id="node-list"></div>
+    <div class="pager" id="pager" style="display:none;">
+      <button id="prev-btn">← Prev</button>
+      <span id="pager-info"></span>
+      <button id="next-btn">Next →</button>
+    </div>
+  </div>
+  <div id="detail">
+    <div class="placeholder">
+      <div class="big">⬡</div>
+      <div>Select a node to view details</div>
+      <div style="font-size:11px; margin-top:4px;">Use filters above to narrow the node list</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const DATA_BASE = "./data/registry/";
+const PAGE_SIZE = 50;
+
+let allNodes = [], allEdges = [], allModules = [];
+let filteredNodes = [];
+let currentPage = 0;
+let selectedNodeId = null;
+
+// Edge lookup maps
+let nodeEdgesOut = {}, nodeEdgesIn = {};
+
+async function loadData() {
+  document.getElementById("loading") && (document.getElementById("loading").textContent = "Loading…");
+  try {
+    const [regResp, nodesResp, edgesResp] = await Promise.all([
+      fetch(DATA_BASE + "registry_summary.json"),
+      fetch(DATA_BASE + "nodes.json"),
+      fetch(DATA_BASE + "edges.json"),
+    ]);
+
+    const summary = await regResp.json();
+    const nodesData = await nodesResp.json();
+    const edgesData = await edgesResp.json();
+
+    allNodes = nodesData.nodes || [];
+    allEdges = edgesData.edges || [];
+
+    // Update header stats
+    document.getElementById("stat-nodes").innerHTML = `Nodes: <b>${allNodes.length}</b>`;
+    document.getElementById("stat-edges").innerHTML = `Edges: <b>${allEdges.length}</b>`;
+    document.getElementById("stat-modules").innerHTML = `Modules: <b>${summary.module_count || "—"}</b>`;
+    document.getElementById("stat-bundle").innerHTML = `<b>${summary.bundle || "Registry Graph v2-compat"}</b>`;
+
+    // Build edge maps
+    allEdges.forEach(e => {
+      if (!nodeEdgesOut[e.source]) nodeEdgesOut[e.source] = [];
+      nodeEdgesOut[e.source].push(e);
+      if (!nodeEdgesIn[e.target]) nodeEdgesIn[e.target] = [];
+      nodeEdgesIn[e.target].push(e);
+    });
+
+    // Populate module filter
+    const modSelect = document.getElementById("filter-module");
+    const allMods = new Set();
+    allNodes.forEach(n => (n.module_membership || []).forEach(m => allMods.add(m)));
+    [...allMods].sort().forEach(m => {
+      const opt = document.createElement("option");
+      opt.value = m; opt.textContent = m.replace("EG3.MOD.", "").replace(".v1", "");
+      modSelect.appendChild(opt);
+    });
+
+    applyFilters();
+  } catch(e) {
+    document.getElementById("node-list").innerHTML = `<div style="padding:16px; color:#e05c5c;">Error loading data: ${e.message}<br><small>Make sure data/registry/ files are accessible.</small></div>`;
+  }
+}
+
+function applyFilters() {
+  const typeFilter = document.getElementById("filter-type").value;
+  const familyFilter = document.getElementById("filter-family").value;
+  const modFilter = document.getElementById("filter-module").value;
+  const searchVal = document.getElementById("search").value.toLowerCase().trim();
+
+  filteredNodes = allNodes.filter(n => {
+    if (typeFilter && n.entity_type !== typeFilter) return false;
+    if (modFilter && !(n.module_membership || []).includes(modFilter)) return false;
+    if (searchVal && !((n.label||"").toLowerCase().includes(searchVal) || (n.id||"").toLowerCase().includes(searchVal))) return false;
+    return true;
+  });
+
+  // Edge family filter: show nodes that have at least one matching edge
+  if (familyFilter) {
+    const nodesWithFam = new Set();
+    allEdges.forEach(e => { if (e.edge_family === familyFilter) { nodesWithFam.add(e.source); nodesWithFam.add(e.target); } });
+    filteredNodes = filteredNodes.filter(n => nodesWithFam.has(n.id));
+  }
+
+  currentPage = 0;
+  renderList();
+}
+
+function renderList() {
+  const list = document.getElementById("node-list");
+  const total = filteredNodes.length;
+  const start = currentPage * PAGE_SIZE;
+  const slice = filteredNodes.slice(start, start + PAGE_SIZE);
+
+  document.getElementById("sidebar-count").textContent = `Nodes (${total})`;
+
+  list.innerHTML = slice.map(n => `
+    <div class="node-item${n.id === selectedNodeId ? " selected" : ""}" data-id="${n.id}">
+      <div class="node-label">${escHtml(n.label || n.id)}</div>
+      <div class="node-meta">
+        <span class="type-badge type-${n.entity_type}">${n.entity_type || "?"}</span>
+        <span style="margin-left:6px;">${escHtml(n.id)}</span>
+        ${n.module_membership && n.module_membership.length ? `<span style="margin-left:6px; color:#5b8dee; font-size:10px;">•${n.module_membership.length} mod</span>` : ""}
+      </div>
+    </div>
+  `).join("");
+
+  list.querySelectorAll(".node-item").forEach(el => {
+    el.addEventListener("click", () => selectNode(el.dataset.id));
+  });
+
+  // Pager
+  const pager = document.getElementById("pager");
+  const totalPages = Math.ceil(total / PAGE_SIZE);
+  if (totalPages > 1) {
+    pager.style.display = "flex";
+    document.getElementById("pager-info").textContent = `Page ${currentPage+1} / ${totalPages}`;
+    document.getElementById("prev-btn").disabled = currentPage === 0;
+    document.getElementById("next-btn").disabled = currentPage >= totalPages - 1;
+  } else {
+    pager.style.display = "none";
+  }
+}
+
+function selectNode(id) {
+  selectedNodeId = id;
+  renderList(); // re-render to show selection
+
+  const node = allNodes.find(n => n.id === id);
+  if (!node) return;
+
+  const outEdges = nodeEdgesOut[id] || [];
+  const inEdges  = nodeEdgesIn[id] || [];
+
+  const detail = document.getElementById("detail");
+  detail.innerHTML = `
+    <h2>${escHtml(node.label || node.id)}</h2>
+    <div class="detail-type"><span class="type-badge type-${node.entity_type}">${node.entity_type}</span>
+      ${node.iarc ? `<span style="margin-left:8px; font-size:12px; color:#f5a623;">${escHtml(node.iarc)}</span>` : ""}
+    </div>
+
+    <div class="section-title">Core Fields</div>
+    <div class="field-grid">
+      <div class="field-key">ID</div><div class="field-val"><code>${escHtml(node.id)}</code></div>
+      ${node.group ? `<div class="field-key">Group</div><div class="field-val">${escHtml(node.group)}</div>` : ""}
+      ${node.detail ? `<div class="field-key">Detail</div><div class="field-val">${escHtml(node.detail)}</div>` : ""}
+      ${node.canonical_id ? `<div class="field-key">Canonical ID</div><div class="field-val">${escHtml(node.canonical_id)}</div>` : ""}
+      ${node.canonical_namespace ? `<div class="field-key">Namespace</div><div class="field-val">${escHtml(node.canonical_namespace)}</div>` : ""}
+      ${node.source_db ? `<div class="field-key">Source DB</div><div class="field-val">${escHtml(node.source_db)}</div>` : ""}
+      ${node.origin ? `<div class="field-key">Origin</div><div class="field-val">${escHtml(node.origin)}</div>` : ""}
+    </div>
+
+    <div class="section-title">Phase 1 Metadata</div>
+    <div class="field-grid">
+      <div class="field-key">entity_type</div><div class="field-val">${escHtml(node.entity_type || "")}</div>
+      <div class="field-key">promotion_status</div><div class="field-val">${escHtml(node.promotion_status || "")}</div>
+      <div class="field-key">version_origin</div><div class="field-val" style="font-size:11px;">${escHtml(node.version_origin || "")}</div>
+      <div class="field-key">evidence_id</div><div class="field-val">${node.evidence_id ? escHtml(node.evidence_id) : '<span style="color:var(--text-dim)">null</span>'}</div>
+    </div>
+
+    ${node.module_membership && node.module_membership.length ? `
+    <div class="section-title">Module Membership (${node.module_membership.length})</div>
+    <div>${node.module_membership.map(m => `<span class="mod-tag">${escHtml(m)}</span>`).join("")}</div>
+    ` : ""}
+
+    ${outEdges.length ? `
+    <div class="section-title">Outgoing Edges (${outEdges.length})</div>
+    ${outEdges.slice(0, 20).map(e => `
+      <div class="edge-row">
+        <span class="edge-type">${escHtml(e.type || "?")}</span>
+        → <b>${escHtml(e.target)}</b>
+        <span class="edge-fam-${e.edge_family}" style="margin-left:8px; font-size:11px;">[${e.edge_family}]</span>
+        ${e.label && e.label !== e.type ? `<span style="color:var(--text-dim); margin-left:6px; font-size:11px;">${escHtml(e.label)}</span>` : ""}
+      </div>`).join("")}
+    ${outEdges.length > 20 ? `<div style="color:var(--text-dim); font-size:11px; padding:4px 0;">+ ${outEdges.length-20} more</div>` : ""}
+    ` : ""}
+
+    ${inEdges.length ? `
+    <div class="section-title">Incoming Edges (${inEdges.length})</div>
+    ${inEdges.slice(0, 20).map(e => `
+      <div class="edge-row">
+        <b>${escHtml(e.source)}</b>
+        → <span class="edge-type">${escHtml(e.type || "?")}</span>
+        <span class="edge-fam-${e.edge_family}" style="margin-left:8px; font-size:11px;">[${e.edge_family}]</span>
+        ${e.label && e.label !== e.type ? `<span style="color:var(--text-dim); margin-left:6px; font-size:11px;">${escHtml(e.label)}</span>` : ""}
+      </div>`).join("")}
+    ${inEdges.length > 20 ? `<div style="color:var(--text-dim); font-size:11px; padding:4px 0;">+ ${inEdges.length-20} more</div>` : ""}
+    ` : ""}
+
+    ${node.provenance && node.provenance.length ? `
+    <div class="section-title">Provenance</div>
+    ${node.provenance.slice(0,3).map(p => `
+      <div style="font-size:12px; color:var(--text-dim); padding:4px 0; border-bottom:1px solid #1e2138;">
+        ${p.citation ? escHtml(p.citation) : ""}
+        ${p.source_db ? `<span style="margin-left:8px;">[${escHtml(p.source_db)}]</span>` : ""}
+      </div>`).join("")}
+    ` : ""}
+  `;
+}
+
+function escHtml(s) {
+  if (s === null || s === undefined) return "";
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+
+// Wire up filters
+["filter-type","filter-family","filter-module"].forEach(id => {
+  document.getElementById(id).addEventListener("change", applyFilters);
+});
+document.getElementById("search").addEventListener("input", applyFilters);
+document.getElementById("prev-btn") && document.getElementById("prev-btn").addEventListener("click", () => {
+  if (currentPage > 0) { currentPage--; renderList(); }
+});
+document.getElementById("next-btn") && document.getElementById("next-btn").addEventListener("click", () => {
+  const totalPages = Math.ceil(filteredNodes.length / PAGE_SIZE);
+  if (currentPage < totalPages - 1) { currentPage++; renderList(); }
+});
+
+loadData();
+</script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{
+  "schema_version": "3.0.0",
+  "description": "ExposoGraph 3.0 seed causal motif library (Phase 1)",
+  "motifs": [
+    {
+      "motif_id": "EG3.MOTIF.001",
+      "name": "Exposure → Metabolite → Target Damage",
+      "description": "Carcinogen undergoes metabolic activation to a reactive metabolite that damages a molecular target.",
+      "roles": [
+        "Carcinogen",
+        "Metabolite",
+        "DNA_Adduct"
+      ],
+      "edge_types": [
+        "ACTIVATES",
+        "FORMS_ADDUCT"
+      ],
+      "example_path": "Carcinogen -[ACTIVATES]-> Enzyme -[FORMS_ADDUCT]-> DNA_Adduct",
+      "status": "seed"
+    },
+    {
+      "motif_id": "EG3.MOTIF.002",
+      "name": "Exposure → Pathway Perturbation → Tissue Phenotype",
+      "description": "Exposure activates or inhibits a pathway leading to tissue-level phenotypic change.",
+      "roles": [
+        "Carcinogen",
+        "Pathway",
+        "Tissue"
+      ],
+      "edge_types": [
+        "ACTIVATES",
+        "INDUCES",
+        "PATHWAY"
+      ],
+      "example_path": "Carcinogen -[ACTIVATES]-> Pathway -[INDUCES]-> tissue phenotype",
+      "status": "seed"
+    },
+    {
+      "motif_id": "EG3.MOTIF.003",
+      "name": "Modifier → Altered Detoxification → Exposure Burden",
+      "description": "A host susceptibility modifier (e.g. germline variant) alters enzyme detoxification capacity, changing effective exposure burden.",
+      "roles": [
+        "GermlineVariant",
+        "Enzyme",
+        "Metabolite"
+      ],
+      "edge_types": [
+        "DETOXIFIES",
+        "INHIBITS"
+      ],
+      "example_path": "Variant -[modifies]-> Enzyme -[DETOXIFIES]-> Metabolite",
+      "status": "seed"
+    },
+    {
+      "motif_id": "EG3.MOTIF.004",
+      "name": "Tissue Context → Susceptibility → Outcome",
+      "description": "Tissue-specific expression context modifies susceptibility and determines downstream carcinogenic outcome.",
+      "roles": [
+        "TissueContext",
+        "Enzyme",
+        "DNA_Adduct"
+      ],
+      "edge_types": [
+        "ACTIVATES",
+        "FORMS_ADDUCT"
+      ],
+      "example_path": "tissue_weight -[modifies]-> Enzyme activity -[FORMS_ADDUCT]-> DNA_Adduct",
+      "status": "seed"
+    },
+    {
+      "motif_id": "EG3.MOTIF.005",
+      "name": "Exposure Mixture → Convergent Mechanism → Shared Outcome",
+      "description": "Multiple carcinogens from distinct exposure classes converge on a shared enzyme or pathway, producing a combined mechanistic burden.",
+      "roles": [
+        "Carcinogen",
+        "Carcinogen",
+        "Enzyme",
+        "DNA_Adduct"
+      ],
+      "edge_types": [
+        "ACTIVATES",
+        "INHIBITS",
+        "FORMS_ADDUCT"
+      ],
+      "example_path": "CarcinogenA + CarcinogenB -[ACTIVATES/INHIBITS]-> SharedEnzyme -[FORMS_ADDUCT]-> DNA_Adduct",
+      "status": "seed"
+    }
+  ]
+}

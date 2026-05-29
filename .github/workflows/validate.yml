@@ -1,0 +1,35 @@
+name: Validate ExposoGraph 3.0 Data
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main]
+
+jobs:
+  validate:
+    name: Validate JSON + Schema
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: pip install jsonschema
+
+      - name: Run validation
+        run: python3 scripts/validate.py
+
+      - name: Build registry summary
+        run: python3 scripts/build_registry_summary.py
+
+      - name: Upload registry summary artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: registry-summary
+          path: data/registry/registry_summary.json

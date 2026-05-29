@@ -1,0 +1,79 @@
+{
+  "module_id": "EG3.MOD.MECHANISM.OXSTRESS.v1",
+  "module_name": "Oxidative Stress Mechanism Module",
+  "module_class": "Mechanism",
+  "maturity_class": "C",
+  "extends": [
+    "MechanismModule"
+  ],
+  "scope": {
+    "species": "human",
+    "mechanism": "reactive_oxygen_species_pathway_perturbation"
+  },
+  "version": "1.0.0",
+  "evidence_bundle": [
+    {
+      "source": "kinetic_parameters.json",
+      "citation": "Oxidative stress enzyme kinetics"
+    },
+    {
+      "source": "graph edges of type REPAIRS"
+    }
+  ],
+  "graph_nodes": [
+    "hsa00980",
+    "hsa05208",
+    "KEGG980G",
+    "dioxin_pathway",
+    "metal_carcinogenesis",
+    "hsa05204",
+    "aldehyde_pathway",
+    "hsa00982",
+    "nitrosamine_pathway",
+    "chlorinated_pathway",
+    "alkylating_pathway",
+    "hsa00140"
+  ],
+  "graph_edges": [
+    "XPC->AFB1_Gua:REPAIRS",
+    "XRCC1->N7_methyl_dG:REPAIRS",
+    "XRCC1->Cr_dG:REPAIRS",
+    "XRCC1->M1_dG:REPAIRS",
+    "XRCC1->8_OHdG:REPAIRS",
+    "XPC->Cr_DNA_ternary:REPAIRS",
+    "XPC->Ni_DPC:REPAIRS",
+    "MGMT->Ni:REPAIRS",
+    "XRCC1->BQ_dG:REPAIRS",
+    "XRCC1->etheno_dA:REPAIRS",
+    "OGG1->Oxo_dG:REPAIRS",
+    "XPC->DMBA_dA:REPAIRS",
+    "XRCC1->Acr_dG:REPAIRS",
+    "XRCC1->N7_GA_dG:REPAIRS",
+    "XRCC1->ABP_dG:REPAIRS",
+    "XPC->BPDE_dG:REPAIRS",
+    "OGG1->8_OHdG:REPAIRS",
+    "ERCC2->Ni_DPC:REPAIRS",
+    "PARP1->8_OHdG:REPAIRS",
+    "ERCC2->DMBA_dA:REPAIRS",
+    "FANCD2->N2_ethylidene_dG:REPAIRS",
+    "ERCC2->BPDE_dG:REPAIRS",
+    "ERCC2->Cr_DNA_binary:REPAIRS",
+    "MGMT->O6_methyl_dG:REPAIRS",
+    "XRCC1->PhIP_dG:REPAIRS"
+  ],
+  "input_ports": [],
+  "output_ports": [],
+  "internal_state": [],
+  "causal_role_map": {},
+  "causal_edges": [],
+  "parameters": [],
+  "uncertainty": {
+    "confidence": "seed",
+    "notes": "Phase 1 seed record; no formal validation yet."
+  },
+  "validation_status": "literature-only",
+  "cedt_mapping": {},
+  "promotion_status": "registry",
+  "extra_notes": "Represents pathway-level oxidative stress and DNA repair nodes. All 12 Pathway nodes enrolled. REPAIRS edges (n=14) are primary causal edges for this module.",
+  "mechanism_type": "oxidative_stress"
+}

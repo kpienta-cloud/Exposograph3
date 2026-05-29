@@ -1,0 +1,95 @@
+{
+  "schema_version": "3.0.0",
+  "description": "ExposoGraph 3.0 ontology class definitions (Layer 0 seed)",
+  "entity_classes": [
+    {
+      "class_id": "Carcinogen",
+      "label": "Carcinogen",
+      "parent": "ExposureAgent",
+      "description": "An exogenous agent with carcinogenic classification (IARC or equivalent)."
+    },
+    {
+      "class_id": "Enzyme",
+      "label": "Enzyme",
+      "parent": "BiologicalEntity",
+      "description": "An enzyme mediating biotransformation, detoxification, or repair."
+    },
+    {
+      "class_id": "Metabolite",
+      "label": "Metabolite",
+      "parent": "ChemicalEntity",
+      "description": "A chemical species produced during metabolic biotransformation."
+    },
+    {
+      "class_id": "DNA_Adduct",
+      "label": "DNA Adduct",
+      "parent": "MolecularDamage",
+      "description": "A covalent modification of DNA resulting from carcinogen activation."
+    },
+    {
+      "class_id": "Pathway",
+      "label": "Pathway",
+      "parent": "BiologicalProcess",
+      "description": "A biological process or signaling pathway relevant to carcinogenesis."
+    }
+  ],
+  "module_classes": [
+    {
+      "class_id": "ExposureSource",
+      "label": "Exposure Source",
+      "description": "Module class for exogenous agent sources and exposure families."
+    },
+    {
+      "class_id": "BiotransformationProcess",
+      "label": "Biotransformation Process",
+      "description": "Module class for metabolic activation, detoxification, conjugation."
+    },
+    {
+      "class_id": "Mechanism",
+      "label": "Mechanism",
+      "description": "Module class for pathway perturbation and carcinogenic process logic."
+    },
+    {
+      "class_id": "TissueContext",
+      "label": "Tissue Context",
+      "description": "Module class for tissue-specific context and expression weighting."
+    },
+    {
+      "class_id": "Modifier",
+      "label": "Modifier",
+      "description": "Module class for host-side susceptibility modifiers."
+    },
+    {
+      "class_id": "Outcome",
+      "label": "Outcome",
+      "description": "Module class for endpoint states and mutational signatures."
+    },
+    {
+      "class_id": "EvidenceAssertion",
+      "label": "Evidence & Provenance",
+      "description": "Module class for evidence bundles and provenance records."
+    }
+  ],
+  "maturity_classes": [
+    {
+      "class_id": "D",
+      "label": "Descriptive",
+      "description": "Browsable graph and evidence content without formal causal interpretation."
+    },
+    {
+      "class_id": "C",
+      "label": "Causal",
+      "description": "Edges and motifs have explicit directional or mediator semantics."
+    },
+    {
+      "class_id": "E",
+      "label": "Executable",
+      "description": "Module has typed inputs/outputs plus a scoring rule or update function."
+    },
+    {
+      "class_id": "T",
+      "label": "Twin-ready",
+      "description": "Module outputs map directly into Cancer Ecology Digital Twin state variables."
+    }
+  ]
+}

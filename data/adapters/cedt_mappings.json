@@ -1,0 +1,96 @@
+{
+  "schema_version": "3.0.0",
+  "description": "Cancer Ecology Digital Twin adapter mappings (Phase 1 seed)",
+  "adapters": [
+    {
+      "adapter_id": "EG3.ADAPT.EXPOSURE.STATE",
+      "source_module": "EG3.MOD.EXPOSURE.WAVE2.v1",
+      "twin_layer": "exposure",
+      "description": "Maps carcinogen exposure intensity and duration into CEDT exposure state variables.",
+      "mappings": [
+        {
+          "eg3_field": "activity_score",
+          "twin_variable": "exposure_intensity",
+          "unit": "normalized score"
+        },
+        {
+          "eg3_field": "exposure",
+          "twin_variable": "exposure_context",
+          "unit": "categorical"
+        }
+      ]
+    },
+    {
+      "adapter_id": "EG3.ADAPT.TISSUE.STATE",
+      "source_module": "EG3.MOD.TISSUE.SUBGRAPH.v1",
+      "twin_layer": "tissue",
+      "description": "Maps tissue expression weights into CEDT tissue state variables.",
+      "mappings": [
+        {
+          "eg3_field": "tissue_weights",
+          "twin_variable": "tissue_expression_weight",
+          "unit": "nTPM normalized"
+        },
+        {
+          "eg3_field": "tissue",
+          "twin_variable": "tissue_context_id",
+          "unit": "categorical"
+        }
+      ]
+    },
+    {
+      "adapter_id": "EG3.ADAPT.METABOLIC.STATE",
+      "source_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+      "twin_layer": "metabolic",
+      "description": "Maps enzyme kinetic parameters (Km/Vmax) and flux ratios into CEDT metabolic state variables.",
+      "mappings": [
+        {
+          "eg3_field": "kinetic_parameters.Km",
+          "twin_variable": "enzyme_Km",
+          "unit": "uM"
+        },
+        {
+          "eg3_field": "kinetic_parameters.Vmax_relative",
+          "twin_variable": "enzyme_Vmax",
+          "unit": "relative"
+        },
+        {
+          "eg3_field": "activity_score",
+          "twin_variable": "metabolic_flux_score",
+          "unit": "normalized score"
+        }
+      ]
+    },
+    {
+      "adapter_id": "EG3.ADAPT.HOST.MODIFIER",
+      "source_module": "EG3.MOD.MODIFIER.POPGEN.v1",
+      "twin_layer": "host",
+      "description": "Maps population genomics susceptibility modifiers into CEDT host state variables.",
+      "mappings": [
+        {
+          "eg3_field": "variant",
+          "twin_variable": "host_germline_variant",
+          "unit": "categorical"
+        }
+      ]
+    },
+    {
+      "adapter_id": "EG3.ADAPT.QUALITY.EVIDENCE",
+      "source_module": "EG3.MOD.EVIDENCE.PROVENANCE.v1",
+      "twin_layer": "state_quality",
+      "description": "Maps evidence confidence and provenance into CEDT state-quality variables.",
+      "mappings": [
+        {
+          "eg3_field": "evidence_id",
+          "twin_variable": "evidence_citation",
+          "unit": "PMID or DOI"
+        },
+        {
+          "eg3_field": "match_status",
+          "twin_variable": "curation_confidence",
+          "unit": "categorical"
+        }
+      ]
+    }
+  ]
+}

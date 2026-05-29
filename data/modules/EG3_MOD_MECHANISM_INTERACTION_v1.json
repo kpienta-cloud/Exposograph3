@@ -1,0 +1,57 @@
+{
+  "module_id": "EG3.MOD.MECHANISM.INTERACTION.v1",
+  "module_name": "Multi-Carcinogen Interaction Mechanism Module",
+  "module_class": "Mechanism",
+  "maturity_class": "C",
+  "extends": [
+    "MechanismModule"
+  ],
+  "scope": {
+    "species": "human",
+    "mechanism": "competitive_inhibition_shared_enzymes"
+  },
+  "version": "1.0.0",
+  "evidence_bundle": [
+    {
+      "source": "interaction_parameters.json",
+      "version": "2.0.0"
+    }
+  ],
+  "graph_nodes": [
+    "CYP2C9",
+    "CYP1A2",
+    "GSTM1",
+    "UGT1A1",
+    "CYP2A13",
+    "CYP3A4",
+    "CYP1B1",
+    "SULT1A1",
+    "CYP2A6",
+    "CYP2D6",
+    "GSTP1",
+    "CYP2C19",
+    "CYP1A1",
+    "NAT2",
+    "NAT1",
+    "CYP2E1",
+    "CYP2B6",
+    "CYP2F1",
+    "GSTT1",
+    "NQO1"
+  ],
+  "graph_edges": [],
+  "input_ports": [],
+  "output_ports": [],
+  "internal_state": [],
+  "causal_role_map": {},
+  "causal_edges": [],
+  "parameters": [],
+  "uncertainty": {
+    "confidence": "seed",
+    "notes": "Phase 1 seed record; no formal validation yet."
+  },
+  "validation_status": "literature-only",
+  "cedt_mapping": {},
+  "promotion_status": "registry",
+  "extra_notes": "Covers competitive inhibition at shared CYP/GST enzymes by multi-carcinogen mixtures. BRENDA-anchored Ki values. Nodes assigned where enzyme appears in interaction_parameters.json."
+}
