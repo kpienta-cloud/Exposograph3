@@ -1,0 +1,987 @@
+{
+  "layer": "evidence",
+  "schema_version": "3.0.0",
+  "description": "ExposoGraph 3.0 evidence assertion records \u2014 consolidated PMID/DOI support for promoted causal edges and module parameters. Generated from the causal projection and module evidence bundles (real identifiers only; none fabricated).",
+  "version_origin": "ExposoGraph 3.0 Phase 1 evidence layer (populated)",
+  "generated": "2026-05-29",
+  "assertion_count": 74,
+  "id_type_counts": {
+    "citation": 37,
+    "PMCID": 11,
+    "PMID": 26
+  },
+  "assertions": [
+    {
+      "evidence_id": "Aflatoxin epoxidation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP3A4 activates AFB1_epoxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Alpha-hydroxylation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP2A6 activates NNK_hydroxyl",
+        "CYP2E1 activates NDMA_hydroxyl"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "BaP epoxidation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A1 activates BaP_epoxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Benzene oxidation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP2E1 activates Benzene_oxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Benzidine N-hydroxylation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A2 activates NOH_Benzidine"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Catechol estrogen formation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1B1 activates HydroxyE2"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "DMBA epoxidation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A1 activates DMBA_epoxide",
+        "CYP1B1 activates DMBA_epoxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "Diol-epoxide formation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A1 activates DMBA_diol_epoxide",
+        "CYP1B1 activates DMBA_diol_epoxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0001",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A1 activates BaP"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0005",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP3A4 activates AFB1"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0006",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A2 activates AFB1"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0008",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "ADH1B detoxifies Ethanol"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0009",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "ADH1B detoxifies Ethanol"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0010",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "ALDH2 detoxifies Acetaldehyde"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0011",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "ALDH2 detoxifies Acetaldehyde"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0014",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP2A13 activates NNK"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0016",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP2E1 activates NDMA"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0017",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP2E1 activates NDMA"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0018",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A2 activates PhIP"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0019",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A1 activates PhIP"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "EG3.EXEC.EDGE.0020",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1B1 activates PhIP"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Epoxide hydrolysis",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "EPHX1 detoxifies DMBA_diol"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Etheno adduct formation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "Chloroethylene_oxide damages EthenoG"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Extrahepatic BaP epoxidation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1B1 activates BaP_epoxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Glucuronidation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "UGT2B17 detoxifies DHT_gluc"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Glutathione conjugation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "GSTM1 detoxifies BPDE_GSH",
+        "GSTP1 detoxifies BPDE_GSH"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "N-hydroxylation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A2 activates NOH_PhIP",
+        "CYP1A2 activates NOH_4ABP",
+        "CYP1A2 activates NOH_MeIQx"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 3
+    },
+    {
+      "evidence_id": "PMC1829392",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "CYP1A2 activates PhIP",
+        "CYP1A1 activates PhIP",
+        "CYP1B1 activates PhIP"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 3
+    },
+    {
+      "evidence_id": "PMC2898853",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "SLC11A1 precedes Cd"
+      ],
+      "sources": [
+        "causal_edge_provenance"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMC3199751",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "GSTM1 detoxifies Cd"
+      ],
+      "sources": [
+        "causal_edge_provenance"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMC3525274",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "ADH1B detoxifies Ethanol",
+        "ALDH2 detoxifies Acetaldehyde"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMC3606021",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "PARP1 mediates 8_OHdG",
+        "MMA_III activates ROS_metal"
+      ],
+      "sources": [
+        "causal_edge_provenance"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMC390765",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "GSTP1 detoxifies CrVI",
+        "NQO1 detoxifies CrVI"
+      ],
+      "sources": [
+        "causal_edge_provenance"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMC6802009",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "XRCC1 mediates 8_OHdG",
+        "XPC mediates Ni_DPC",
+        "OGG1 mediates 8_OHdG",
+        "MGMT mediates Ni",
+        "Cd activates ROS_metal",
+        "Ni activates ROS_metal",
+        "Ni damages Ni_DPC"
+      ],
+      "sources": [
+        "causal_edge_provenance"
+      ],
+      "support_count": 7
+    },
+    {
+      "evidence_id": "PMC6802009; ACS Chem Res Toxicol 2007",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "ERCC2 mediates Ni_DPC"
+      ],
+      "sources": [
+        "causal_edge_provenance"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMC8141308",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "Cd activates Cd_MT",
+        "MT1A detoxifies Cd"
+      ],
+      "sources": [
+        "causal_edge_provenance"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMC8141308; PMC8197913",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "MT2A detoxifies Cd"
+      ],
+      "sources": [
+        "causal_edge_provenance"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMC9469084",
+      "id_type": "PMCID",
+      "citation": null,
+      "supports": [
+        "CYP3A4 activates AFB1",
+        "CYP1A2 activates AFB1"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMID 10950860 (Koop 1992)",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP2E1 activates NDMA_hydroxyl",
+        "CYP2E1 activates Benzene_oxide",
+        "CYP2E1 activates Chloroethylene_oxide",
+        "CYP2E1 activates Hydroxymethylnitrosamine",
+        "CYP2E1 activates Chloral_hydrate",
+        "CYP2E1 activates Glycidamide",
+        "CYP2E1 activates Vinyl_carbamate"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 7
+    },
+    {
+      "evidence_id": "PMID 7865919",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP3A4 activates AFB1_epoxide",
+        "CYP3A4 activates 4OH_cyclophosphamide"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMID 9187241",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP1A1 activates BaP_epoxide",
+        "CYP1A1 activates BPDE",
+        "CYP1A1 activates DMBA_epoxide",
+        "CYP1A1 activates DMBA_diol_epoxide",
+        "CYP1A1 activates Cd",
+        "AHR increases CYP1A1"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 6
+    },
+    {
+      "evidence_id": "PMID:10064842",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "MDA damages M1_dG"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMID:10220571",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP2B6 activates 4OH_cyclophosphamide",
+        "CYP3A4 activates 4OH_cyclophosphamide",
+        "Cyclophosphamide activates Acrolein",
+        "4OH_cyclophosphamide activates Phosphoramide_mustard",
+        "Phosphoramide_mustard damages DNA_ICL_mustard"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 5
+    },
+    {
+      "evidence_id": "PMID:10417614",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "ROS_metal damages 8_OHdG"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_provenance",
+        "causal_edge_refs"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMID:12860588",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP2E1 activates Vinyl_carbamate",
+        "Urethane activates Vinyl_carbamate",
+        "Vinyl_carbamate activates Vinyl_carbamate_epoxide",
+        "Vinyl_carbamate_epoxide damages etheno_dA",
+        "Vinyl_carbamate_epoxide damages etheno_dC"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 5
+    },
+    {
+      "evidence_id": "PMID:12960109",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "Busulfan activates Busulfan_methanesulfonate",
+        "Busulfan_methanesulfonate damages DNA_ICL_mustard"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMID:12975327",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP2A13 activates NNK"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMID:1444447",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP2E1 activates NDMA"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMID:17872912",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP2E1 activates Glycidamide",
+        "XRCC1 mediates N7_GA_dG",
+        "Glycidamide damages N7_GA_dG"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 3
+    },
+    {
+      "evidence_id": "PMID:1937131",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "GSTP1 detoxifies 4_HNE",
+        "ALDH2 detoxifies 4_HNE",
+        "4_HNE damages HNE_dG"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 3
+    },
+    {
+      "evidence_id": "PMID:19705912",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "XRCC1 mediates Acr_dG",
+        "Acrolein damages Acr_dG"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMID:20577029",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP2E1 activates NDMA"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMID:20663906",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "GSTT1 activates DCVG",
+        "TCE activates DCVG",
+        "CCBL1 activates DCVC",
+        "DCVC damages Renal_DNA_damage"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 4
+    },
+    {
+      "evidence_id": "PMID:21222454",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "Formaldehyde damages N2_HOMedG"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMID:21538843",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "SULT1A1 activates SMF",
+        "Furfural activates SMF"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMID:21801416",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "GSTM1 detoxifies As",
+        "GSTT1 detoxifies As",
+        "GSTO1 activates MMA_III",
+        "GSTO2 activates MMA_III"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_provenance",
+        "causal_edge_refs"
+      ],
+      "support_count": 4
+    },
+    {
+      "evidence_id": "PMID:2185966",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "Methyldiazonium damages N7_methyl_dG",
+        "MNU activates Methyldiazonium"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMID:34730462",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "As activates MMA_V",
+        "AS3MT activates MMA_V",
+        "AS3MT activates DMA_V"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_provenance",
+        "causal_edge_refs"
+      ],
+      "support_count": 3
+    },
+    {
+      "evidence_id": "PMID:40390554",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "NDMA activates Hydroxymethylnitrosamine",
+        "CYP2E1 activates Hydroxymethylnitrosamine",
+        "Methyldiazonium damages O6_methyl_dG"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 3
+    },
+    {
+      "evidence_id": "PMID:7523912",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "Chlorambucil activates Chlorambucil_aziridinium",
+        "Chlorambucil_aziridinium damages DNA_ICL_mustard"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMID:7614537",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "Acrylamide activates Glycidamide"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMID:8635461",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "Sulfur_mustard activates Mustard_episulfonium",
+        "Mustard_episulfonium damages DNA_ICL_mustard"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "PMID:8975785",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "CYP1A2 activates AFB1"
+      ],
+      "sources": [
+        "causal_edge_refs"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "PMID:9327140",
+      "id_type": "PMID",
+      "citation": null,
+      "supports": [
+        "Temozolomide activates MTIC",
+        "MTIC activates Methyldiazonium"
+      ],
+      "sources": [
+        "causal_edge",
+        "causal_edge_refs"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "Procarcinogen to 3,4-epoxide",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "DMBA activates DMBA_epoxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Procarcinogen to N-hydroxylation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "MeIQx activates NOH_MeIQx",
+        "Benzidine activates NOH_Benzidine"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "Procarcinogen to alpha-hydroxylation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "NDMA activates NDMA_hydroxyl"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Procarcinogen to catechol estrogen",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "E2 activates HydroxyE2"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Procarcinogen to epoxidation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "VinylChloride activates Chloroethylene_oxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Pulmonary alpha-hydroxylation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP2A13 activates NNK_hydroxyl"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Reactive acetoxy ester formation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "NAT1 activates MeIQx_acetoxy"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Second epoxidation to BPDE",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A1 activates BPDE",
+        "CYP1B1 activates BPDE"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 2
+    },
+    {
+      "evidence_id": "Secondary epoxidation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP1A2 activates AFB1_epoxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    },
+    {
+      "evidence_id": "Vinyl chloride oxidation",
+      "id_type": "citation",
+      "citation": null,
+      "supports": [
+        "CYP2E1 activates Chloroethylene_oxide"
+      ],
+      "sources": [
+        "causal_edge"
+      ],
+      "support_count": 1
+    }
+  ]
+}

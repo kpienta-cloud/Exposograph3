@@ -1,0 +1,16 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "evidence_assertion.schema.json",
+  "title": "ExposoGraph 3.0 Evidence Assertion",
+  "type": "object",
+  "required": ["evidence_id", "id_type"],
+  "properties": {
+    "evidence_id": {"type": "string"},
+    "id_type": {"type": "string", "enum": ["PMID", "PMCID", "DOI", "citation"]},
+    "citation": {"type": ["string", "null"]},
+    "supports": {"type": "array"},
+    "sources": {"type": "array"},
+    "support_count": {"type": "integer"}
+  },
+  "additionalProperties": true
+}
