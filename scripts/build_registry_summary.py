@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-ExposoGraph 3.0 — Build Registry Summary
+ExposoGraph 3.0 — Build Registry Summary (Phase 3)
 Reads registry data and writes data/registry/registry_summary.json.
-Prints summary table with node/edge counts by type/family, and module counts.
+Prints summary table with node/edge counts, execution edge counts,
+per-module Phase 3 field completeness, and parameter counts.
 """
 
 import json
@@ -12,11 +13,20 @@ from collections import Counter
 
 REPO_ROOT = Path(__file__).parent.parent
 
+# Phase 3 required module fields (22 total)
+MODULE_PHASE3_REQUIRED = [
+    "module_id", "module_name", "module_class", "maturity_class", "extends", "scope",
+    "version", "evidence_bundle", "input_ports", "output_ports", "parameters",
+    "equation_type", "update_rule", "uncertainty", "validation_status", "cedt_mapping",
+    "causal_role_map", "graph_nodes", "graph_edges", "causal_edges", "internal_state",
+    "promotion_status"
+]
+
 
 def main():
-    print("=== ExposoGraph 3.0 — Registry Summary Builder ===\n")
+    print("=== ExposoGraph 3.0 — Registry Summary Builder (Phase 3) ===\n")
 
-    # Load registry
+    # ─── Load registry graph ───────────────────────────────────────────────────
     reg_path = REPO_ROOT / "data/registry/registry_graph.json"
     if not reg_path.exists():
         print(f"ERROR: {reg_path} not found. Run ingestion first.", file=sys.stderr)
@@ -29,27 +39,62 @@ def main():
     print(f"Bundle:  {reg.get('bundle')}")
     print(f"Origin:  {reg.get('version_origin')}")
     print(f"Nodes:   {len(nodes)}")
-    print(f"Edges:   {len(edges)}")
+    print(f"Edges:   {len(edges)} (baseline registry edges — immutable)")
 
-    # Node type distribution
+    # ─── Node type distribution ────────────────────────────────────────────────
     node_type_counts = Counter(n.get("entity_type", n.get("type", "unknown")) for n in nodes)
     print("\n--- Node Types ---")
     for ntype, cnt in sorted(node_type_counts.items(), key=lambda x: -x[1]):
         print(f"  {ntype:20s}: {cnt}")
 
-    # Edge type distribution (original type field)
+    # ─── Baseline edge type distribution ──────────────────────────────────────
     edge_type_counts = Counter(e.get("type", "unknown") for e in edges)
-    print("\n--- Edge Types (original predicates) ---")
+    print("\n--- Baseline Edge Types (original predicates) ---")
     for etype, cnt in sorted(edge_type_counts.items(), key=lambda x: -x[1]):
         print(f"  {etype:30s}: {cnt}")
 
-    # Edge family distribution
+    # ─── Baseline edge family distribution ────────────────────────────────────
     edge_family_counts = Counter(e.get("edge_family", "unknown") for e in edges)
-    print("\n--- Edge Family Distribution ---")
+    print("\n--- Baseline Edge Family Distribution ---")
     for fam, cnt in sorted(edge_family_counts.items(), key=lambda x: -x[1]):
         print(f"  {fam:20s}: {cnt}")
 
-    # Module records
+    # ─── Execution edges (Phase 3 new) ────────────────────────────────────────
+    exec_edges_path = REPO_ROOT / "data/registry/execution_edges.json"
+    exec_edges = []
+    exec_edge_counts_by_type = {}
+    exec_edge_counts_by_family = {}
+    if exec_edges_path.exists():
+        ee_data = json.loads(exec_edges_path.read_text(encoding="utf-8"))
+        exec_edges = ee_data.get("edges", [])
+        exec_edge_counts_by_type = dict(Counter(e.get("type", "unknown") for e in exec_edges))
+        exec_edge_counts_by_family = dict(Counter(e.get("edge_family", "unknown") for e in exec_edges))
+
+        print(f"\n--- Execution Edges (Phase 3 — data/registry/execution_edges.json) ---")
+        print(f"  Total execution edges: {len(exec_edges)}")
+        print(f"  version_origin:        {ee_data.get('version_origin', '?')}")
+        print(f"\n  By type:")
+        for etype, cnt in sorted(exec_edge_counts_by_type.items(), key=lambda x: -x[1]):
+            print(f"    {etype:30s}: {cnt}")
+        print(f"\n  By edge_family:")
+        for fam, cnt in sorted(exec_edge_counts_by_family.items(), key=lambda x: -x[1]):
+            print(f"    {fam:20s}: {cnt}")
+
+        # Enzyme→substrate summary
+        causal_edges = [e for e in exec_edges if e.get("edge_family") == "causal"]
+        bioactivates = [e for e in causal_edges if e.get("type") == "bioactivates"]
+        detoxifies = [e for e in causal_edges if e.get("type") == "detoxifies"]
+        competes = [e for e in causal_edges if e.get("type") == "competes_at"]
+        mod_edges = [e for e in exec_edges if e.get("edge_family") == "execution"]
+        print(f"\n  Breakdown:")
+        print(f"    bioactivates (enzyme→substrate):  {len(bioactivates)}")
+        print(f"    detoxifies (enzyme→substrate):    {len(detoxifies)}")
+        print(f"    competes_at (inhibition):         {len(competes)}")
+        print(f"    module-to-module execution:       {len(mod_edges)}")
+    else:
+        print("\n  WARNING: execution_edges.json not found", file=sys.stderr)
+
+    # ─── Module records ────────────────────────────────────────────────────────
     modules_dir = REPO_ROOT / "data/modules"
     module_files = sorted(modules_dir.glob("*.json"))
     modules = []
@@ -60,44 +105,82 @@ def main():
         except Exception as e:
             print(f"WARNING: Could not load {mf.name}: {e}", file=sys.stderr)
 
-    print(f"\n--- Module Records ({len(modules)}) ---")
+    print(f"\n--- Module Records ({len(modules)}) — Phase 3 Populated ---")
+    module_summary_rows = []
+    total_params = 0
     for m in sorted(modules, key=lambda x: x.get("module_id", "")):
-        nn = len(m.get("graph_nodes", []))
-        ne = len(m.get("graph_edges", []))
+        mod_id = m.get("module_id", "?")
         mc = m.get("maturity_class", "?")
-        print(f"  [{mc}] {m['module_id']}: {nn} nodes, {ne} edges")
+        eq = m.get("equation_type", "?")
+        promo = m.get("promotion_status", "?")
+        n_in = len(m.get("input_ports", []))
+        n_out = len(m.get("output_ports", []))
+        n_params = len(m.get("parameters", []))
+        n_nodes = len(m.get("graph_nodes", []))
+        n_edges = len(m.get("graph_edges", []))
 
-    # Phase 1 metadata field presence check
+        # Phase 3 field completeness
+        populated = [f for f in MODULE_PHASE3_REQUIRED if f in m]
+        completeness_pct = round(len(populated) / len(MODULE_PHASE3_REQUIRED) * 100, 1)
+
+        total_params += n_params
+        print(f"  [{mc}] {mod_id}")
+        print(f"       params={n_params:3d}  ports={n_in}in/{n_out}out  "
+              f"graph={n_nodes}nodes/{n_edges}edges  eq={eq}")
+        print(f"       promotion={promo}  completeness={completeness_pct}% "
+              f"({len(populated)}/{len(MODULE_PHASE3_REQUIRED)} fields)")
+
+        module_summary_rows.append({
+            "module_id": mod_id,
+            "module_name": m.get("module_name"),
+            "module_class": m.get("module_class"),
+            "maturity_class": mc,
+            "equation_type": eq,
+            "promotion_status": promo,
+            "input_ports_count": n_in,
+            "output_ports_count": n_out,
+            "parameters_count": n_params,
+            "graph_nodes_count": n_nodes,
+            "graph_edges_count": n_edges,
+            "phase3_fields_populated": len(populated),
+            "phase3_fields_total": len(MODULE_PHASE3_REQUIRED),
+            "phase3_completeness_pct": completeness_pct,
+        })
+
+    print(f"\n  Total parameters across all modules: {total_params}")
+
+    # ─── Phase 1 metadata field completeness ──────────────────────────────────
     node_field_complete = sum(1 for n in nodes
-                              if all(f in n for f in ["entity_type","module_membership","evidence_id","version_origin","promotion_status"]))
+                              if all(f in n for f in ["entity_type", "module_membership",
+                                                       "evidence_id", "version_origin",
+                                                       "promotion_status"]))
     edge_field_complete = sum(1 for e in edges
-                              if all(f in e for f in ["edge_family","module_membership","evidence_id","version_origin","promotion_status"]))
+                              if all(f in e for f in ["edge_family", "module_membership",
+                                                       "evidence_id", "version_origin",
+                                                       "promotion_status"]))
 
-    print(f"\n--- Phase 1 Metadata Completeness ---")
+    print(f"\n--- Phase 1 Metadata Completeness (Baseline) ---")
     print(f"  Nodes with all 5 metadata fields: {node_field_complete}/{len(nodes)}")
     print(f"  Edges with all 5 metadata fields: {edge_field_complete}/{len(edges)}")
 
-    # Build summary dict
+    # ─── Build and write summary dict ─────────────────────────────────────────
     summary = {
         "bundle": reg.get("bundle"),
         "version_origin": reg.get("version_origin"),
         "node_count": len(nodes),
         "edge_count": len(edges),
+        "execution_edge_count": len(exec_edges),
         "module_count": len(modules),
+        "total_module_parameters": total_params,
         "node_type_distribution": dict(node_type_counts),
         "edge_type_distribution": dict(edge_type_counts),
         "edge_family_distribution": dict(edge_family_counts),
-        "modules": [
-            {
-                "module_id": m.get("module_id"),
-                "module_name": m.get("module_name"),
-                "module_class": m.get("module_class"),
-                "maturity_class": m.get("maturity_class"),
-                "graph_nodes_count": len(m.get("graph_nodes", [])),
-                "graph_edges_count": len(m.get("graph_edges", [])),
-            }
-            for m in sorted(modules, key=lambda x: x.get("module_id", ""))
-        ],
+        "execution_edges": {
+            "total": len(exec_edges),
+            "by_type": exec_edge_counts_by_type,
+            "by_family": exec_edge_counts_by_family,
+        },
+        "modules": module_summary_rows,
         "phase1_metadata_completeness": {
             "nodes_complete": node_field_complete,
             "nodes_total": len(nodes),
@@ -110,8 +193,9 @@ def main():
     out_path.write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
     print(f"\n✓ Wrote {out_path}")
 
-    # Final acceptance line
-    print(f"\n=== SUMMARY: {len(nodes)} nodes / {len(edges)} edges + {len(modules)} module records ===")
+    # ─── Final acceptance line ─────────────────────────────────────────────────
+    print(f"\n=== SUMMARY: {len(nodes)} nodes / {len(edges)} baseline edges "
+          f"+ {len(exec_edges)} execution edges + {len(modules)} module records ===")
 
     # Verify acceptance criteria
     ok = True
@@ -124,9 +208,13 @@ def main():
     if len(modules) != 8:
         print(f"FAIL: Expected 8 modules, got {len(modules)}", file=sys.stderr)
         ok = False
+    if len(exec_edges) == 0:
+        print("FAIL: No execution edges found", file=sys.stderr)
+        ok = False
 
     if ok:
-        print("✓ Acceptance criteria met: 212 nodes / 313 edges / 8 modules")
+        print(f"✓ Acceptance criteria met: 212 nodes / 313 edges / "
+              f"{len(exec_edges)} execution edges / 8 modules")
         sys.exit(0)
     else:
         sys.exit(1)

@@ -1,0 +1,73 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "execution_edge.schema.json",
+  "title": "ExposoGraph 3.0 Execution Edge",
+  "description": "Schema for execution and causal edges added in Phase 3 (execution_edges.json). Separate from registry_graph.json baseline.",
+  "type": "object",
+  "required": [
+    "edge_id",
+    "source",
+    "target",
+    "type",
+    "edge_family",
+    "promotion_status",
+    "version_origin"
+  ],
+  "properties": {
+    "edge_id": {
+      "type": "string",
+      "description": "Stable unique identifier (e.g. EG3.EXEC.EDGE.0001)"
+    },
+    "source": {
+      "type": "string",
+      "description": "Source node id (registry node id) or module id"
+    },
+    "target": {
+      "type": "string",
+      "description": "Target node id (registry node id) or module id"
+    },
+    "type": {
+      "type": "string",
+      "description": "Edge relation type: bioactivates | detoxifies | competes_at | feeds_input | consumes_parameter | emits_output | writes_observation | maps_to_twin_state"
+    },
+    "edge_family": {
+      "type": "string",
+      "enum": ["causal", "execution", "registry"]
+    },
+    "promotion_status": {
+      "type": "string"
+    },
+    "version_origin": {
+      "type": "string"
+    },
+    "carcinogen_class": {
+      "type": ["string", "null"]
+    },
+    "pathway_type": {
+      "type": ["string", "null"]
+    },
+    "Km_uM": {
+      "type": ["number", "null"]
+    },
+    "Ki_uM": {
+      "type": ["number", "null"]
+    },
+    "Vmax": {
+      "type": ["number", "null"]
+    },
+    "confidence": {
+      "type": ["string", "null"]
+    },
+    "reaction": {
+      "type": ["string", "null"]
+    },
+    "sources": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "note": {
+      "type": ["string", "null"]
+    }
+  },
+  "additionalProperties": true
+}

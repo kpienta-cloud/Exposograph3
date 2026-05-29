@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "module.schema.json",
   "title": "ExposoGraph 3.0 Module Record",
+  "description": "Phase 3: fully-populated module record schema requiring all Core Schema fields per blueprint.",
   "type": "object",
   "required": [
     "module_id",
@@ -11,53 +12,121 @@
     "extends",
     "scope",
     "version",
-    "evidence_bundle"
+    "evidence_bundle",
+    "input_ports",
+    "output_ports",
+    "parameters",
+    "equation_type",
+    "update_rule",
+    "uncertainty",
+    "validation_status",
+    "cedt_mapping",
+    "causal_role_map",
+    "graph_nodes",
+    "graph_edges",
+    "causal_edges",
+    "internal_state",
+    "promotion_status"
   ],
   "properties": {
     "module_id": {
-      "type": "string"
+      "type": "string",
+      "description": "Stable versioned identifier (e.g. EG3.MOD.EXPOSURE.WAVE2.v1)"
     },
     "module_name": {
       "type": "string"
     },
     "module_class": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "ExposureSource",
+        "BiotransformationProcess",
+        "Mechanism",
+        "TissueContext",
+        "Modifier",
+        "Outcome",
+        "EvidenceAssertion"
+      ]
     },
     "maturity_class": {
       "type": "string",
-      "enum": [
-        "D",
-        "C",
-        "E",
-        "T"
-      ]
+      "enum": ["D", "C", "E", "T"]
     },
     "extends": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "items": { "type": "string" },
+      "minItems": 1
     },
     "scope": {
+      "type": "object",
+      "description": "Species, tissue, exposure route, dose regime, life stage, time horizon"
+    },
+    "input_ports": {
+      "type": "array",
+      "description": "Required for maturity C/E/T modules; empty array permitted for D"
+    },
+    "output_ports": {
+      "type": "array",
+      "description": "Required for maturity C/E/T modules; empty array permitted for D"
+    },
+    "internal_state": {
+      "type": "array"
+    },
+    "causal_role_map": {
+      "type": "object"
+    },
+    "graph_nodes": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "graph_edges": {
+      "type": "array",
+      "items": { "type": "string" }
+    },
+    "causal_edges": {
+      "type": "array"
+    },
+    "mechanism_type": {},
+    "equation_type": {
+      "type": ["string", "null"],
+      "description": "lookup | rule-based | score-based | michaelis_menten | Bayesian | SCM | ODE | GLV-coupled | agent-based"
+    },
+    "update_rule": {
+      "type": ["string", "object", "null"]
+    },
+    "parameters": {
+      "type": "array",
+      "description": "Parameter records with values, units, and provenance"
+    },
+    "evidence_bundle": {
+      "type": "array",
+      "description": "PMID/DOI citations with assay type, species, effect direction, support strength"
+    },
+    "uncertainty": {
+      "type": "object",
+      "required": ["confidence"],
+      "properties": {
+        "confidence": { "type": "string" }
+      }
+    },
+    "validation_status": {
+      "type": "string",
+      "enum": [
+        "literature-only",
+        "curated",
+        "benchmarked",
+        "cohort-supported",
+        "experimentally-validated"
+      ]
+    },
+    "cedt_mapping": {
       "type": "object"
     },
     "version": {
       "type": "string"
     },
-    "evidence_bundle": {
-      "type": "array"
-    },
-    "graph_nodes": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
-    },
-    "graph_edges": {
-      "type": "array",
-      "items": {
-        "type": "string"
-      }
+    "promotion_status": {
+      "type": "string"
     }
   },
   "additionalProperties": true

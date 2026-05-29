@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-ExposoGraph 3.0 — Phase 1 Validation Script
-Validates all JSON files against schemas and checks Phase 1 requirements.
+ExposoGraph 3.0 — Phase 3 Validation Script
+Validates all JSON files against schemas and checks Phase 1 + Phase 3 requirements.
 Exits 0 on success, non-zero on failure.
 """
 
@@ -15,6 +15,18 @@ REPO_ROOT = Path(__file__).parent.parent
 # Phase 1 required metadata fields for nodes and edges
 NODE_PHASE1_FIELDS = {"entity_type", "module_membership", "evidence_id", "version_origin", "promotion_status"}
 EDGE_PHASE1_FIELDS = {"edge_family", "module_membership", "evidence_id", "version_origin", "promotion_status"}
+
+# Phase 3 required module fields
+MODULE_PHASE3_REQUIRED = [
+    "module_id", "module_name", "module_class", "maturity_class", "extends", "scope",
+    "version", "evidence_bundle", "input_ports", "output_ports", "parameters",
+    "equation_type", "update_rule", "uncertainty", "validation_status", "cedt_mapping",
+    "causal_role_map", "graph_nodes", "graph_edges", "causal_edges", "internal_state",
+    "promotion_status"
+]
+
+# Phase 3 execution edge required fields
+EXEC_EDGE_REQUIRED = ["edge_id", "source", "target", "type", "edge_family", "promotion_status", "version_origin"]
 
 errors = []
 warnings = []
@@ -55,7 +67,7 @@ def validate_with_jsonschema(data, schema, label):
 
 
 # ─── 1. Check directory structure ─────────────────────────────────────────────
-print("=== ExposoGraph 3.0 Phase 1 Validation ===\n")
+print("=== ExposoGraph 3.0 Phase 3 Validation ===\n")
 
 required_dirs = [
     "app", "data/ontology", "data/registry", "data/causal",
@@ -71,14 +83,24 @@ if not errors:
 print("\n2. Loading schemas...")
 schema_dir = REPO_ROOT / "schema"
 schemas = {}
-for schema_file in ["registry_node.schema.json", "registry_edge.schema.json",
-                     "module.schema.json", "causal_motif.schema.json", "ontology_class.schema.json"]:
+schema_files = [
+    "registry_node.schema.json", "registry_edge.schema.json",
+    "module.schema.json", "causal_motif.schema.json", "ontology_class.schema.json",
+    "execution_edge.schema.json"
+]
+for schema_file in schema_files:
     path = schema_dir / schema_file
     if path.exists():
         schemas[schema_file] = load_json(path)
         print(f"   ✓ Loaded {schema_file}")
     else:
-        errors.append(f"  ERROR: Missing schema file: {schema_file}")
+        if schema_file in ["registry_node.schema.json", "registry_edge.schema.json",
+                           "module.schema.json", "causal_motif.schema.json",
+                           "ontology_class.schema.json"]:
+            errors.append(f"  ERROR: Missing schema file: {schema_file}")
+        else:
+            # execution_edge.schema.json required in Phase 3
+            errors.append(f"  ERROR: Missing Phase 3 schema file: {schema_file}")
 
 # ─── 3. Validate registry graph ───────────────────────────────────────────────
 print("\n3. Validating registry graph...")
@@ -125,7 +147,7 @@ if reg_graph_path.exists():
         else:
             print(f"   ✓ All {len(edges)} edges have all Phase 1 metadata fields")
 
-        # Validate promotion_status = "registry" for all
+        # Validate promotion_status = "registry" for all baseline nodes/edges
         bad_promo_nodes = [n.get("id","?") for n in nodes if n.get("promotion_status") != "registry"]
         bad_promo_edges = [f"{e.get('source','?')}->{e.get('target','?')}"
                            for e in edges if e.get("promotion_status") != "registry"]
@@ -178,31 +200,76 @@ for fname in ["nodes.json", "edges.json"]:
             check(count == expected, f"{fname}: expected {expected} {key}, got {count}")
             print(f"   ✓ {fname}: {count} {key}")
 
-# ─── 5. Validate module records ───────────────────────────────────────────────
-print("\n5. Validating module records...")
+# ─── 5. Validate execution_edges.json ─────────────────────────────────────────
+print("\n5. Validating execution_edges.json (Phase 3)...")
+exec_edges_path = REPO_ROOT / "data/registry/execution_edges.json"
+check(exec_edges_path.exists(), "data/registry/execution_edges.json missing (Phase 3 requirement)")
+if exec_edges_path.exists():
+    ee = load_json(exec_edges_path)
+    if ee:
+        exec_edges = ee.get("edges", [])
+        print(f"   execution_edges count: {len(exec_edges)}")
+        check(len(exec_edges) > 0, "execution_edges.json has zero edges")
+        # Check required fields on sample edges
+        bad_exec = []
+        for i, edge in enumerate(exec_edges[:10]):
+            missing = [f for f in EXEC_EDGE_REQUIRED if f not in edge]
+            if missing:
+                bad_exec.append(f"exec_edge[{i}] missing: {missing}")
+        if bad_exec:
+            for msg in bad_exec:
+                errors.append(f"  ERROR: {msg}")
+        else:
+            print(f"   ✓ Sample execution edges have all required fields")
+        # Validate against schema
+        if "execution_edge.schema.json" in schemas and schemas["execution_edge.schema.json"]:
+            if exec_edges:
+                validate_with_jsonschema(exec_edges[0], schemas["execution_edge.schema.json"], "sample execution edge")
+                print(f"   ✓ Sample execution edge passes schema validation")
+        print(f"   version_origin: {ee.get('version_origin','?')}")
+
+# ─── 6. Validate module records (Phase 3 populated) ───────────────────────────
+print("\n6. Validating module records (Phase 3 populated)...")
 modules_dir = REPO_ROOT / "data/modules"
 module_files = list(modules_dir.glob("*.json"))
 check(len(module_files) == 8, f"Expected 8 module files, got {len(module_files)}: {[f.name for f in module_files]}")
 
 loaded_modules = []
-for mf in module_files:
+phase3_complete = []
+for mf in sorted(module_files):
     m = load_json(mf)
     if m:
         loaded_modules.append(m)
         if "module.schema.json" in schemas and schemas["module.schema.json"]:
             validate_with_jsonschema(m, schemas["module.schema.json"], mf.name)
-        # Check required fields
+        # Check Phase 1 required fields
         for req in ["module_id","module_name","module_class","maturity_class","extends","scope","version","evidence_bundle"]:
             check(req in m, f"Module {mf.name} missing required field: {req}")
+        # Check Phase 3 fields
+        populated = [f for f in MODULE_PHASE3_REQUIRED if f in m]
+        n_params = len(m.get("parameters", []))
+        completeness = len(populated) / len(MODULE_PHASE3_REQUIRED)
+        phase3_complete.append({
+            "id": m.get("module_id","?"),
+            "fields_populated": len(populated),
+            "fields_total": len(MODULE_PHASE3_REQUIRED),
+            "completeness_pct": round(completeness * 100, 1),
+            "n_params": n_params,
+            "maturity": m.get("maturity_class","?")
+        })
 
 print(f"   ✓ {len(loaded_modules)} module records loaded")
+print("\n   Phase 3 module completeness:")
 for m in sorted(loaded_modules, key=lambda x: x.get("module_id","")):
     nn = len(m.get("graph_nodes", []))
     ne = len(m.get("graph_edges", []))
-    print(f"     {m['module_id']}: {nn} nodes, {ne} edges")
+    np_ = len(m.get("parameters", []))
+    mc = m.get("maturity_class", "?")
+    eq = m.get("equation_type", "?")
+    print(f"     [{mc}] {m['module_id']}: {nn} nodes, {ne} graph_edges, {np_} params, eq={eq}")
 
-# ─── 6. Validate ontology ────────────────────────────────────────────────────
-print("\n6. Validating ontology layer...")
+# ─── 7. Validate ontology ────────────────────────────────────────────────────
+print("\n7. Validating ontology layer...")
 for fname in ["interfaces.json", "classes.json"]:
     p = REPO_ROOT / "data/ontology" / fname
     check(p.exists(), f"data/ontology/{fname} missing")
@@ -210,8 +277,8 @@ for fname in ["interfaces.json", "classes.json"]:
         d = load_json(p)
         print(f"   ✓ {fname} loaded")
 
-# ─── 7. Validate causal motifs ────────────────────────────────────────────────
-print("\n7. Validating causal motifs...")
+# ─── 8. Validate causal motifs ────────────────────────────────────────────────
+print("\n8. Validating causal motifs...")
 motifs_path = REPO_ROOT / "data/causal/motifs.json"
 check(motifs_path.exists(), "data/causal/motifs.json missing")
 if motifs_path.exists():
@@ -224,8 +291,8 @@ if motifs_path.exists():
             if "causal_motif.schema.json" in schemas and schemas["causal_motif.schema.json"]:
                 validate_with_jsonschema(mot, schemas["causal_motif.schema.json"], mot.get("motif_id","?"))
 
-# ─── 8. Validate adapters ─────────────────────────────────────────────────────
-print("\n8. Validating CEDT adapters...")
+# ─── 9. Validate adapters ─────────────────────────────────────────────────────
+print("\n9. Validating CEDT adapters...")
 adapters_path = REPO_ROOT / "data/adapters/cedt_mappings.json"
 check(adapters_path.exists(), "data/adapters/cedt_mappings.json missing")
 if adapters_path.exists():
@@ -234,15 +301,29 @@ if adapters_path.exists():
         n_adp = len(adp.get("adapters", []))
         print(f"   ✓ {n_adp} CEDT adapters")
 
-# ─── 9. Validate browser app mirrored data ────────────────────────────────────
-print("\n9. Validating app/data/registry mirror...")
+# ─── 10. Validate browser app mirrored data ───────────────────────────────────
+print("\n10. Validating app/data/registry mirror...")
 for fname in ["registry_graph.json", "nodes.json", "edges.json"]:
     p = REPO_ROOT / "app/data/registry" / fname
     check(p.exists(), f"app/data/registry/{fname} missing (mirror not complete)")
     if p.exists():
         print(f"   ✓ {fname} present in app/data/registry/")
 
-# ─── 10. Summary ──────────────────────────────────────────────────────────────
+# Phase 3: also check modules mirror
+modules_mirror = REPO_ROOT / "app/data/modules"
+if modules_mirror.exists():
+    mf_count = len(list(modules_mirror.glob("*.json")))
+    print(f"   ✓ app/data/modules/ present ({mf_count} files)")
+else:
+    warnings.append("  WARNING: app/data/modules/ mirror not yet created (non-fatal)")
+
+exec_mirror = REPO_ROOT / "app/data/registry/execution_edges.json"
+if exec_mirror.exists():
+    print(f"   ✓ app/data/registry/execution_edges.json present in mirror")
+else:
+    warnings.append("  WARNING: app/data/registry/execution_edges.json not mirrored (non-fatal)")
+
+# ─── 11. Summary ──────────────────────────────────────────────────────────────
 print("\n" + "=" * 50)
 if errors:
     print(f"VALIDATION FAILED — {len(errors)} error(s):")

@@ -16,39 +16,67 @@
       --text-dim: #7a8099;
       --causal: #e05c5c;
       --registry-edge: #4caf7d;
+      --exec-edge: #f5a623;
       --carcinogen: #e05c5c;
       --enzyme: #5b8dee;
       --metabolite: #f5a623;
       --dna-adduct: #c459d8;
       --pathway: #4caf7d;
+      --mat-e: #4caf7d;
+      --mat-d: #5b8dee;
+      --mat-c: #f5a623;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; }
     header {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 16px 24px;
+      padding: 12px 24px;
       display: flex;
       align-items: center;
-      gap: 24px;
+      gap: 16px;
       flex-wrap: wrap;
     }
-    header h1 { font-size: 20px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; }
-    header h1 span { color: var(--text-dim); font-size: 13px; font-weight: 400; margin-left: 8px; }
+    header h1 { font-size: 19px; font-weight: 700; color: var(--accent); letter-spacing: 0.5px; white-space: nowrap; }
+    header h1 span { color: var(--text-dim); font-size: 12px; font-weight: 400; margin-left: 8px; }
     .stat-badge {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: 6px 14px;
-      font-size: 13px;
+      padding: 5px 12px;
+      font-size: 12px;
       color: var(--text-dim);
+      white-space: nowrap;
     }
     .stat-badge b { color: var(--text); }
-    #loading { padding: 40px 24px; color: var(--text-dim); text-align: center; }
+    /* Tabs */
+    .tabs {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 0;
+      padding: 0 16px;
+    }
+    .tab-btn {
+      background: transparent;
+      border: none;
+      border-bottom: 2px solid transparent;
+      color: var(--text-dim);
+      cursor: pointer;
+      font-size: 13px;
+      padding: 10px 18px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .tab-btn:hover { color: var(--text); }
+    .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+    /* Tab panels */
+    .tab-panel { display: none; }
+    .tab-panel.active { display: flex; }
+    /* Controls */
     .controls {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 12px 24px;
+      padding: 10px 24px;
       display: flex;
       gap: 12px;
       align-items: center;
@@ -59,25 +87,39 @@
       color: var(--text);
       border: 1px solid var(--border);
       border-radius: 6px;
-      padding: 6px 10px;
+      padding: 5px 10px;
       font-size: 13px;
       outline: none;
     }
     select:focus, input:focus { border-color: var(--accent); }
     label { color: var(--text-dim); font-size: 13px; }
     .controls-group { display: flex; gap: 8px; align-items: center; }
-    #main { display: flex; height: calc(100vh - 110px); overflow: hidden; }
+    .toggle-btn {
+      background: var(--bg);
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      font-size: 12px;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+    }
+    .toggle-btn.on { border-color: var(--exec-edge); color: var(--exec-edge); }
+    /* Layout */
+    #nodes-panel, #modules-panel, #exec-panel {
+      height: calc(100vh - 115px);
+      overflow: hidden;
+    }
     #sidebar {
       width: 320px;
-      min-width: 220px;
+      min-width: 200px;
       border-right: 1px solid var(--border);
       overflow-y: auto;
       background: var(--surface);
-      padding: 0;
     }
-    #sidebar h2 { font-size: 13px; color: var(--text-dim); padding: 12px 16px 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 1px; }
+    #sidebar h2 { font-size: 12px; color: var(--text-dim); padding: 10px 16px 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 1px; }
     .node-item {
-      padding: 10px 16px;
+      padding: 9px 16px;
       border-bottom: 1px solid #1e2138;
       cursor: pointer;
       transition: background 0.1s;
@@ -100,20 +142,32 @@
     .type-Metabolite   { background: #3a2800; color: var(--metabolite); }
     .type-DNA_Adduct   { background: #2d1040; color: var(--dna-adduct); }
     .type-Pathway      { background: #122a1e; color: var(--pathway); }
-    #detail {
+    .mat-badge {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 4px;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+    }
+    .mat-E { background: #122a1e; color: var(--mat-e); }
+    .mat-D { background: #1a2240; color: var(--mat-d); }
+    .mat-C { background: #3a2800; color: var(--mat-c); }
+    /* Detail pane */
+    #detail, #mod-detail, #exec-detail {
       flex: 1;
       overflow-y: auto;
       padding: 24px;
       background: var(--bg);
     }
-    #detail h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
-    #detail .detail-type { margin-bottom: 16px; }
-    .field-grid { display: grid; grid-template-columns: 160px 1fr; gap: 6px 16px; margin-bottom: 20px; }
+    #detail h2, #mod-detail h2, #exec-detail h2 { font-size: 18px; font-weight: 700; margin-bottom: 4px; }
+    .detail-type { margin-bottom: 14px; }
+    .field-grid { display: grid; grid-template-columns: 160px 1fr; gap: 5px 14px; margin-bottom: 18px; }
     .field-key { color: var(--text-dim); font-size: 12px; text-align: right; padding-top: 2px; }
     .field-val { font-size: 13px; word-break: break-word; }
     .field-val a { color: var(--accent); text-decoration: none; }
     .field-val a:hover { text-decoration: underline; }
-    .section-title { font-size: 12px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin: 16px 0 8px; }
+    .section-title { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin: 14px 0 7px; }
     .mod-tag {
       display: inline-block;
       background: #1e2a4a;
@@ -124,10 +178,11 @@
       padding: 2px 8px;
       margin: 2px;
     }
-    .edge-row { padding: 7px 0; border-bottom: 1px solid #1e2138; font-size: 12px; }
+    .edge-row { padding: 6px 0; border-bottom: 1px solid #1e2138; font-size: 12px; }
     .edge-type { font-weight: 600; color: var(--text-dim); }
     .edge-fam-causal   { color: var(--causal); }
     .edge-fam-registry { color: var(--registry-edge); }
+    .edge-fam-execution { color: var(--exec-edge); }
     .placeholder {
       display: flex; flex-direction: column; align-items: center; justify-content: center;
       height: 100%; color: var(--text-dim); gap: 8px;
@@ -139,18 +194,73 @@
       border-radius: 4px; padding: 3px 10px; cursor: pointer; font-size: 12px;
     }
     .pager button:hover { border-color: var(--accent); }
+    /* Module list panel */
+    #mod-sidebar {
+      width: 340px;
+      min-width: 220px;
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      background: var(--surface);
+    }
+    #mod-sidebar h2 { font-size: 12px; color: var(--text-dim); padding: 10px 16px 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 1px; }
+    .mod-item {
+      padding: 11px 16px;
+      border-bottom: 1px solid #1e2138;
+      cursor: pointer;
+      transition: background 0.1s;
+    }
+    .mod-item:hover { background: #222540; }
+    .mod-item.selected { background: #1f2e52; border-left: 3px solid var(--accent2); }
+    .mod-item-id { font-weight: 600; font-size: 12px; color: var(--accent); }
+    .mod-item-name { font-size: 12px; margin-top: 2px; }
+    .mod-item-meta { font-size: 11px; color: var(--text-dim); margin-top: 3px; }
+    /* Exec edge table */
+    #exec-sidebar {
+      width: 340px;
+      min-width: 220px;
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      background: var(--surface);
+    }
+    #exec-sidebar h2 { font-size: 12px; color: var(--text-dim); padding: 10px 16px 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 1px; }
+    .exec-item {
+      padding: 8px 14px;
+      border-bottom: 1px solid #1e2138;
+      cursor: pointer;
+      transition: background 0.1s;
+      font-size: 12px;
+    }
+    .exec-item:hover { background: #222540; }
+    .exec-item.selected { background: #1f2e52; border-left: 3px solid var(--exec-edge); }
+    .exec-item-id { font-size: 10px; color: var(--text-dim); }
+    .exec-item-rel { font-weight: 600; margin: 2px 0; }
+    .exec-item-meta { font-size: 10px; color: var(--text-dim); }
+    .param-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 4px; }
+    .param-table th { text-align: left; padding: 5px 8px; font-size: 11px; color: var(--text-dim); border-bottom: 1px solid var(--border); }
+    .param-table td { padding: 5px 8px; border-bottom: 1px solid #1e2138; vertical-align: top; word-break: break-word; }
+    .param-table tr:hover td { background: #222540; }
+    code { font-family: 'Cascadia Code', 'Fira Code', monospace; font-size: 11px; background: #1e2138; padding: 1px 5px; border-radius: 3px; }
   </style>
 </head>
 <body>
 <header>
-  <h1>ExposoGraph 3.0 <span>Registry Browser — Phase 1</span></h1>
+  <h1>ExposoGraph 3.0 <span>Registry Browser — Phase 3</span></h1>
   <div class="stat-badge" id="stat-nodes">Nodes: <b>—</b></div>
-  <div class="stat-badge" id="stat-edges">Edges: <b>—</b></div>
+  <div class="stat-badge" id="stat-edges">Baseline edges: <b>—</b></div>
+  <div class="stat-badge" id="stat-exec">Execution edges: <b>—</b></div>
   <div class="stat-badge" id="stat-modules">Modules: <b>—</b></div>
-  <div class="stat-badge" id="stat-bundle" style="max-width:340px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></div>
+  <div class="stat-badge" id="stat-bundle" style="max-width:320px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;"></div>
 </header>
 
-<div class="controls">
+<!-- Tab bar -->
+<div class="tabs">
+  <button class="tab-btn active" data-tab="nodes">Registry Nodes</button>
+  <button class="tab-btn" data-tab="modules">Module Records</button>
+  <button class="tab-btn" data-tab="exec">Execution Edges</button>
+</div>
+
+<!-- ─── NODES TAB ───────────────────────────────────────────────────────────── -->
+<div id="nodes-controls" class="controls">
   <div class="controls-group">
     <label>Node type:</label>
     <select id="filter-type">
@@ -179,9 +289,12 @@
   <div class="controls-group">
     <input type="text" id="search" placeholder="Search label / ID…" style="width:200px;" />
   </div>
+  <div class="controls-group">
+    <button class="toggle-btn" id="toggle-exec-edges">Show execution edges</button>
+  </div>
 </div>
 
-<div id="main">
+<div class="tab-panel active" id="nodes-panel">
   <div id="sidebar">
     <h2 id="sidebar-count">Nodes</h2>
     <div id="node-list"></div>
@@ -200,39 +313,149 @@
   </div>
 </div>
 
+<!-- ─── MODULES TAB ──────────────────────────────────────────────────────────── -->
+<div class="controls" id="modules-controls" style="display:none;">
+  <div class="controls-group">
+    <label>Maturity:</label>
+    <select id="filter-maturity">
+      <option value="">All</option>
+      <option value="E">E — Executable</option>
+      <option value="D">D — Defined</option>
+      <option value="C">C — Candidate</option>
+    </select>
+  </div>
+  <div class="controls-group">
+    <label>Class:</label>
+    <select id="filter-class">
+      <option value="">All classes</option>
+    </select>
+  </div>
+  <div class="controls-group">
+    <input type="text" id="search-mod" placeholder="Search module ID / name…" style="width:220px;" />
+  </div>
+</div>
+
+<div class="tab-panel" id="modules-panel">
+  <div id="mod-sidebar">
+    <h2 id="mod-sidebar-count">Modules</h2>
+    <div id="mod-list"></div>
+  </div>
+  <div id="mod-detail">
+    <div class="placeholder">
+      <div class="big">⬢</div>
+      <div>Select a module to view details</div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── EXECUTION EDGES TAB ───────────────────────────────────────────────────── -->
+<div class="controls" id="exec-controls" style="display:none;">
+  <div class="controls-group">
+    <label>Edge family:</label>
+    <select id="filter-exec-family">
+      <option value="">All families</option>
+      <option>causal</option>
+      <option>execution</option>
+    </select>
+  </div>
+  <div class="controls-group">
+    <label>Type:</label>
+    <select id="filter-exec-type">
+      <option value="">All types</option>
+      <option>bioactivates</option>
+      <option>detoxifies</option>
+      <option>competes_at</option>
+      <option>feeds_input</option>
+      <option>consumes_parameter</option>
+      <option>emits_output</option>
+      <option>writes_observation</option>
+      <option>maps_to_twin_state</option>
+    </select>
+  </div>
+  <div class="controls-group">
+    <input type="text" id="search-exec" placeholder="Search source / target / ID…" style="width:220px;" />
+  </div>
+</div>
+
+<div class="tab-panel" id="exec-panel">
+  <div id="exec-sidebar">
+    <h2 id="exec-sidebar-count">Execution Edges</h2>
+    <div id="exec-list"></div>
+  </div>
+  <div id="exec-detail">
+    <div class="placeholder">
+      <div class="big">→</div>
+      <div>Select an execution edge to view details</div>
+    </div>
+  </div>
+</div>
+
 <script>
-const DATA_BASE = "./data/registry/";
+const DATA_BASE      = "./data/registry/";
+const MODULES_BASE   = "./data/modules/";
 const PAGE_SIZE = 50;
 
-let allNodes = [], allEdges = [], allModules = [];
+let allNodes = [], allEdges = [], allModules = [], allExecEdges = [];
 let filteredNodes = [];
 let currentPage = 0;
 let selectedNodeId = null;
+let selectedModId = null;
+let selectedExecId = null;
+let showExecEdges = false;
 
 // Edge lookup maps
 let nodeEdgesOut = {}, nodeEdgesIn = {};
+let nodeExecOut  = {}, nodeExecIn  = {};
 
+// ─── Load all data ─────────────────────────────────────────────────────────
 async function loadData() {
-  document.getElementById("loading") && (document.getElementById("loading").textContent = "Loading…");
   try {
-    const [regResp, nodesResp, edgesResp] = await Promise.all([
-      fetch(DATA_BASE + "registry_summary.json"),
+    const [regResp, nodesResp, edgesResp, execResp, summaryResp] = await Promise.all([
+      fetch(DATA_BASE + "registry_graph.json"),
       fetch(DATA_BASE + "nodes.json"),
       fetch(DATA_BASE + "edges.json"),
+      fetch(DATA_BASE + "execution_edges.json").catch(() => null),
+      fetch(DATA_BASE + "registry_summary.json").catch(() => null),
     ]);
 
-    const summary = await regResp.json();
+    const regData   = await regResp.json();
     const nodesData = await nodesResp.json();
     const edgesData = await edgesResp.json();
 
     allNodes = nodesData.nodes || [];
     allEdges = edgesData.edges || [];
 
-    // Update header stats
-    document.getElementById("stat-nodes").innerHTML = `Nodes: <b>${allNodes.length}</b>`;
-    document.getElementById("stat-edges").innerHTML = `Edges: <b>${allEdges.length}</b>`;
-    document.getElementById("stat-modules").innerHTML = `Modules: <b>${summary.module_count || "—"}</b>`;
-    document.getElementById("stat-bundle").innerHTML = `<b>${summary.bundle || "Registry Graph v2-compat"}</b>`;
+    // Execution edges
+    if (execResp && execResp.ok) {
+      const execData = await execResp.json();
+      allExecEdges = execData.edges || [];
+    }
+
+    // Summary (for module_count)
+    let summary = {};
+    if (summaryResp && summaryResp.ok) {
+      summary = await summaryResp.json();
+    }
+
+    // Load module list from registry_summary or discover
+    const modIds = (summary.modules || []).map(m => m.module_id);
+    const modPromises = modIds.map(mid => {
+      const filename = mid.replace(/\./g, "_").replace(/EG3_MOD_/,'EG3_MOD_') + ".json";
+      // Construct filename: EG3.MOD.BIOTRANS.FLUX.v1 → EG3_MOD_BIOTRANS_FLUX_v1.json
+      const fn = mid.replace(/\./g, "_") + ".json";
+      return fetch(MODULES_BASE + fn)
+        .then(r => r.ok ? r.json() : null)
+        .catch(() => null);
+    });
+    const modResults = await Promise.all(modPromises);
+    allModules = modResults.filter(Boolean);
+
+    // Header stats
+    document.getElementById("stat-nodes").innerHTML   = `Nodes: <b>${allNodes.length}</b>`;
+    document.getElementById("stat-edges").innerHTML   = `Baseline edges: <b>${allEdges.length}</b>`;
+    document.getElementById("stat-exec").innerHTML    = `Execution edges: <b>${allExecEdges.length}</b>`;
+    document.getElementById("stat-modules").innerHTML = `Modules: <b>${allModules.length || summary.module_count || "—"}</b>`;
+    document.getElementById("stat-bundle").innerHTML  = `<b>${regData.bundle || "Registry Graph v2-compat"}</b>`;
 
     // Build edge maps
     allEdges.forEach(e => {
@@ -241,40 +464,89 @@ async function loadData() {
       if (!nodeEdgesIn[e.target]) nodeEdgesIn[e.target] = [];
       nodeEdgesIn[e.target].push(e);
     });
+    allExecEdges.forEach(e => {
+      if (!nodeExecOut[e.source]) nodeExecOut[e.source] = [];
+      nodeExecOut[e.source].push(e);
+      if (!nodeExecIn[e.target]) nodeExecIn[e.target] = [];
+      nodeExecIn[e.target].push(e);
+    });
 
-    // Populate module filter
+    // Populate node module filter
     const modSelect = document.getElementById("filter-module");
     const allMods = new Set();
     allNodes.forEach(n => (n.module_membership || []).forEach(m => allMods.add(m)));
     [...allMods].sort().forEach(m => {
       const opt = document.createElement("option");
-      opt.value = m; opt.textContent = m.replace("EG3.MOD.", "").replace(".v1", "");
+      opt.value = m;
+      opt.textContent = m.replace("EG3.MOD.", "").replace(".v1", "");
       modSelect.appendChild(opt);
     });
 
+    // Populate module class filter
+    const classSelect = document.getElementById("filter-class");
+    const allClasses = new Set(allModules.map(m => m.module_class).filter(Boolean));
+    [...allClasses].sort().forEach(c => {
+      const opt = document.createElement("option");
+      opt.value = c; opt.textContent = c;
+      classSelect.appendChild(opt);
+    });
+
     applyFilters();
+    renderModuleList();
+    renderExecList();
   } catch(e) {
-    document.getElementById("node-list").innerHTML = `<div style="padding:16px; color:#e05c5c;">Error loading data: ${e.message}<br><small>Make sure data/registry/ files are accessible.</small></div>`;
+    document.getElementById("node-list").innerHTML =
+      `<div style="padding:16px;color:#e05c5c;">Error loading data: ${e.message}<br>
+       <small>Serve this file from a local HTTP server (e.g. python3 -m http.server) so fetch() works.</small></div>`;
   }
 }
 
+// ─── TAB SWITCHING ──────────────────────────────────────────────────────────
+const tabPanels = {
+  nodes:   { panel: "nodes-panel",   controls: "nodes-controls" },
+  modules: { panel: "modules-panel", controls: "modules-controls" },
+  exec:    { panel: "exec-panel",    controls: "exec-controls" },
+};
+
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", () => {
+    const tab = btn.dataset.tab;
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    btn.classList.add("active");
+    Object.entries(tabPanels).forEach(([key, {panel, controls}]) => {
+      const isActive = key === tab;
+      document.getElementById(panel).style.display = isActive ? "flex" : "none";
+      document.getElementById(panel).classList.toggle("active", isActive);
+      document.getElementById(controls).style.display = isActive ? "flex" : "none";
+    });
+  });
+});
+// Init: hide non-active controls
+document.getElementById("modules-controls").style.display = "none";
+document.getElementById("exec-controls").style.display = "none";
+
+// ─── NODES TAB ──────────────────────────────────────────────────────────────
 function applyFilters() {
-  const typeFilter = document.getElementById("filter-type").value;
+  const typeFilter   = document.getElementById("filter-type").value;
   const familyFilter = document.getElementById("filter-family").value;
-  const modFilter = document.getElementById("filter-module").value;
-  const searchVal = document.getElementById("search").value.toLowerCase().trim();
+  const modFilter    = document.getElementById("filter-module").value;
+  const searchVal    = document.getElementById("search").value.toLowerCase().trim();
 
   filteredNodes = allNodes.filter(n => {
     if (typeFilter && n.entity_type !== typeFilter) return false;
     if (modFilter && !(n.module_membership || []).includes(modFilter)) return false;
-    if (searchVal && !((n.label||"").toLowerCase().includes(searchVal) || (n.id||"").toLowerCase().includes(searchVal))) return false;
+    if (searchVal && !((n.label||"").toLowerCase().includes(searchVal) ||
+        (n.id||"").toLowerCase().includes(searchVal))) return false;
     return true;
   });
 
-  // Edge family filter: show nodes that have at least one matching edge
   if (familyFilter) {
     const nodesWithFam = new Set();
-    allEdges.forEach(e => { if (e.edge_family === familyFilter) { nodesWithFam.add(e.source); nodesWithFam.add(e.target); } });
+    allEdges.forEach(e => {
+      if (e.edge_family === familyFilter) {
+        nodesWithFam.add(e.source); nodesWithFam.add(e.target);
+      }
+    });
     filteredNodes = filteredNodes.filter(n => nodesWithFam.has(n.id));
   }
 
@@ -283,7 +555,7 @@ function applyFilters() {
 }
 
 function renderList() {
-  const list = document.getElementById("node-list");
+  const list  = document.getElementById("node-list");
   const total = filteredNodes.length;
   const start = currentPage * PAGE_SIZE;
   const slice = filteredNodes.slice(start, start + PAGE_SIZE);
@@ -296,7 +568,10 @@ function renderList() {
       <div class="node-meta">
         <span class="type-badge type-${n.entity_type}">${n.entity_type || "?"}</span>
         <span style="margin-left:6px;">${escHtml(n.id)}</span>
-        ${n.module_membership && n.module_membership.length ? `<span style="margin-left:6px; color:#5b8dee; font-size:10px;">•${n.module_membership.length} mod</span>` : ""}
+        ${n.module_membership && n.module_membership.length
+          ? `<span style="margin-left:6px; color:#5b8dee; font-size:10px;">•${n.module_membership.length} mod</span>` : ""}
+        ${(nodeExecOut[n.id]||[]).length + (nodeExecIn[n.id]||[]).length > 0
+          ? `<span style="margin-left:6px; color:var(--exec-edge); font-size:10px;">⚡exec</span>` : ""}
       </div>
     </div>
   `).join("");
@@ -320,18 +595,21 @@ function renderList() {
 
 function selectNode(id) {
   selectedNodeId = id;
-  renderList(); // re-render to show selection
+  renderList();
 
   const node = allNodes.find(n => n.id === id);
   if (!node) return;
 
-  const outEdges = nodeEdgesOut[id] || [];
-  const inEdges  = nodeEdgesIn[id] || [];
+  const outEdges  = nodeEdgesOut[id] || [];
+  const inEdges   = nodeEdgesIn[id]  || [];
+  const execOut   = nodeExecOut[id]  || [];
+  const execIn    = nodeExecIn[id]   || [];
 
   const detail = document.getElementById("detail");
   detail.innerHTML = `
     <h2>${escHtml(node.label || node.id)}</h2>
-    <div class="detail-type"><span class="type-badge type-${node.entity_type}">${node.entity_type}</span>
+    <div class="detail-type">
+      <span class="type-badge type-${node.entity_type}">${node.entity_type}</span>
       ${node.iarc ? `<span style="margin-left:8px; font-size:12px; color:#f5a623;">${escHtml(node.iarc)}</span>` : ""}
     </div>
 
@@ -351,7 +629,9 @@ function selectNode(id) {
       <div class="field-key">entity_type</div><div class="field-val">${escHtml(node.entity_type || "")}</div>
       <div class="field-key">promotion_status</div><div class="field-val">${escHtml(node.promotion_status || "")}</div>
       <div class="field-key">version_origin</div><div class="field-val" style="font-size:11px;">${escHtml(node.version_origin || "")}</div>
-      <div class="field-key">evidence_id</div><div class="field-val">${node.evidence_id ? escHtml(node.evidence_id) : '<span style="color:var(--text-dim)">null</span>'}</div>
+      <div class="field-key">evidence_id</div><div class="field-val">${node.evidence_id
+        ? escHtml(node.evidence_id)
+        : '<span style="color:var(--text-dim)">null</span>'}</div>
     </div>
 
     ${node.module_membership && node.module_membership.length ? `
@@ -363,12 +643,12 @@ function selectNode(id) {
     <div class="section-title">Outgoing Edges (${outEdges.length})</div>
     ${outEdges.slice(0, 20).map(e => `
       <div class="edge-row">
-        <span class="edge-type">${escHtml(e.type || "?")}</span>
+        <span class="edge-type">${escHtml(e.type||"?")}</span>
         → <b>${escHtml(e.target)}</b>
-        <span class="edge-fam-${e.edge_family}" style="margin-left:8px; font-size:11px;">[${e.edge_family}]</span>
-        ${e.label && e.label !== e.type ? `<span style="color:var(--text-dim); margin-left:6px; font-size:11px;">${escHtml(e.label)}</span>` : ""}
+        <span class="edge-fam-${e.edge_family}" style="margin-left:8px;font-size:11px;">[${e.edge_family}]</span>
+        ${e.label && e.label !== e.type ? `<span style="color:var(--text-dim);margin-left:6px;font-size:11px;">${escHtml(e.label)}</span>` : ""}
       </div>`).join("")}
-    ${outEdges.length > 20 ? `<div style="color:var(--text-dim); font-size:11px; padding:4px 0;">+ ${outEdges.length-20} more</div>` : ""}
+    ${outEdges.length > 20 ? `<div style="color:var(--text-dim);font-size:11px;padding:4px 0;">+ ${outEdges.length-20} more</div>` : ""}
     ` : ""}
 
     ${inEdges.length ? `
@@ -376,17 +656,44 @@ function selectNode(id) {
     ${inEdges.slice(0, 20).map(e => `
       <div class="edge-row">
         <b>${escHtml(e.source)}</b>
-        → <span class="edge-type">${escHtml(e.type || "?")}</span>
-        <span class="edge-fam-${e.edge_family}" style="margin-left:8px; font-size:11px;">[${e.edge_family}]</span>
-        ${e.label && e.label !== e.type ? `<span style="color:var(--text-dim); margin-left:6px; font-size:11px;">${escHtml(e.label)}</span>` : ""}
+        → <span class="edge-type">${escHtml(e.type||"?")}</span>
+        <span class="edge-fam-${e.edge_family}" style="margin-left:8px;font-size:11px;">[${e.edge_family}]</span>
+        ${e.label && e.label !== e.type ? `<span style="color:var(--text-dim);margin-left:6px;font-size:11px;">${escHtml(e.label)}</span>` : ""}
       </div>`).join("")}
-    ${inEdges.length > 20 ? `<div style="color:var(--text-dim); font-size:11px; padding:4px 0;">+ ${inEdges.length-20} more</div>` : ""}
+    ${inEdges.length > 20 ? `<div style="color:var(--text-dim);font-size:11px;padding:4px 0;">+ ${inEdges.length-20} more</div>` : ""}
+    ` : ""}
+
+    ${showExecEdges && (execOut.length || execIn.length) ? `
+    <div class="section-title" style="color:var(--exec-edge);">⚡ Execution Edges — Outgoing (${execOut.length})</div>
+    ${execOut.map(e => `
+      <div class="edge-row">
+        <span class="edge-type" style="color:var(--exec-edge);">${escHtml(e.type||"?")}</span>
+        → <b>${escHtml(e.target)}</b>
+        <span class="edge-fam-execution" style="margin-left:8px;font-size:11px;">[${e.edge_family}]</span>
+        ${e.Km_uM != null ? `<span style="color:var(--text-dim);margin-left:8px;font-size:11px;">Km=${e.Km_uM}µM</span>` : ""}
+        ${e.Vmax  != null ? `<span style="color:var(--text-dim);margin-left:6px;font-size:11px;">Vmax=${e.Vmax}</span>` : ""}
+        ${e.Ki_uM != null ? `<span style="color:var(--text-dim);margin-left:8px;font-size:11px;">Ki=${e.Ki_uM}µM</span>` : ""}
+      </div>`).join("")}
+    ${execIn.length ? `
+    <div class="section-title" style="color:var(--exec-edge);">⚡ Execution Edges — Incoming (${execIn.length})</div>
+    ${execIn.map(e => `
+      <div class="edge-row">
+        <b>${escHtml(e.source)}</b>
+        → <span class="edge-type" style="color:var(--exec-edge);">${escHtml(e.type||"?")}</span>
+        <span class="edge-fam-execution" style="margin-left:8px;font-size:11px;">[${e.edge_family}]</span>
+      </div>`).join("")}
+    ` : ""}
+    ` : ""}
+
+    ${showExecEdges && !execOut.length && !execIn.length ? `
+    <div class="section-title" style="color:var(--exec-edge);">⚡ Execution Edges</div>
+    <div style="color:var(--text-dim);font-size:12px;padding:4px 0;">No execution edges for this node</div>
     ` : ""}
 
     ${node.provenance && node.provenance.length ? `
     <div class="section-title">Provenance</div>
     ${node.provenance.slice(0,3).map(p => `
-      <div style="font-size:12px; color:var(--text-dim); padding:4px 0; border-bottom:1px solid #1e2138;">
+      <div style="font-size:12px;color:var(--text-dim);padding:4px 0;border-bottom:1px solid #1e2138;">
         ${p.citation ? escHtml(p.citation) : ""}
         ${p.source_db ? `<span style="margin-left:8px;">[${escHtml(p.source_db)}]</span>` : ""}
       </div>`).join("")}
@@ -394,24 +701,259 @@ function selectNode(id) {
   `;
 }
 
-function escHtml(s) {
-  if (s === null || s === undefined) return "";
-  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+// Toggle execution edges in node detail
+document.getElementById("toggle-exec-edges").addEventListener("click", function() {
+  showExecEdges = !showExecEdges;
+  this.classList.toggle("on", showExecEdges);
+  this.textContent = showExecEdges ? "Hide execution edges" : "Show execution edges";
+  if (selectedNodeId) selectNode(selectedNodeId);
+});
+
+// ─── MODULES TAB ────────────────────────────────────────────────────────────
+function applyModuleFilters() {
+  const matFilter   = document.getElementById("filter-maturity").value;
+  const classFilter = document.getElementById("filter-class").value;
+  const searchVal   = document.getElementById("search-mod").value.toLowerCase().trim();
+
+  const filtered = allModules.filter(m => {
+    if (matFilter   && m.maturity_class   !== matFilter)   return false;
+    if (classFilter && m.module_class     !== classFilter)  return false;
+    if (searchVal && !((m.module_id||"").toLowerCase().includes(searchVal) ||
+        (m.module_name||"").toLowerCase().includes(searchVal))) return false;
+    return true;
+  });
+  renderModuleList(filtered);
 }
 
-// Wire up filters
+function renderModuleList(modules) {
+  const list = modules || allModules;
+  const el   = document.getElementById("mod-list");
+  document.getElementById("mod-sidebar-count").textContent = `Modules (${list.length})`;
+
+  el.innerHTML = list.map(m => `
+    <div class="mod-item${m.module_id === selectedModId ? " selected" : ""}" data-id="${escHtml(m.module_id)}">
+      <div class="mod-item-id">${escHtml(m.module_id)}</div>
+      <div class="mod-item-name">${escHtml(m.module_name || "")}</div>
+      <div class="mod-item-meta">
+        <span class="mat-badge mat-${m.maturity_class}">${m.maturity_class}</span>
+        ${escHtml(m.module_class || "")}
+        · ${(m.parameters||[]).length} params
+        · ${(m.input_ports||[]).length}in/${(m.output_ports||[]).length}out ports
+        · ${escHtml(m.promotion_status || "")}
+      </div>
+    </div>
+  `).join("");
+
+  el.querySelectorAll(".mod-item").forEach(el => {
+    el.addEventListener("click", () => selectModule(el.dataset.id));
+  });
+}
+
+function selectModule(id) {
+  selectedModId = id;
+  renderModuleList();
+
+  const m = allModules.find(x => x.module_id === id);
+  if (!m) return;
+
+  const params   = m.parameters    || [];
+  const inPorts  = m.input_ports   || [];
+  const outPorts = m.output_ports  || [];
+  const causalM  = m.causal_role_map || {};
+  const intState = m.internal_state || {};
+  const cedt     = m.cedt_mapping  || {};
+
+  const detail = document.getElementById("mod-detail");
+  detail.innerHTML = `
+    <h2>${escHtml(m.module_name || m.module_id)}</h2>
+    <div class="detail-type">
+      <span class="mat-badge mat-${m.maturity_class}">${m.maturity_class}</span>
+      <span style="margin-left:8px; font-size:12px; color:var(--text-dim);">${escHtml(m.module_class||"")}</span>
+      <span style="margin-left:12px; font-size:12px; color:var(--text-dim);">${escHtml(m.equation_type||"")}</span>
+    </div>
+
+    <div class="section-title">Identity</div>
+    <div class="field-grid">
+      <div class="field-key">module_id</div><div class="field-val"><code>${escHtml(m.module_id)}</code></div>
+      <div class="field-key">version</div><div class="field-val">${escHtml(m.version||"")}</div>
+      <div class="field-key">maturity_class</div><div class="field-val">${escHtml(m.maturity_class||"")}</div>
+      <div class="field-key">promotion_status</div><div class="field-val">${escHtml(m.promotion_status||"")}</div>
+      <div class="field-key">extends</div><div class="field-val">${escHtml(m.extends||"")}</div>
+      <div class="field-key">scope</div><div class="field-val">${escHtml(m.scope||"")}</div>
+      <div class="field-key">equation_type</div><div class="field-val">${escHtml(m.equation_type||"")}</div>
+    </div>
+
+    <div class="section-title">Ports</div>
+    <div class="field-grid">
+      <div class="field-key">Input ports (${inPorts.length})</div>
+      <div class="field-val">${inPorts.map(p => `<span class="mod-tag">${escHtml(p.id||p)}</span>`).join("")}</div>
+      <div class="field-key">Output ports (${outPorts.length})</div>
+      <div class="field-val">${outPorts.map(p => `<span class="mod-tag" style="background:#1a2a1e;border-color:#2d5040;color:var(--mat-e);">${escHtml(p.id||p)}</span>`).join("")}</div>
+    </div>
+
+    ${Object.keys(intState).length ? `
+    <div class="section-title">Internal State</div>
+    <div class="field-grid">
+      ${Object.entries(intState).map(([k,v]) =>
+        `<div class="field-key">${escHtml(k)}</div><div class="field-val">${escHtml(typeof v === 'object' ? JSON.stringify(v) : String(v))}</div>`
+      ).join("")}
+    </div>
+    ` : ""}
+
+    ${Object.keys(cedt).length ? `
+    <div class="section-title">CEDT Mapping</div>
+    <div class="field-grid">
+      ${Object.entries(cedt).map(([k,v]) =>
+        `<div class="field-key">${escHtml(k)}</div><div class="field-val">${escHtml(typeof v === 'object' ? JSON.stringify(v) : String(v))}</div>`
+      ).join("")}
+    </div>
+    ` : ""}
+
+    <div class="section-title">Parameters (${params.length})</div>
+    ${params.length ? `
+    <table class="param-table">
+      <thead><tr>
+        <th>ID / Name</th>
+        <th>Value</th>
+        <th>Unit</th>
+        <th>Source</th>
+      </tr></thead>
+      <tbody>
+        ${params.slice(0, 60).map(p => `<tr>
+          <td><code>${escHtml(p.param_id || p.id || p.name || "?")}</code>${p.name && p.name !== p.param_id ? `<br><span style="color:var(--text-dim);font-size:10px;">${escHtml(p.name)}</span>` : ""}</td>
+          <td>${p.value !== undefined && p.value !== null ? escHtml(String(p.value)) : p.weight !== undefined ? escHtml(String(p.weight)) : '<span style="color:var(--text-dim)">—</span>'}</td>
+          <td style="color:var(--text-dim);">${escHtml(p.unit||p.units||"")}</td>
+          <td style="color:var(--text-dim); font-size:11px;">${escHtml(p.source||p.sources||p.pmid||"")}</td>
+        </tr>`).join("")}
+        ${params.length > 60 ? `<tr><td colspan="4" style="color:var(--text-dim);">… and ${params.length-60} more parameters</td></tr>` : ""}
+      </tbody>
+    </table>` : '<div style="color:var(--text-dim);font-size:12px;">No parameters</div>'}
+
+    <div class="section-title">Graph Nodes / Edges</div>
+    <div class="field-grid">
+      <div class="field-key">graph_nodes</div><div class="field-val">${(m.graph_nodes||[]).length}</div>
+      <div class="field-key">graph_edges</div><div class="field-val">${(m.graph_edges||[]).length}</div>
+      <div class="field-key">causal_edges</div><div class="field-val">${(m.causal_edges||[]).length}</div>
+    </div>
+
+    <div class="section-title">Evidence Bundle</div>
+    <div style="font-size:12px; color:var(--text-dim); word-break:break-word;">${escHtml(JSON.stringify(m.evidence_bundle||{}, null, 2))}</div>
+  `;
+}
+
+// ─── EXECUTION EDGES TAB ────────────────────────────────────────────────────
+let filteredExecEdges = [];
+
+function applyExecFilters() {
+  const famFilter    = document.getElementById("filter-exec-family").value;
+  const typeFilter   = document.getElementById("filter-exec-type").value;
+  const searchVal    = document.getElementById("search-exec").value.toLowerCase().trim();
+
+  filteredExecEdges = allExecEdges.filter(e => {
+    if (famFilter  && e.edge_family !== famFilter) return false;
+    if (typeFilter && e.type        !== typeFilter) return false;
+    if (searchVal && !(
+      (e.source||"").toLowerCase().includes(searchVal) ||
+      (e.target||"").toLowerCase().includes(searchVal) ||
+      (e.edge_id||"").toLowerCase().includes(searchVal)
+    )) return false;
+    return true;
+  });
+  renderExecList();
+}
+
+function renderExecList(edges) {
+  const list = edges || filteredExecEdges || allExecEdges;
+  const el   = document.getElementById("exec-list");
+  document.getElementById("exec-sidebar-count").textContent = `Execution Edges (${list.length})`;
+
+  el.innerHTML = list.map(e => `
+    <div class="exec-item${e.edge_id === selectedExecId ? " selected" : ""}" data-id="${escHtml(e.edge_id)}">
+      <div class="exec-item-id">${escHtml(e.edge_id)}</div>
+      <div class="exec-item-rel">
+        ${escHtml(e.source)} <span style="color:var(--exec-edge);">→[${escHtml(e.type||"?")}]→</span> ${escHtml(e.target)}
+      </div>
+      <div class="exec-item-meta">
+        <span style="color:${e.edge_family==='causal'?'var(--causal)':'var(--exec-edge)'}">${e.edge_family}</span>
+        ${e.Km_uM  != null ? ` · Km=${e.Km_uM}µM` : ""}
+        ${e.Vmax   != null ? ` · Vmax=${e.Vmax}` : ""}
+        ${e.Ki_uM  != null ? ` · Ki=${e.Ki_uM}µM` : ""}
+        ${e.fold_induction != null ? ` · fold=${e.fold_induction}` : ""}
+      </div>
+    </div>
+  `).join("");
+
+  el.querySelectorAll(".exec-item").forEach(el2 => {
+    el2.addEventListener("click", () => selectExecEdge(el2.dataset.id));
+  });
+}
+
+function selectExecEdge(id) {
+  selectedExecId = id;
+  renderExecList();
+
+  const e = allExecEdges.find(x => x.edge_id === id);
+  if (!e) return;
+
+  const detail = document.getElementById("exec-detail");
+  const attrs = Object.entries(e).filter(([k]) =>
+    !["edge_id","source","target","type","edge_family","promotion_status","version_origin"].includes(k)
+  );
+
+  detail.innerHTML = `
+    <h2 style="color:var(--exec-edge);">${escHtml(e.source)} → ${escHtml(e.target)}</h2>
+    <div class="detail-type">
+      <span style="color:var(--exec-edge); font-weight:600;">${escHtml(e.type||"?")}</span>
+      <span class="edge-fam-${e.edge_family}" style="margin-left:12px;">[${e.edge_family}]</span>
+    </div>
+
+    <div class="section-title">Core Fields</div>
+    <div class="field-grid">
+      <div class="field-key">edge_id</div><div class="field-val"><code>${escHtml(e.edge_id)}</code></div>
+      <div class="field-key">source</div><div class="field-val"><b>${escHtml(e.source)}</b></div>
+      <div class="field-key">target</div><div class="field-val"><b>${escHtml(e.target)}</b></div>
+      <div class="field-key">type</div><div class="field-val">${escHtml(e.type||"")}</div>
+      <div class="field-key">edge_family</div><div class="field-val">${escHtml(e.edge_family||"")}</div>
+      <div class="field-key">promotion_status</div><div class="field-val">${escHtml(e.promotion_status||"")}</div>
+      <div class="field-key">version_origin</div><div class="field-val" style="font-size:11px;">${escHtml(e.version_origin||"")}</div>
+    </div>
+
+    ${attrs.length ? `
+    <div class="section-title">Kinetic / Annotation Attributes</div>
+    <div class="field-grid">
+      ${attrs.map(([k,v]) =>
+        `<div class="field-key">${escHtml(k)}</div>
+         <div class="field-val">${escHtml(Array.isArray(v) ? v.join(", ") : String(v))}</div>`
+      ).join("")}
+    </div>
+    ` : ""}
+  `;
+}
+
+// ─── Wire up controls ────────────────────────────────────────────────────────
 ["filter-type","filter-family","filter-module"].forEach(id => {
   document.getElementById(id).addEventListener("change", applyFilters);
 });
 document.getElementById("search").addEventListener("input", applyFilters);
-document.getElementById("prev-btn") && document.getElementById("prev-btn").addEventListener("click", () => {
+document.getElementById("prev-btn").addEventListener("click", () => {
   if (currentPage > 0) { currentPage--; renderList(); }
 });
-document.getElementById("next-btn") && document.getElementById("next-btn").addEventListener("click", () => {
+document.getElementById("next-btn").addEventListener("click", () => {
   const totalPages = Math.ceil(filteredNodes.length / PAGE_SIZE);
   if (currentPage < totalPages - 1) { currentPage++; renderList(); }
 });
 
+["filter-maturity","filter-class"].forEach(id => {
+  document.getElementById(id).addEventListener("change", applyModuleFilters);
+});
+document.getElementById("search-mod").addEventListener("input", applyModuleFilters);
+
+["filter-exec-family","filter-exec-type"].forEach(id => {
+  document.getElementById(id).addEventListener("change", applyExecFilters);
+});
+document.getElementById("search-exec").addEventListener("input", applyExecFilters);
+
+// ─── Init ────────────────────────────────────────────────────────────────────
 loadData();
 </script>
 </body>
