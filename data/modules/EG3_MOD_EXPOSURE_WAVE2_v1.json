@@ -33,34 +33,43 @@
     {
       "name": "carcinogen_class",
       "type": "string",
-      "description": "One of the 14 IARC carcinogen class keys"
+      "description": "One of the 14 IARC carcinogen class keys",
+      "dtype": "category:carcinogen_class"
     },
     {
       "name": "exposure_scenario",
       "type": "string",
-      "description": "unexposed | general_population | smoker | occupational_high | endemic"
+      "description": "unexposed | general_population | smoker | occupational_high | endemic",
+      "dtype": "category:exposure_scenario"
     },
     {
       "name": "genotype_context",
       "type": "object",
-      "description": "Optional genotype modifier map for class-specific enzymes"
+      "description": "Optional genotype modifier map for class-specific enzymes",
+      "dtype": "map:genotype_context"
     }
   ],
   "output_ports": [
     {
       "name": "exposure_multiplier",
       "type": "float",
-      "description": "multiplier_vs_baseline (from exposure_scenarios)"
+      "description": "multiplier_vs_baseline (from exposure_scenarios)",
+      "dtype": "multiplier:exposure",
+      "unit": "dimensionless"
     },
     {
       "name": "tissue_conc_uM",
       "type": "float",
-      "description": "Estimated target tissue concentration in micromolar"
+      "description": "Estimated target tissue concentration in micromolar",
+      "dtype": "concentration:uM",
+      "unit": "uM"
     },
     {
       "name": "daily_intake_ug_kg",
       "type": "float",
-      "description": "Daily intake in micrograms per kilogram body weight"
+      "description": "Daily intake in micrograms per kilogram body weight",
+      "dtype": "concentration:daily_intake",
+      "unit": "ug/kg/day"
     }
   ],
   "internal_state": [],
@@ -1201,5 +1210,13 @@
   },
   "promotion_status": "causal",
   "version": "1.0.0",
-  "_notes": "maturity upgraded D→C in Phase 3; 14 carcinogen classes with real exposure scenarios and biomarker data copied from exposure_database.json"
+  "_notes": "maturity upgraded D→C in Phase 3; 14 carcinogen classes with real exposure scenarios and biomarker data copied from exposure_database.json",
+  "_conformance_notes": {
+    "phase": "Phase 2",
+    "conformant": true,
+    "notes": [
+      "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
+    ],
+    "gaps": []
+  }
 }

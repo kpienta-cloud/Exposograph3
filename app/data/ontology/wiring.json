@@ -1,0 +1,39 @@
+{
+  "schema_version": "3.0.0",
+  "description": "ExposoGraph 3.0 type-checked producer→consumer wiring map (Layer 0 Phase 2). Lists all cross-module port connections where the output and input dtypes match.",
+  "connection_count": 4,
+  "connections": [
+    {
+      "from_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+      "from_port": "flux_ratio",
+      "to_module": "EG3.MOD.OUTCOME.MUTSIG.v1",
+      "to_port": "flux_ratio",
+      "dtype": "score:flux_ratio",
+      "compatible": true
+    },
+    {
+      "from_module": "EG3.MOD.EXPOSURE.WAVE2.v1",
+      "from_port": "tissue_conc_uM",
+      "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+      "to_port": "substrate_conc_uM",
+      "dtype": "concentration:uM",
+      "compatible": true
+    },
+    {
+      "from_module": "EG3.MOD.MECHANISM.INTERACTION.v1",
+      "from_port": "GSH_pool_fraction",
+      "to_module": "EG3.MOD.MECHANISM.OXSTRESS.v1",
+      "to_port": "GSH_pool_fraction",
+      "dtype": "fraction:GSH_pool",
+      "compatible": true
+    },
+    {
+      "from_module": "EG3.MOD.MODIFIER.POPGEN.v1",
+      "from_port": "activity_multiplier",
+      "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+      "to_port": "enzyme_genotype",
+      "dtype": "multiplier:genotype_activity",
+      "compatible": true
+    }
+  ]
+}

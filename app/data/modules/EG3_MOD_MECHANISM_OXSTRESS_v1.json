@@ -29,34 +29,46 @@
     {
       "name": "ROS_burden_score",
       "type": "float",
-      "description": "Upstream ROS burden from biotransformation module"
+      "description": "Upstream ROS burden from biotransformation module",
+      "dtype": "score:ROS_burden",
+      "unit": "dimensionless"
     },
     {
       "name": "metal_exposure",
       "type": "dict",
-      "description": "Metal class concentration inputs"
+      "description": "Metal class concentration inputs",
+      "dtype": "map:metal_exposure",
+      "unit": "uM"
     },
     {
       "name": "GSH_pool_fraction",
       "type": "float",
-      "description": "Current GSH pool fraction from interaction module"
+      "description": "Current GSH pool fraction from interaction module",
+      "dtype": "fraction:GSH_pool",
+      "unit": "dimensionless"
     }
   ],
   "output_ports": [
     {
       "name": "ROS_burden",
       "type": "float",
-      "description": "Aggregate ROS score from all pathway-activating agents"
+      "description": "Aggregate ROS score from all pathway-activating agents",
+      "dtype": "score:ROS_burden",
+      "unit": "dimensionless"
     },
     {
       "name": "oxidative_adduct_score",
       "type": "float",
-      "description": "Score for 8-OHdG, Oxo_dG-type adducts predicted from ROS level"
+      "description": "Score for 8-OHdG, Oxo_dG-type adducts predicted from ROS level",
+      "dtype": "score:oxidative_adduct",
+      "unit": "dimensionless"
     },
     {
       "name": "repair_capacity_index",
       "type": "float",
-      "description": "0-1 index representing DNA repair enzyme availability"
+      "description": "0-1 index representing DNA repair enzyme availability",
+      "dtype": "score:repair_capacity",
+      "unit": "dimensionless"
     }
   ],
   "internal_state": [],
@@ -107,7 +119,22 @@
     "MGMT->O6_methyl_dG:REPAIRS",
     "XRCC1->PhIP_dG:REPAIRS"
   ],
-  "causal_edges": [],
+  "causal_edges": [
+    "EG3.CAUSAL.EDGE.0059",
+    "EG3.CAUSAL.EDGE.0060",
+    "EG3.CAUSAL.EDGE.0061",
+    "EG3.CAUSAL.EDGE.0062",
+    "EG3.CAUSAL.EDGE.0063",
+    "EG3.CAUSAL.EDGE.0064",
+    "EG3.CAUSAL.EDGE.0065",
+    "EG3.CAUSAL.EDGE.0066",
+    "EG3.CAUSAL.EDGE.0067",
+    "EG3.CAUSAL.EDGE.0068",
+    "EG3.CAUSAL.EDGE.0069",
+    "EG3.CAUSAL.EDGE.0070",
+    "EG3.CAUSAL.EDGE.0087",
+    "EG3.CAUSAL.EDGE.0111"
+  ],
   "mechanism_type": "oxidative_stress",
   "equation_type": "rule-based",
   "update_rule": "ROS_burden = Σ(metal_exposure[m] × indirect_genotoxicity_score[m]) + GSH_depleted_fraction × ROS_amplification_factor;  oxidative_adduct_score = ROS_burden × repair_susceptibility;  repair_capacity_index = min(1.0, OGG1_activity + XRCC1_activity + ERCC2_activity) — reduced by GSH depletion and metal inhibition;  PARP1 activated when SSB_rate > threshold",
@@ -199,12 +226,20 @@
     "notes": "Quantitative ROS burden parameters absent from JSON sources; qualitative basis used. equation_type=rule-based appropriate. Metal indirect genotoxicity is modeled as score-based approximation.",
     "context_sensitivity": "ROS burden is strongly tissue and dose dependent; non-linear GSH depletion dynamics"
   },
-  "validation_status": "literature-only",
+  "validation_status": "curated-causal",
   "cedt_mapping": {
     "ROS_burden": "state_quality → oxidative_stress_level",
     "oxidative_adduct_score": "outcome → adduct_burden",
     "twin_layer": "state_quality"
   },
   "promotion_status": "causal",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "_conformance_notes": {
+    "phase": "Phase 2",
+    "conformant": true,
+    "notes": [
+      "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
+    ],
+    "gaps": []
+  }
 }

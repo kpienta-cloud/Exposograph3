@@ -1,0 +1,104 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "interface.schema.json",
+  "title": "ExposoGraph 3.0 Interface Contract (Phase 2)",
+  "description": "Schema for a single interface record within data/ontology/interfaces.json interfaces array.",
+  "type": "object",
+  "required": [
+    "interface_id",
+    "label",
+    "description",
+    "required_fields"
+  ],
+  "properties": {
+    "interface_id": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique interface identifier."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable interface label."
+    },
+    "description": {
+      "type": "string",
+      "minLength": 1,
+      "description": "What this interface represents and what conforming modules must do."
+    },
+    "extends": {
+      "type": ["string", "null"],
+      "description": "Parent interface_id. Null for the root Module interface."
+    },
+    "required_fields": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Core-schema field names that any conforming module MUST populate."
+    },
+    "required_input_port_types": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/port_contract"
+      },
+      "description": "Typed input port contracts that conforming modules must satisfy."
+    },
+    "required_output_port_types": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/port_contract"
+      },
+      "description": "Typed output port contracts that conforming modules must satisfy."
+    },
+    "allowed_mechanism_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "If present, limits mechanism_type to this list."
+    },
+    "allowed_equation_types": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "If present, limits equation_type to this list."
+    },
+    "maturity_floor": {
+      "type": "string",
+      "enum": ["D", "C", "E", "T"],
+      "description": "Minimum maturity_class required for a conforming module."
+    }
+  },
+  "definitions": {
+    "port_contract": {
+      "type": "object",
+      "required": ["port_role", "required"],
+      "properties": {
+        "port_role": {
+          "type": "string",
+          "description": "Semantic role of this port contract."
+        },
+        "dtype": {
+          "type": ["string", "null"],
+          "description": "Required port datatype (type_id from port_types.json), or null for generic typed-port check."
+        },
+        "unit": {
+          "type": "string",
+          "description": "Expected unit string."
+        },
+        "required": {
+          "type": "boolean",
+          "description": "Whether a port with this dtype is required."
+        },
+        "note": {
+          "type": "string",
+          "description": "Optional clarifying note."
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

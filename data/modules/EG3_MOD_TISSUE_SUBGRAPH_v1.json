@@ -27,19 +27,23 @@
     {
       "name": "gene",
       "type": "string",
-      "description": "Enzyme gene symbol from tissue_expression_data.json"
+      "description": "Enzyme gene symbol from tissue_expression_data.json",
+      "dtype": "category:gene_symbol"
     },
     {
       "name": "tissue",
       "type": "string",
-      "description": "Target tissue — one of ['Liver', 'Lung', 'Prostate', 'Bladder', 'Colon', 'Breast', 'Kidney', 'Esophagus']"
+      "description": "Target tissue — one of ['Liver', 'Lung', 'Prostate', 'Bladder', 'Colon', 'Breast', 'Kidney', 'Esophagus']",
+      "dtype": "category:tissue_name"
     }
   ],
   "output_ports": [
     {
       "name": "tissue_expression_weight",
       "type": "float",
-      "description": "Normalized expression weight (0-1); weight = nTPM[gene][tissue] / max_tissue_nTPM[gene]"
+      "description": "Normalized expression weight (0-1); weight = nTPM[gene][tissue] / max_tissue_nTPM[gene]",
+      "dtype": "weight:tissue_expression",
+      "unit": "dimensionless"
     }
   ],
   "internal_state": [],
@@ -1436,5 +1440,13 @@
     "twin_layer": "tissue"
   },
   "promotion_status": "causal",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "_conformance_notes": {
+    "phase": "Phase 2",
+    "conformant": true,
+    "notes": [
+      "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
+    ],
+    "gaps": []
+  }
 }

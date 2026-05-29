@@ -19,19 +19,22 @@
     {
       "name": "enzyme",
       "type": "string",
-      "description": "Enzyme gene symbol"
+      "description": "Enzyme gene symbol",
+      "dtype": "category:gene_symbol"
     },
     {
       "name": "substrate",
       "type": "string",
-      "description": "Substrate identifier from registry"
+      "description": "Substrate identifier from registry",
+      "dtype": "category:substrate_id"
     }
   ],
   "output_ports": [
     {
       "name": "provenance_record",
       "type": "object",
-      "description": "km_source, km_confidence, ki_status, ki_value_uM, ki_reference"
+      "description": "km_source, km_confidence, ki_status, ki_value_uM, ki_reference",
+      "dtype": "record:provenance"
     }
   ],
   "internal_state": [],
@@ -1644,5 +1647,13 @@
   },
   "promotion_status": "registry",
   "version": "1.0.0",
-  "_notes": "mechanism_type is null — this is an evidence infrastructure module, not a biological mechanism module"
+  "_notes": "mechanism_type is null — this is an evidence infrastructure module, not a biological mechanism module",
+  "_conformance_notes": {
+    "phase": "Phase 2",
+    "conformant": true,
+    "notes": [
+      "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
+    ],
+    "gaps": []
+  }
 }

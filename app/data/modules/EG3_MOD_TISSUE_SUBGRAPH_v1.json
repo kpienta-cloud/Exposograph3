@@ -27,19 +27,23 @@
     {
       "name": "gene",
       "type": "string",
-      "description": "Enzyme gene symbol from tissue_expression_data.json"
+      "description": "Enzyme gene symbol from tissue_expression_data.json",
+      "dtype": "category:gene_symbol"
     },
     {
       "name": "tissue",
       "type": "string",
-      "description": "Target tissue — one of ['Liver', 'Lung', 'Prostate', 'Bladder', 'Colon', 'Breast', 'Kidney', 'Esophagus']"
+      "description": "Target tissue — one of ['Liver', 'Lung', 'Prostate', 'Bladder', 'Colon', 'Breast', 'Kidney', 'Esophagus']",
+      "dtype": "category:tissue_name"
     }
   ],
   "output_ports": [
     {
       "name": "tissue_expression_weight",
       "type": "float",
-      "description": "Normalized expression weight (0-1); weight = nTPM[gene][tissue] / max_tissue_nTPM[gene]"
+      "description": "Normalized expression weight (0-1); weight = nTPM[gene][tissue] / max_tissue_nTPM[gene]",
+      "dtype": "weight:tissue_expression",
+      "unit": "dimensionless"
     }
   ],
   "internal_state": [],
@@ -120,7 +124,21 @@
     "E2->hsa05208:PATHWAY",
     "SRD5A2->hsa00140:PATHWAY"
   ],
-  "causal_edges": [],
+  "causal_edges": [
+    "EG3.CAUSAL.EDGE.0157",
+    "EG3.CAUSAL.EDGE.0158",
+    "EG3.CAUSAL.EDGE.0159",
+    "EG3.CAUSAL.EDGE.0160",
+    "EG3.CAUSAL.EDGE.0161",
+    "EG3.CAUSAL.EDGE.0162",
+    "EG3.CAUSAL.EDGE.0163",
+    "EG3.CAUSAL.EDGE.0164",
+    "EG3.CAUSAL.EDGE.0165",
+    "EG3.CAUSAL.EDGE.0166",
+    "EG3.CAUSAL.EDGE.0167",
+    "EG3.CAUSAL.EDGE.0168",
+    "EG3.CAUSAL.EDGE.0169"
+  ],
   "mechanism_type": "tissue_context_expression_weighting",
   "equation_type": "lookup",
   "update_rule": "tissue_weighted_flux = flux × weight[gene][tissue];  weight[gene][tissue] = nTPM[gene][tissue] / max_tissue_nTPM[gene]",
@@ -1416,11 +1434,19 @@
     "notes": "GTEx v8 is current gold standard; weight threshold 0.01 applied (below 1% max = 0.0)",
     "context_sensitivity": "Single cell type not resolved — tissue-bulk averages used"
   },
-  "validation_status": "curated",
+  "validation_status": "curated-causal",
   "cedt_mapping": {
     "tissue_expression_weight": "tissue_variable → TissueExpressionContext",
     "twin_layer": "tissue"
   },
   "promotion_status": "causal",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "_conformance_notes": {
+    "phase": "Phase 2",
+    "conformant": true,
+    "notes": [
+      "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
+    ],
+    "gaps": []
+  }
 }

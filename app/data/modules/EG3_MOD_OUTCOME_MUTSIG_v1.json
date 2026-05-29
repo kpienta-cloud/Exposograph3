@@ -46,34 +46,41 @@
     {
       "name": "carcinogen_class",
       "type": "string",
-      "description": "Key from carcinogen_class_map"
+      "description": "Key from carcinogen_class_map",
+      "dtype": "category:carcinogen_class"
     },
     {
       "name": "flux_ratio",
       "type": "float",
-      "description": "Activation flux ratio from biotransformation module"
+      "description": "Activation flux ratio from biotransformation module",
+      "dtype": "score:flux_ratio",
+      "unit": "dimensionless"
     },
     {
       "name": "adduct_types",
       "type": "list",
-      "description": "Predicted DNA adduct types from graph"
+      "description": "Predicted DNA adduct types from graph",
+      "dtype": "list:adduct_types"
     }
   ],
   "output_ports": [
     {
       "name": "predicted_SBS_signature",
       "type": "string",
-      "description": "Primary COSMIC SBS signature ID"
+      "description": "Primary COSMIC SBS signature ID",
+      "dtype": "signature:SBS"
     },
     {
       "name": "dominant_mutation",
       "type": "string",
-      "description": "Predicted dominant mutation type"
+      "description": "Predicted dominant mutation type",
+      "dtype": "category:dominant_mutation"
     },
     {
       "name": "confidence",
       "type": "string",
-      "description": "high | medium | exploratory"
+      "description": "high | medium | exploratory",
+      "dtype": "category:confidence_level"
     }
   ],
   "internal_state": [],
@@ -452,5 +459,13 @@
     "twin_layer": "state_quality"
   },
   "promotion_status": "causal",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "_conformance_notes": {
+    "phase": "Phase 2",
+    "conformant": true,
+    "notes": [
+      "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
+    ],
+    "gaps": []
+  }
 }

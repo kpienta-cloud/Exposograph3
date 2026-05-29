@@ -316,7 +316,30 @@
     .motif-card-name { font-weight: 600; margin: 3px 0; }
     .motif-card-rel { margin-bottom: 3px; }
     .motif-card-count { font-size: 11px; color: var(--text-dim); }
-  </style>
+  
+    /* ─── Ontology tab ─────────────────────────────────────────────────────── */
+    #ontology-panel { display:none; flex-direction:column; height:100%; overflow-y:auto; padding:24px; gap:32px; }
+    .ont-section { background:var(--panel); border:1px solid var(--border); border-radius:8px; padding:20px; }
+    .ont-section h2 { font-size:13px; color:var(--accent); text-transform:uppercase; letter-spacing:1px; margin:0 0 14px; }
+    .ont-tree { font-size:12px; line-height:1.8; }
+    .ont-tree .root { color:#fff; font-weight:700; }
+    .ont-tree .abstract { color:var(--text-dim); font-style:italic; }
+    .ont-tree .leaf { color:var(--exec-edge); }
+    .ont-card { background:#151829; border:1px solid var(--border); border-radius:6px; padding:14px; margin-bottom:10px; }
+    .ont-card h3 { font-size:12px; color:#c0a0ff; margin:0 0 6px; font-weight:600; }
+    .ont-card .ont-label { font-size:10px; color:var(--text-dim); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; }
+    .ont-card .ont-val { font-size:11px; color:var(--text); margin-bottom:6px; line-height:1.5; }
+    .ont-tag { display:inline-block; background:#1e2350; color:#a0b4ff; border-radius:3px; padding:1px 6px; font-size:10px; margin:2px; }
+    .ont-port-row { display:flex; gap:8px; align-items:baseline; margin:3px 0; font-size:11px; }
+    .ont-port-name { color:var(--exec-edge); min-width:180px; }
+    .ont-port-dtype { color:#f5a623; font-size:10px; }
+    .wiring-row { display:flex; gap:10px; align-items:center; padding:5px 0; border-bottom:1px solid var(--border); font-size:11px; }
+    .wiring-from { color:var(--exec-edge); }
+    .wiring-arrow { color:var(--text-dim); }
+    .wiring-to { color:#c0a0ff; }
+    .wiring-dtype { color:#f5a623; font-size:10px; background:#1e2350; border-radius:3px; padding:1px 5px; }
+
+    </style>
 </head>
 <body>
 <header>
@@ -335,6 +358,7 @@
   <button class="tab-btn" data-tab="modules">Module Records</button>
   <button class="tab-btn" data-tab="exec">Execution Edges</button>
   <button class="tab-btn" data-tab="causal">Causal Layer</button>
+  <button class="tab-btn" data-tab="ontology">Ontology</button>
 </div>
 
 <!-- ─── NODES TAB ───────────────────────────────────────────────────────────── -->
@@ -579,12 +603,99 @@ async function loadData() {
   }
 }
 
+
+// ─── ONTOLOGY TAB ────────────────────────────────────────────────────────────
+async function loadOntology() {
+  const base = "data/ontology/";
+  const [classes, ifaces, ptypes, wiring] = await Promise.all([
+    fetch(base + "classes.json").then(r => r.json()),
+    fetch(base + "interfaces.json").then(r => r.json()),
+    fetch(base + "port_types.json").then(r => r.json()),
+    fetch(base + "wiring.json").then(r => r.json()),
+  ]);
+
+  // ── Entity class tree ───────────────────────────────────────────────────
+  const ecs = classes.entity_classes;
+  // Build adjacency
+  const children = {};
+  ecs.forEach(c => { children[c.class_id] = []; });
+  ecs.forEach(c => { if (c.parent) children[c.parent].push(c.class_id); });
+  const ecMap = {};
+  ecs.forEach(c => ecMap[c.class_id] = c);
+
+  function renderTree(id, depth) {
+    const c = ecMap[id];
+    if (!c) return "";
+    const indent = "&nbsp;".repeat(depth * 4);
+    const cls = c.parent === null ? "root" : c.abstract ? "abstract" : "leaf";
+    const kids = (children[id] || []).map(kid => renderTree(kid, depth + 1)).join("");
+    const ns = (c.identifier_namespaces || []).join(", ");
+    const reg = c.maps_to_registry_type ? ` → registry: <em>${c.maps_to_registry_type}</em>` : "";
+    return `<div class="ont-tree">${indent}<span class="${cls}">${id}</span>${c.abstract ? " <em style='font-size:10px;color:#888'>(abstract)</em>" : ""}${reg}${ns ? ` [${ns}]` : ""}</div>${kids}`;
+  }
+
+  // Find root
+  const root = ecs.find(c => c.parent === null);
+  document.getElementById("ont-tree-content").innerHTML = root ? renderTree(root.class_id, 0) : "No root found";
+
+  // ── Interface cards ──────────────────────────────────────────────────────
+  const ifaceHtml = ifaces.interfaces.filter(i => i.interface_id !== "Module").map(ifc => {
+    const reqFields = (ifc.required_fields || []).map(f => `<span class="ont-tag">${f}</span>`).join(" ");
+    const inPorts = (ifc.required_input_port_types || []).filter(p => p.dtype).map(p =>
+      `<div class="ont-port-row"><span class="ont-port-name">${p.port_role}</span><span class="ont-port-dtype">${p.dtype}</span><span style="color:#888;font-size:10px">${p.required ? "required" : "optional"}</span></div>`).join("");
+    const outPorts = (ifc.required_output_port_types || []).filter(p => p.dtype).map(p =>
+      `<div class="ont-port-row"><span class="ont-port-name">${p.port_role}</span><span class="ont-port-dtype">${p.dtype}</span><span style="color:#888;font-size:10px">${p.required ? "required" : "optional"}</span></div>`).join("");
+    const maturity = ifc.maturity_floor ? `<span class="ont-tag">maturity ≥ ${ifc.maturity_floor}</span>` : "";
+    const ext = ifc.extends ? `extends <strong>${ifc.extends}</strong> ·` : "";
+    return `<div class="ont-card">
+      <h3>${ifc.interface_id}</h3>
+      <div class="ont-label">Description</div><div class="ont-val">${ifc.description}</div>
+      <div class="ont-label">Lineage</div><div class="ont-val">${ext} ${maturity}</div>
+      <div class="ont-label">Required Fields</div><div class="ont-val">${reqFields || "<em>none beyond Module</em>"}</div>
+      ${inPorts ? `<div class="ont-label">Required Input Port Types</div><div>${inPorts}</div>` : ""}
+      ${outPorts ? `<div class="ont-label">Required Output Port Types</div><div>${outPorts}</div>` : ""}
+    </div>`;
+  }).join("");
+  document.getElementById("ont-iface-content").innerHTML = ifaceHtml;
+
+  // ── Port type vocabulary ─────────────────────────────────────────────────
+  const kindColor = {number:"#7cfc88", category:"#f5a623", boolean:"#ff8080", record:"#a0c4ff"};
+  const ptHtml = ptypes.port_types.map(pt => {
+    const col = kindColor[pt.base_kind] || "#aaa";
+    return `<div class="ont-card" style="margin-bottom:6px; padding:10px 14px;">
+      <div style="display:flex;gap:12px;align-items:baseline;">
+        <span style="color:#c0a0ff;font-weight:600;font-size:12px">${pt.type_id}</span>
+        <span style="color:${col};font-size:10px;background:#1e2350;border-radius:3px;padding:1px 6px">${pt.base_kind}</span>
+        ${pt.unit ? `<span style="color:#888;font-size:10px">${pt.unit}</span>` : ""}
+        ${pt.range ? `<span style="color:#888;font-size:10px">${pt.range}</span>` : ""}
+      </div>
+      <div style="font-size:11px;color:var(--text-dim);margin-top:4px">${pt.description}</div>
+    </div>`;
+  }).join("");
+  document.getElementById("ont-pt-content").innerHTML = ptHtml;
+
+  // ── Wiring map ───────────────────────────────────────────────────────────
+  const shorten = id => id.replace("EG3.MOD.", "").replace(".v1", "");
+  const wiringHtml = `<div style="font-size:11px;color:var(--text-dim);margin-bottom:12px">${wiring.connection_count} type-compatible cross-module connections</div>` +
+    wiring.connections.map(c =>
+      `<div class="wiring-row">
+        <span class="wiring-from">${shorten(c.from_module)}<b style="color:#aaa"> ▸ ${c.from_port}</b></span>
+        <span class="wiring-arrow">→</span>
+        <span class="wiring-to">${shorten(c.to_module)}<b style="color:#aaa"> ▸ ${c.to_port}</b></span>
+        <span class="wiring-dtype">${c.dtype}</span>
+      </div>`
+    ).join("");
+  document.getElementById("ont-wiring-content").innerHTML = wiringHtml;
+}
+loadOntology().catch(e => console.error("Ontology load failed:", e));
+
 // ─── TAB SWITCHING ──────────────────────────────────────────────────────────
 const tabPanels = {
   nodes:   { panel: "nodes-panel",   controls: "nodes-controls" },
   modules: { panel: "modules-panel", controls: "modules-controls" },
   exec:    { panel: "exec-panel",    controls: "exec-controls" },
-  causal:  { panel: "causal-panel",  controls: "causal-controls" },
+  causal:   { panel: "causal-panel",   controls: "causal-controls" },
+  ontology: { panel: "ontology-panel", controls: "ontology-controls" },
 };
 
 document.querySelectorAll(".tab-btn").forEach(btn => {
@@ -1244,6 +1355,8 @@ loadData();
 loadCausalData();
 <!-- ─── CAUSAL PANEL ───────────────────────────────────────────────────────── -->
 <div id="motif-panel"></div>
+<div id="ontology-controls" class="controls" style="display:none;"></div>
+
 <div class="tab-panel" id="causal-panel" style="display:none;">
   <div id="causal-sidebar">
     <h2 id="causal-sidebar-count">Causal Edges</h2>
@@ -1255,6 +1368,15 @@ loadCausalData();
       <div>Select a causal edge to view details</div>
     </div>
   </div>
+</div>
+
+
+<!-- ─── ONTOLOGY TAB ─────────────────────────────────────────────────────────── -->
+<div class="tab-panel" id="ontology-panel" style="display:none;">
+  <div id="ont-entity-tree" class="ont-section"><h2>Entity Class Hierarchy</h2><div class="ont-tree" id="ont-tree-content">Loading...</div></div>
+  <div id="ont-interfaces" class="ont-section"><h2>8 Interface Contracts</h2><div id="ont-iface-content">Loading...</div></div>
+  <div id="ont-port-types" class="ont-section"><h2>Port-Type Vocabulary</h2><div id="ont-pt-content">Loading...</div></div>
+  <div id="ont-wiring" class="ont-section"><h2>Wiring Map (Type-Compatible Connections)</h2><div id="ont-wiring-content">Loading...</div></div>
 </div>
 
 </script>

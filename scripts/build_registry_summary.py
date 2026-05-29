@@ -248,10 +248,60 @@ def main():
     print(f"  Edges with all 5 metadata fields: {edge_field_complete}/{len(edges)}")
 
     # ─── Build and write summary dict ─────────────────────────────────────────
+    # ─── Layer-0 stats (Phase 2) ──────────────────────────────────────────────
+    layer0_stats = {"entity_class_count": 0, "interface_count": 0, "port_type_count": 0,
+                    "modules_conformant": 0, "modules_total": 8, "wiring_connection_count": 0}
+    try:
+        _classes_doc = json.loads((REPO_ROOT / "data/ontology/classes.json").read_text(encoding="utf-8"))
+        _ifaces_doc  = json.loads((REPO_ROOT / "data/ontology/interfaces.json").read_text(encoding="utf-8"))
+        _pt_doc      = json.loads((REPO_ROOT / "data/ontology/port_types.json").read_text(encoding="utf-8"))
+        _wiring_doc  = json.loads((REPO_ROOT / "data/ontology/wiring.json").read_text(encoding="utf-8"))
+        _ec_count = len(_classes_doc.get("entity_classes", []))
+        _ifc_count = len(_ifaces_doc.get("interfaces", []))
+        _pt_count = len(_pt_doc.get("port_types", []))
+        _wiring_count = _wiring_doc.get("connection_count", len(_wiring_doc.get("connections", [])))
+        _pt_ids = {pt["type_id"] for pt in _pt_doc.get("port_types", [])}
+        _iface_map = {i["interface_id"]: i for i in _ifaces_doc.get("interfaces", [])}
+        _mc_ids = {c["class_id"] for c in _classes_doc.get("module_classes", [])}
+        _iface_ids = {i["interface_id"] for i in _ifaces_doc.get("interfaces", [])}
+        _conformant = 0
+        for _m in modules:
+            _ok = True
+            if _m.get("module_class") not in _mc_ids:
+                _ok = False
+            for _ext in _m.get("extends", []):
+                if _ext not in _iface_ids:
+                    _ok = False; break
+                _ifc = _iface_map[_ext]
+                for _rf in _ifc.get("required_fields", []):
+                    if _m.get(_rf) is None or _m.get(_rf) == [] or _m.get(_rf) == "":
+                        _ok = False; break
+            for _port in _m.get("input_ports", []) + _m.get("output_ports", []):
+                if not _port.get("dtype") or _port["dtype"] not in _pt_ids:
+                    _ok = False; break
+            if _ok:
+                _conformant += 1
+        layer0_stats = {
+            "entity_class_count": _ec_count,
+            "interface_count": _ifc_count,
+            "port_type_count": _pt_count,
+            "modules_conformant": _conformant,
+            "modules_total": len(modules),
+            "wiring_connection_count": _wiring_count
+        }
+        print(f"\n--- Layer-0 Stats (Phase 2) ---")
+        print(f"  Entity classes:         {_ec_count}")
+        print(f"  Interfaces defined:     {_ifc_count}")
+        print(f"  Port types defined:     {_pt_count}")
+        print(f"  Modules conformant:     {_conformant}/{len(modules)}")
+        print(f"  Wiring connections:     {_wiring_count}")
+    except Exception as _e:
+        print(f"  WARNING: Could not compute Layer-0 stats: {_e}", file=sys.stderr)
+
     summary = {
         "bundle": reg.get("bundle"),
         "version_origin": reg.get("version_origin"),
-        "phase": "Phase 4: Causal layer promotion",
+        "phase": "Phase 2+4: Ontology + Causal layer promotion",
         "node_count": len(nodes),
         "edge_count": len(edges),
         "execution_edge_count": len(exec_edges),
@@ -277,6 +327,7 @@ def main():
             "edges_complete": edge_field_complete,
             "edges_total": len(edges),
         },
+        "layer0_ontology": layer0_stats,
     }
 
     out_path = REPO_ROOT / "data/registry/registry_summary.json"

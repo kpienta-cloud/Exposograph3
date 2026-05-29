@@ -19,38 +19,48 @@
     {
       "name": "substrate_concentrations",
       "type": "dict[substrate→uM]",
-      "description": "Map of co-present carcinogen concentrations"
+      "description": "Map of co-present carcinogen concentrations",
+      "dtype": "map:substrate_concentrations",
+      "unit": "uM"
     },
     {
       "name": "enzyme_genotypes",
-      "type": "dict[enzyme→phenotype]"
+      "type": "dict[enzyme→phenotype]",
+      "dtype": "map:enzyme_genotypes"
     },
     {
       "name": "inducer_context",
       "type": "string",
-      "description": "smoking | chronic_alcohol | TCDD_dioxin | none"
+      "description": "smoking | chronic_alcohol | TCDD_dioxin | none",
+      "dtype": "category:inducer_context"
     }
   ],
   "output_ports": [
     {
       "name": "adjusted_flux_ratios",
       "type": "dict[enzyme→float]",
-      "description": "Flux after competitive inhibition adjustment"
+      "description": "Flux after competitive inhibition adjustment",
+      "dtype": "map:flux_ratios",
+      "unit": "dimensionless"
     },
     {
       "name": "GSH_pool_fraction",
       "type": "float",
-      "description": "Remaining GSH fraction (0-1)"
+      "description": "Remaining GSH fraction (0-1)",
+      "dtype": "fraction:GSH_pool",
+      "unit": "dimensionless"
     },
     {
       "name": "synergy_flag",
       "type": "bool",
-      "description": "True if combined interaction_score > synergy_threshold (1.2)"
+      "description": "True if combined interaction_score > synergy_threshold (1.2)",
+      "dtype": "flag:boolean"
     },
     {
       "name": "antagonism_flag",
       "type": "bool",
-      "description": "True if combined interaction_score < antagonism_threshold (0.8)"
+      "description": "True if combined interaction_score < antagonism_threshold (0.8)",
+      "dtype": "flag:boolean"
     }
   ],
   "internal_state": [],
@@ -1156,5 +1166,13 @@
     "twin_layer": "metabolic"
   },
   "promotion_status": "causal",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "_conformance_notes": {
+    "phase": "Phase 2",
+    "conformant": true,
+    "notes": [
+      "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
+    ],
+    "gaps": []
+  }
 }

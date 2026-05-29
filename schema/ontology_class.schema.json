@@ -1,26 +1,50 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "ontology_class.schema.json",
-  "title": "ExposoGraph 3.0 Ontology Class",
+  "title": "ExposoGraph 3.0 Ontology Class (Phase 2 — tightened)",
+  "description": "Schema for a single entity class record within data/ontology/classes.json entity_classes array.",
   "type": "object",
   "required": [
     "class_id",
     "label",
-    "description"
+    "description",
+    "parent"
   ],
   "properties": {
     "class_id": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this ontology class."
     },
     "label": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable label."
     },
     "description": {
-      "type": "string"
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable description of the class."
     },
     "parent": {
-      "type": "string"
+      "type": ["string", "null"],
+      "description": "Parent class_id. Null only for the root class (Entity)."
+    },
+    "abstract": {
+      "type": "boolean",
+      "description": "True if this is an abstract class (no direct instances in the registry)."
+    },
+    "maps_to_registry_type": {
+      "type": ["string", "null"],
+      "description": "The registry node entity_type value this class governs, or null."
+    },
+    "identifier_namespaces": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "External identifier systems relevant to this class (e.g. CHEBI, UniProt, HGNC)."
     }
   },
-  "additionalProperties": true
+  "additionalProperties": false
 }

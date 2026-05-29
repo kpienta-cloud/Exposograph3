@@ -1,0 +1,43 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "port_type.schema.json",
+  "title": "ExposoGraph 3.0 Port Type (Phase 2)",
+  "description": "Schema for a single port-type record within data/ontology/port_types.json port_types array.",
+  "type": "object",
+  "required": [
+    "type_id",
+    "label",
+    "base_kind"
+  ],
+  "properties": {
+    "type_id": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[a-z_]+:[a-zA-Z0-9_]+$",
+      "description": "Unique type identifier in the form 'base_kind:semantic_name', e.g. 'score:flux_ratio'."
+    },
+    "label": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Human-readable label for the port type."
+    },
+    "base_kind": {
+      "type": "string",
+      "enum": ["number", "category", "boolean", "record"],
+      "description": "Primitive data kind: number (float/int), category (string enum), boolean, or record (dict/object/list)."
+    },
+    "unit": {
+      "type": ["string", "null"],
+      "description": "SI or domain unit, or null for dimensionless/categorical types."
+    },
+    "range": {
+      "type": ["string", "null"],
+      "description": "Valid numeric range in interval notation, or null for non-numeric types."
+    },
+    "description": {
+      "type": "string",
+      "description": "Description of what this port type represents and where it is used."
+    }
+  },
+  "additionalProperties": false
+}

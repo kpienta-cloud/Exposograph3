@@ -38,19 +38,24 @@
     {
       "name": "gene",
       "type": "string",
-      "description": "Enzyme gene symbol"
+      "description": "Enzyme gene symbol",
+      "dtype": "category:gene_symbol"
     },
     {
       "name": "genotype",
       "type": "string",
-      "description": "Allele diplotype or phenotype class (PM/IM/NM/RM/UM/null)"
+      "description": "Allele diplotype or phenotype class (PM/IM/NM/RM/UM/null)",
+      "dtype": "multiplier:genotype_activity",
+      "unit": "dimensionless"
     }
   ],
   "output_ports": [
     {
       "name": "activity_multiplier",
       "type": "float",
-      "description": "Scaling factor for Vmax: NM=1.0, IM=0.5, PM=0.0, UM=2.0, RM=1.5"
+      "description": "Scaling factor for Vmax: NM=1.0, IM=0.5, PM=0.0, UM=2.0, RM=1.5",
+      "dtype": "multiplier:genotype_activity",
+      "unit": "dimensionless"
     }
   ],
   "internal_state": [],
@@ -349,5 +354,13 @@
     "twin_layer": "host"
   },
   "promotion_status": "causal",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "_conformance_notes": {
+    "phase": "Phase 2",
+    "conformant": true,
+    "notes": [
+      "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
+    ],
+    "gaps": []
+  }
 }

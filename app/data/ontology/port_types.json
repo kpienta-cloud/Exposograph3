@@ -1,0 +1,238 @@
+{
+  "schema_version": "3.0.0",
+  "description": "ExposoGraph 3.0 port datatype vocabulary (Layer 0 Phase 2). Controlled vocabulary of dtypes used across all 8 module ports, enabling type-checked cross-module wiring.",
+  "port_types": [
+    {
+      "type_id": "concentration:uM",
+      "label": "Concentration (micromolar)",
+      "base_kind": "number",
+      "unit": "uM",
+      "range": "[0, ∞)",
+      "description": "Molar concentration of a chemical species (carcinogen substrate or metabolite) in micromolar units. Used as input to biotransformation and exposure modules."
+    },
+    {
+      "type_id": "multiplier:genotype_activity",
+      "label": "Genotype Activity Multiplier",
+      "base_kind": "number",
+      "unit": "dimensionless",
+      "range": "[0.0, 2.0]",
+      "description": "Scaling factor for enzyme Vmax derived from metabolizer phenotype or allelic diplotype. PM=0.0, IM=0.5, NM=1.0, RM=1.5, UM=2.0. Used by the PopGen modifier and Flux modules."
+    },
+    {
+      "type_id": "multiplier:exposure",
+      "label": "Exposure Multiplier",
+      "base_kind": "number",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Dimensionless scaling factor representing exposure intensity relative to an unexposed baseline. Derived from exposure scenario classification in the Wave2 exposure module."
+    },
+    {
+      "type_id": "score:flux_ratio",
+      "label": "Biotransformation Flux Ratio",
+      "base_kind": "number",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Ratio of activation flux to detoxification flux: activation_score / detoxification_score. Values >1 indicate net activation predominance. Core output of the Flux/Biotransformation module consumed by MutSig and Interaction modules."
+    },
+    {
+      "type_id": "score:activation",
+      "label": "Activation Score",
+      "base_kind": "number",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Summed activation flux computed as Σ(Vmax·[S]/(Km+[S])) for activation enzymes, scaled by tissue expression weight and genotype multiplier."
+    },
+    {
+      "type_id": "score:detoxification",
+      "label": "Detoxification Score",
+      "base_kind": "number",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Summed detoxification flux for detox enzymes (GSTs, UGTs, ALDH). Complement to activation_score in flux_ratio computation."
+    },
+    {
+      "type_id": "score:ROS_burden",
+      "label": "ROS Burden Score",
+      "base_kind": "number",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Aggregate reactive oxygen species burden score derived from biotransformation outputs and metal exposures. Used as both input (upstream ROS) and output (computed aggregate ROS) of the OxStress mechanism module."
+    },
+    {
+      "type_id": "score:oxidative_adduct",
+      "label": "Oxidative Adduct Score",
+      "base_kind": "number",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Predicted score for oxidative DNA adducts (8-OHdG, Oxo_dG type) derived from ROS burden level in the OxStress module."
+    },
+    {
+      "type_id": "score:repair_capacity",
+      "label": "DNA Repair Capacity Index",
+      "base_kind": "number",
+      "unit": "dimensionless",
+      "range": "[0.0, 1.0]",
+      "description": "Index from 0 to 1 representing available DNA repair enzyme capacity. Output of the OxStress mechanism module."
+    },
+    {
+      "type_id": "fraction:GSH_pool",
+      "label": "GSH Pool Fraction",
+      "base_kind": "number",
+      "unit": "dimensionless",
+      "range": "[0.0, 1.0]",
+      "description": "Remaining fraction of the glutathione (GSH) pool relative to baseline. 1.0 = replete, 0.0 = depleted. Internal state exported by the Interaction module and consumed by OxStress."
+    },
+    {
+      "type_id": "weight:tissue_expression",
+      "label": "Tissue Expression Weight",
+      "base_kind": "number",
+      "unit": "dimensionless [0-1]",
+      "range": "[0.0, 1.0]",
+      "description": "Normalised gene expression weight for a given tissue, derived from GTEx nTPM data. Used by TissueContext module to scale biotransformation scores. nTPM[gene][tissue] / max_tissue_nTPM."
+    },
+    {
+      "type_id": "category:carcinogen_class",
+      "label": "Carcinogen Class",
+      "base_kind": "category",
+      "unit": null,
+      "range": null,
+      "description": "Controlled vocabulary key for carcinogen class: PAH | Aflatoxin | Aldehyde | Nitrosamine | NDMA | HCA | Benzene | HeavyMetal | Dioxin | ChlorinatedSolvent | Mycotoxin | Alcohol | AromaticAmine | Other. Used by Exposure and MutSig modules."
+    },
+    {
+      "type_id": "category:exposure_scenario",
+      "label": "Exposure Scenario",
+      "base_kind": "category",
+      "unit": null,
+      "range": null,
+      "description": "Controlled exposure scenario identifier: unexposed | general_population | smoker | occupational_high | endemic. Used by the Exposure Source module to select dose parameters."
+    },
+    {
+      "type_id": "category:gene_symbol",
+      "label": "Gene Symbol",
+      "base_kind": "category",
+      "unit": null,
+      "range": null,
+      "description": "HGNC gene symbol string identifying an enzyme or gene of interest (e.g. CYP1A1, GSTM1, NAT2). Used by TissueContext, Modifier, and EvidenceProvenance modules."
+    },
+    {
+      "type_id": "category:tissue_name",
+      "label": "Tissue Name",
+      "base_kind": "category",
+      "unit": null,
+      "range": null,
+      "description": "Controlled tissue identifier from the scope.tissues vocabulary: Liver | Lung | Prostate | Bladder | Colon | Breast | Kidney | Esophagus. Used by TissueContext and Flux modules."
+    },
+    {
+      "type_id": "category:substrate_id",
+      "label": "Substrate Identifier",
+      "base_kind": "category",
+      "unit": null,
+      "range": null,
+      "description": "Registry node identifier for a substrate or metabolite (e.g. BaP_epoxide, BPDE, Acetaldehyde_int). Used by EvidenceProvenance module as input."
+    },
+    {
+      "type_id": "category:inducer_context",
+      "label": "Inducer Context",
+      "base_kind": "category",
+      "unit": null,
+      "range": null,
+      "description": "Controlled vocabulary for co-exposure induction context: smoking | chronic_alcohol | TCDD_dioxin | none. Used by the Interaction mechanism module."
+    },
+    {
+      "type_id": "flag:boolean",
+      "label": "Boolean Flag",
+      "base_kind": "boolean",
+      "unit": null,
+      "range": "[true, false]",
+      "description": "A binary true/false flag. Used for synergy_flag and antagonism_flag outputs of the Interaction mechanism module."
+    },
+    {
+      "type_id": "signature:SBS",
+      "label": "COSMIC SBS Signature",
+      "base_kind": "category",
+      "unit": null,
+      "range": null,
+      "description": "COSMIC mutational signature identifier in the SBS (single base substitution) format, e.g. SBS4, SBS6, SBS22. Primary output of the MutSig outcome module."
+    },
+    {
+      "type_id": "category:dominant_mutation",
+      "label": "Dominant Mutation Type",
+      "base_kind": "category",
+      "unit": null,
+      "range": null,
+      "description": "Predicted dominant mutation category, e.g. G→T transversion, C→A transversion, C→T transition. Output of the MutSig outcome module."
+    },
+    {
+      "type_id": "category:confidence_level",
+      "label": "Confidence Level",
+      "base_kind": "category",
+      "unit": null,
+      "range": null,
+      "description": "Categorical confidence tier: high | medium | exploratory. Output of the MutSig module indicating evidence quality for predicted signature assignment."
+    },
+    {
+      "type_id": "map:flux_ratios",
+      "label": "Flux Ratio Map",
+      "base_kind": "record",
+      "unit": "dimensionless",
+      "range": null,
+      "description": "A dictionary/map from enzyme identifier to adjusted flux ratio (float). Output of the Interaction module after competitive inhibition adjustments."
+    },
+    {
+      "type_id": "map:substrate_concentrations",
+      "label": "Substrate Concentration Map",
+      "base_kind": "record",
+      "unit": "uM",
+      "range": null,
+      "description": "A dictionary/map from substrate identifier to concentration in micromolar. Input to the Interaction module for co-exposure mixture modelling."
+    },
+    {
+      "type_id": "map:enzyme_genotypes",
+      "label": "Enzyme Genotype Map",
+      "base_kind": "record",
+      "unit": null,
+      "range": null,
+      "description": "A dictionary/map from enzyme gene symbol to metabolizer phenotype string (PM|IM|NM|RM|UM). Input to the Interaction module."
+    },
+    {
+      "type_id": "map:metal_exposure",
+      "label": "Metal Exposure Map",
+      "base_kind": "record",
+      "unit": "uM",
+      "range": null,
+      "description": "A dictionary/map from metal class identifier (Arsenic, Cadmium, Chromium, Nickel) to concentration. Input to the OxStress mechanism module."
+    },
+    {
+      "type_id": "map:genotype_context",
+      "label": "Genotype Context Map",
+      "base_kind": "record",
+      "unit": null,
+      "range": null,
+      "description": "Optional map from enzyme gene symbol to diplotype/phenotype modifier. Input to the Exposure Source module."
+    },
+    {
+      "type_id": "list:adduct_types",
+      "label": "Adduct Type List",
+      "base_kind": "record",
+      "unit": null,
+      "range": null,
+      "description": "List of DNA adduct type identifiers predicted from graph for a given carcinogen. Input to the MutSig outcome module."
+    },
+    {
+      "type_id": "concentration:daily_intake",
+      "label": "Daily Intake (ug/kg/day)",
+      "base_kind": "number",
+      "unit": "ug/kg/day",
+      "range": "[0.0, ∞)",
+      "description": "Estimated daily carcinogen intake in micrograms per kilogram body weight per day. Output of the Exposure Source module."
+    },
+    {
+      "type_id": "record:provenance",
+      "label": "Provenance Record",
+      "base_kind": "record",
+      "unit": null,
+      "range": null,
+      "description": "Structured provenance object containing kinetic parameter sources (Km, Ki, Vmax), confidence ratings, PMID references, species context, and assay metadata. Primary output of the EvidenceProvenance module."
+    }
+  ]
+}

@@ -38,39 +38,51 @@
     {
       "name": "substrate_conc_uM",
       "type": "float",
-      "description": "Substrate (carcinogen) concentration in micromolar"
+      "description": "Substrate (carcinogen) concentration in micromolar",
+      "dtype": "concentration:uM",
+      "unit": "uM"
     },
     {
       "name": "enzyme_genotype",
       "type": "string",
-      "description": "Metabolizer phenotype: PM | IM | NM | RM | UM"
+      "description": "Metabolizer phenotype: PM | IM | NM | RM | UM",
+      "dtype": "multiplier:genotype_activity",
+      "unit": "dimensionless"
     },
     {
       "name": "tissue",
       "type": "string",
-      "description": "Target tissue from scope.tissues list"
+      "description": "Target tissue from scope.tissues list",
+      "dtype": "category:tissue_name"
     },
     {
       "name": "carcinogen_class",
       "type": "string",
-      "description": "Carcinogen class key"
+      "description": "Carcinogen class key",
+      "dtype": "category:carcinogen_class"
     }
   ],
   "output_ports": [
     {
       "name": "activation_score",
       "type": "float",
-      "description": "Summed activation flux = Σ(Vmax·[S]/(Km+[S])) for activation enzymes × tissue_weight × genotype_multiplier"
+      "description": "Summed activation flux = Σ(Vmax·[S]/(Km+[S])) for activation enzymes × tissue_weight × genotype_multiplier",
+      "dtype": "score:activation",
+      "unit": "dimensionless"
     },
     {
       "name": "detoxification_score",
       "type": "float",
-      "description": "Summed detoxification flux for detox enzymes"
+      "description": "Summed detoxification flux for detox enzymes",
+      "dtype": "score:detoxification",
+      "unit": "dimensionless"
     },
     {
       "name": "flux_ratio",
       "type": "float",
-      "description": "flux_ratio = activation_score / detoxification_score"
+      "description": "flux_ratio = activation_score / detoxification_score",
+      "dtype": "score:flux_ratio",
+      "unit": "dimensionless"
     }
   ],
   "internal_state": [
@@ -860,5 +872,13 @@
     "twin_layer": "metabolic"
   },
   "promotion_status": "executable",
-  "version": "1.0.0"
+  "version": "1.0.0",
+  "_conformance_notes": {
+    "phase": "Phase 2",
+    "conformant": true,
+    "notes": [
+      "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
+    ],
+    "gaps": []
+  }
 }
