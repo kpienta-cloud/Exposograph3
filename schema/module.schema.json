@@ -50,11 +50,18 @@
     },
     "maturity_class": {
       "type": "string",
-      "enum": ["D", "C", "E", "T"]
+      "enum": [
+        "D",
+        "C",
+        "E",
+        "T"
+      ]
     },
     "extends": {
       "type": "array",
-      "items": { "type": "string" },
+      "items": {
+        "type": "string"
+      },
       "minItems": 1
     },
     "scope": {
@@ -77,22 +84,33 @@
     },
     "graph_nodes": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "graph_edges": {
       "type": "array",
-      "items": { "type": "string" }
+      "items": {
+        "type": "string"
+      }
     },
     "causal_edges": {
       "type": "array"
     },
     "mechanism_type": {},
     "equation_type": {
-      "type": ["string", "null"],
+      "type": [
+        "string",
+        "null"
+      ],
       "description": "lookup | rule-based | score-based | michaelis_menten | Bayesian | SCM | ODE | GLV-coupled | agent-based"
     },
     "update_rule": {
-      "type": ["string", "object", "null"]
+      "type": [
+        "string",
+        "object",
+        "null"
+      ]
     },
     "parameters": {
       "type": "array",
@@ -104,9 +122,13 @@
     },
     "uncertainty": {
       "type": "object",
-      "required": ["confidence"],
+      "required": [
+        "confidence"
+      ],
       "properties": {
-        "confidence": { "type": "string" }
+        "confidence": {
+          "type": "string"
+        }
       }
     },
     "validation_status": {
@@ -116,7 +138,8 @@
         "curated",
         "benchmarked",
         "cohort-supported",
-        "experimentally-validated"
+        "experimentally-validated",
+        "curated-causal"
       ]
     },
     "cedt_mapping": {

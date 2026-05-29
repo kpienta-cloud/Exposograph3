@@ -128,7 +128,21 @@
     "PCE"
   ],
   "graph_edges": [],
-  "causal_edges": [],
+  "causal_edges": [
+    "EG3.CAUSAL.EDGE.0157",
+    "EG3.CAUSAL.EDGE.0158",
+    "EG3.CAUSAL.EDGE.0159",
+    "EG3.CAUSAL.EDGE.0160",
+    "EG3.CAUSAL.EDGE.0161",
+    "EG3.CAUSAL.EDGE.0162",
+    "EG3.CAUSAL.EDGE.0163",
+    "EG3.CAUSAL.EDGE.0164",
+    "EG3.CAUSAL.EDGE.0165",
+    "EG3.CAUSAL.EDGE.0166",
+    "EG3.CAUSAL.EDGE.0167",
+    "EG3.CAUSAL.EDGE.0168",
+    "EG3.CAUSAL.EDGE.0169"
+  ],
   "mechanism_type": "exposure_weighting",
   "equation_type": "lookup",
   "update_rule": "exposure_weighted_risk = flux_ratio × exposure_multiplier; tissue_conc_uM = biomarker_derived via reverse dosimetry (partition_coefficient)",
@@ -1179,7 +1193,7 @@
     "missingness": "some carcinogen classes lack measured tissue concentrations; reverse dosimetry applied",
     "context_sensitivity": "multipliers are scenario-dependent; occupational >> general population"
   },
-  "validation_status": "curated",
+  "validation_status": "curated-causal",
   "cedt_mapping": {
     "exposure_state_variable": "exposure_multiplier → ExposureIntensity[class]",
     "twin_layer": "exposure",

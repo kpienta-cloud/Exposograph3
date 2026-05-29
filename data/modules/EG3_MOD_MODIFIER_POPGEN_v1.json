@@ -82,7 +82,17 @@
     "NQO1"
   ],
   "graph_edges": [],
-  "causal_edges": [],
+  "causal_edges": [
+    "EG3.CAUSAL.EDGE.0158",
+    "EG3.CAUSAL.EDGE.0159",
+    "EG3.CAUSAL.EDGE.0160",
+    "EG3.CAUSAL.EDGE.0161",
+    "EG3.CAUSAL.EDGE.0162",
+    "EG3.CAUSAL.EDGE.0163",
+    "EG3.CAUSAL.EDGE.0165",
+    "EG3.CAUSAL.EDGE.0166",
+    "EG3.CAUSAL.EDGE.0167"
+  ],
   "mechanism_type": "genotype_activity_scaling",
   "equation_type": "lookup multiplier",
   "update_rule": "effective_Vmax = Vmax × activity_multiplier[gene][genotype]",
@@ -333,7 +343,7 @@
     "notes": "Standard phenotype scale (PM=0, IM=0.5, NM=1.0, RM=1.5, UM=2.0) is a heuristic approximation; real activity is continuous. Frequency data is population-averaged.",
     "context_sensitivity": "allele frequencies differ by ancestry; not ancestry-stratified in current data"
   },
-  "validation_status": "curated",
+  "validation_status": "curated-causal",
   "cedt_mapping": {
     "activity_multiplier": "host_variable → EnzymeActivityModifier",
     "twin_layer": "host"

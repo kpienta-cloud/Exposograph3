@@ -2,6 +2,7 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "$id": "causal_motif.schema.json",
   "title": "ExposoGraph 3.0 Causal Motif",
+  "description": "Schema for a causal motif in the ExposoGraph 3.0 motif library.",
   "type": "object",
   "required": [
     "motif_id",
@@ -9,11 +10,13 @@
     "description",
     "roles",
     "edge_types",
+    "causal_relation",
     "status"
   ],
   "properties": {
     "motif_id": {
-      "type": "string"
+      "type": "string",
+      "description": "Stable identifier for the motif (e.g. EG3.MOTIF.001)."
     },
     "name": {
       "type": "string"
@@ -25,16 +28,40 @@
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "description": "Semantic roles played by nodes in this motif."
     },
     "edge_types": {
       "type": "array",
       "items": {
         "type": "string"
-      }
+      },
+      "description": "Source predicates that map into this motif."
+    },
+    "causal_relation": {
+      "type": "string",
+      "enum": [
+        "increases",
+        "decreases",
+        "activates",
+        "detoxifies",
+        "damages",
+        "mediates",
+        "modifies",
+        "precedes"
+      ],
+      "description": "The Layer-2 causal vocabulary relation for this motif."
+    },
+    "example_path": {
+      "type": "string"
     },
     "status": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "seed",
+        "active"
+      ],
+      "description": "Motif lifecycle status."
     }
   },
   "additionalProperties": true

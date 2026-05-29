@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """
-ExposoGraph 3.0 — Build Registry Summary (Phase 3)
-Reads registry data and writes data/registry/registry_summary.json.
+ExposoGraph 3.0 — Build Registry Summary (Phase 4)
+Reads registry + causal layer data and writes data/registry/registry_summary.json.
 Prints summary table with node/edge counts, execution edge counts,
-per-module Phase 3 field completeness, and parameter counts.
+per-module Phase 3/4 field completeness, causal layer counts,
+promoted-vs-retained breakdown, and per-module causal_edge counts.
 """
 
 import json
@@ -24,7 +25,7 @@ MODULE_PHASE3_REQUIRED = [
 
 
 def main():
-    print("=== ExposoGraph 3.0 — Registry Summary Builder (Phase 3) ===\n")
+    print("=== ExposoGraph 3.0 — Registry Summary Builder (Phase 4) ===\n")
 
     # ─── Load registry graph ───────────────────────────────────────────────────
     reg_path = REPO_ROOT / "data/registry/registry_graph.json"
@@ -59,7 +60,7 @@ def main():
     for fam, cnt in sorted(edge_family_counts.items(), key=lambda x: -x[1]):
         print(f"  {fam:20s}: {cnt}")
 
-    # ─── Execution edges (Phase 3 new) ────────────────────────────────────────
+    # ─── Execution edges (Phase 3) ────────────────────────────────────────────
     exec_edges_path = REPO_ROOT / "data/registry/execution_edges.json"
     exec_edges = []
     exec_edge_counts_by_type = {}
@@ -80,19 +81,100 @@ def main():
         for fam, cnt in sorted(exec_edge_counts_by_family.items(), key=lambda x: -x[1]):
             print(f"    {fam:20s}: {cnt}")
 
-        # Enzyme→substrate summary
-        causal_edges = [e for e in exec_edges if e.get("edge_family") == "causal"]
-        bioactivates = [e for e in causal_edges if e.get("type") == "bioactivates"]
-        detoxifies = [e for e in causal_edges if e.get("type") == "detoxifies"]
-        competes = [e for e in causal_edges if e.get("type") == "competes_at"]
+        causal_edges_exec = [e for e in exec_edges if e.get("edge_family") == "causal"]
+        bioactivates = [e for e in causal_edges_exec if e.get("type") == "bioactivates"]
+        detoxifies_e = [e for e in causal_edges_exec if e.get("type") == "detoxifies"]
+        competes = [e for e in causal_edges_exec if e.get("type") == "competes_at"]
         mod_edges = [e for e in exec_edges if e.get("edge_family") == "execution"]
         print(f"\n  Breakdown:")
         print(f"    bioactivates (enzyme→substrate):  {len(bioactivates)}")
-        print(f"    detoxifies (enzyme→substrate):    {len(detoxifies)}")
+        print(f"    detoxifies (enzyme→substrate):    {len(detoxifies_e)}")
         print(f"    competes_at (inhibition):         {len(competes)}")
         print(f"    module-to-module execution:       {len(mod_edges)}")
     else:
         print("\n  WARNING: execution_edges.json not found", file=sys.stderr)
+
+    # ─── Causal layer (Phase 4 new) ────────────────────────────────────────────
+    causal_edges_path = REPO_ROOT / "data/causal/causal_edges.json"
+    causal_edges_list = []
+    causal_layer_summary = {}
+    motif_coverage = {}
+    if causal_edges_path.exists():
+        ce_data = json.loads(causal_edges_path.read_text(encoding="utf-8"))
+        causal_edges_list = ce_data.get("causal_edges", [])
+        promoted_count = ce_data.get("promoted_count", len(causal_edges_list))
+        retained_count = ce_data.get("retained_in_registry_count", 0)
+
+        # Counts by causal_relation
+        by_relation = dict(Counter(ce.get("causal_relation","?") for ce in causal_edges_list))
+        # Counts by source_predicate
+        by_predicate = dict(Counter(ce.get("source_predicate","?") for ce in causal_edges_list))
+        # Counts by origin_layer
+        by_origin = dict(Counter(ce.get("origin_layer","?") for ce in causal_edges_list))
+        # Motif coverage: how many edges use each motif
+        by_motif = dict(Counter(ce.get("motif_id","?") for ce in causal_edges_list))
+        # PMIDs attached
+        all_pmids = []
+        for ce in causal_edges_list:
+            ev = ce.get("evidence", {})
+            all_pmids.extend(ev.get("pmid_refs", []))
+        all_pmids = list(set(all_pmids))
+
+        print(f"\n--- Causal Layer (Phase 4 — data/causal/causal_edges.json) ---")
+        print(f"  Promoted causal edges:         {promoted_count}")
+        print(f"  Retained in registry:          {retained_count}")
+        print(f"  Total directional accounted:   {promoted_count + retained_count}")
+        print(f"  Promotion rule: {ce_data.get('promotion_rule','N/A')[:80]}...")
+
+        print(f"\n  By causal_relation:")
+        for rel, cnt in sorted(by_relation.items(), key=lambda x: -x[1]):
+            print(f"    {rel:15s}: {cnt}")
+
+        print(f"\n  By source_predicate:")
+        for pred, cnt in sorted(by_predicate.items(), key=lambda x: -x[1]):
+            print(f"    {pred:20s}: {cnt}")
+
+        print(f"\n  By origin_layer:")
+        for orig, cnt in sorted(by_origin.items(), key=lambda x: -x[1]):
+            print(f"    {orig:25s}: {cnt}")
+
+        print(f"\n  By motif_id (motif coverage):")
+        for motif, cnt in sorted(by_motif.items(), key=lambda x: -x[1]):
+            print(f"    {motif}: {cnt} edges")
+
+        print(f"\n  PMIDs attached to promoted edges ({len(all_pmids)} unique): {all_pmids[:10]}{'...' if len(all_pmids) > 10 else ''}")
+
+        causal_layer_summary = {
+            "promoted_causal_edges": promoted_count,
+            "retained_in_registry": retained_count,
+            "total_directional_accounted": promoted_count + retained_count,
+            "by_causal_relation": by_relation,
+            "by_source_predicate": by_predicate,
+            "by_origin_layer": by_origin,
+            "motif_coverage": by_motif,
+            "pmids_attached": all_pmids
+        }
+    else:
+        print("\n  WARNING: data/causal/causal_edges.json not found (Phase 4 incomplete)", file=sys.stderr)
+
+    # ─── Causal motif library ──────────────────────────────────────────────────
+    motifs_path = REPO_ROOT / "data/causal/motifs.json"
+    motifs_summary = []
+    if motifs_path.exists():
+        motifs_data = json.loads(motifs_path.read_text(encoding="utf-8"))
+        motif_list = motifs_data.get("motifs", [])
+        print(f"\n--- Causal Motif Library (Phase 4) ---")
+        print(f"  Total motifs: {len(motif_list)}")
+        for m in motif_list:
+            n_edges_using = causal_layer_summary.get("motif_coverage", {}).get(m["motif_id"], 0)
+            print(f"  [{m.get('status','?')}] {m['motif_id']}: {m['name']} ({m.get('causal_relation','?')}) — {n_edges_using} edges")
+            motifs_summary.append({
+                "motif_id": m["motif_id"],
+                "name": m["name"],
+                "causal_relation": m.get("causal_relation"),
+                "status": m.get("status"),
+                "edges_using_motif": n_edges_using
+            })
 
     # ─── Module records ────────────────────────────────────────────────────────
     modules_dir = REPO_ROOT / "data/modules"
@@ -105,7 +187,7 @@ def main():
         except Exception as e:
             print(f"WARNING: Could not load {mf.name}: {e}", file=sys.stderr)
 
-    print(f"\n--- Module Records ({len(modules)}) — Phase 3 Populated ---")
+    print(f"\n--- Module Records ({len(modules)}) — Phase 4 (with causal_edge counts) ---")
     module_summary_rows = []
     total_params = 0
     for m in sorted(modules, key=lambda x: x.get("module_id", "")):
@@ -118,17 +200,17 @@ def main():
         n_params = len(m.get("parameters", []))
         n_nodes = len(m.get("graph_nodes", []))
         n_edges = len(m.get("graph_edges", []))
+        n_causal = len(m.get("causal_edges", []))
+        val_status = m.get("validation_status", "?")
 
-        # Phase 3 field completeness
         populated = [f for f in MODULE_PHASE3_REQUIRED if f in m]
         completeness_pct = round(len(populated) / len(MODULE_PHASE3_REQUIRED) * 100, 1)
-
         total_params += n_params
+
         print(f"  [{mc}] {mod_id}")
         print(f"       params={n_params:3d}  ports={n_in}in/{n_out}out  "
-              f"graph={n_nodes}nodes/{n_edges}edges  eq={eq}")
-        print(f"       promotion={promo}  completeness={completeness_pct}% "
-              f"({len(populated)}/{len(MODULE_PHASE3_REQUIRED)} fields)")
+              f"graph={n_nodes}nodes/{n_edges}edges  causal={n_causal}  eq={eq}")
+        print(f"       val={val_status}  promotion={promo}  completeness={completeness_pct}%")
 
         module_summary_rows.append({
             "module_id": mod_id,
@@ -137,11 +219,13 @@ def main():
             "maturity_class": mc,
             "equation_type": eq,
             "promotion_status": promo,
+            "validation_status": val_status,
             "input_ports_count": n_in,
             "output_ports_count": n_out,
             "parameters_count": n_params,
             "graph_nodes_count": n_nodes,
             "graph_edges_count": n_edges,
+            "causal_edges_count": n_causal,
             "phase3_fields_populated": len(populated),
             "phase3_fields_total": len(MODULE_PHASE3_REQUIRED),
             "phase3_completeness_pct": completeness_pct,
@@ -167,6 +251,7 @@ def main():
     summary = {
         "bundle": reg.get("bundle"),
         "version_origin": reg.get("version_origin"),
+        "phase": "Phase 4: Causal layer promotion",
         "node_count": len(nodes),
         "edge_count": len(edges),
         "execution_edge_count": len(exec_edges),
@@ -179,6 +264,11 @@ def main():
             "total": len(exec_edges),
             "by_type": exec_edge_counts_by_type,
             "by_family": exec_edge_counts_by_family,
+        },
+        "causal_layer": causal_layer_summary,
+        "causal_motifs": {
+            "total": len(motifs_summary),
+            "motifs": motifs_summary
         },
         "modules": module_summary_rows,
         "phase1_metadata_completeness": {
@@ -194,10 +284,11 @@ def main():
     print(f"\n✓ Wrote {out_path}")
 
     # ─── Final acceptance line ─────────────────────────────────────────────────
+    promoted = causal_layer_summary.get("promoted_causal_edges", 0)
     print(f"\n=== SUMMARY: {len(nodes)} nodes / {len(edges)} baseline edges "
-          f"+ {len(exec_edges)} execution edges + {len(modules)} module records ===")
+          f"+ {len(exec_edges)} execution edges + {len(modules)} modules "
+          f"+ {promoted} promoted causal edges ===")
 
-    # Verify acceptance criteria
     ok = True
     if len(nodes) != 212:
         print(f"FAIL: Expected 212 nodes, got {len(nodes)}", file=sys.stderr)
@@ -211,10 +302,13 @@ def main():
     if len(exec_edges) == 0:
         print("FAIL: No execution edges found", file=sys.stderr)
         ok = False
+    if promoted == 0:
+        print("FAIL: No promoted causal edges found (Phase 4 requirement)", file=sys.stderr)
+        ok = False
 
     if ok:
         print(f"✓ Acceptance criteria met: 212 nodes / 313 edges / "
-              f"{len(exec_edges)} execution edges / 8 modules")
+              f"{len(exec_edges)} execution edges / 8 modules / {promoted} causal edges")
         sys.exit(0)
     else:
         sys.exit(1)

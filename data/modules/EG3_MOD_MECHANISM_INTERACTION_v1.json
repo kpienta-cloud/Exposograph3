@@ -84,7 +84,17 @@
     "NQO1"
   ],
   "graph_edges": [],
-  "causal_edges": [],
+  "causal_edges": [
+    "EG3.CAUSAL.EDGE.0157",
+    "EG3.CAUSAL.EDGE.0158",
+    "EG3.CAUSAL.EDGE.0159",
+    "EG3.CAUSAL.EDGE.0164",
+    "EG3.CAUSAL.EDGE.0165",
+    "EG3.CAUSAL.EDGE.0166",
+    "EG3.CAUSAL.EDGE.0167",
+    "EG3.CAUSAL.EDGE.0168",
+    "EG3.CAUSAL.EDGE.0169"
+  ],
   "mechanism_type": "competitive_inhibition / enzyme_induction / GSH_depletion",
   "equation_type": "rule-based",
   "update_rule": "v_A = Vmax_A × [A] / (Km_A × (1 + Σ([Bi]/Km_Bi)) + [A]);  synergy if combined_score > 1.2;  antagonism if combined_score < 0.8;  GSH_pool depleted by Σ(gsh_per_umol × substrate_flux)",
@@ -1139,7 +1149,7 @@
     "notes": "34 ki_curated pairs; 57 ki_assumed_equal_km. Interaction rules are threshold-based approximations.",
     "context_sensitivity": "GSH pool dynamics are non-linear at low GSH; synergy scores are approximations"
   },
-  "validation_status": "curated",
+  "validation_status": "curated-causal",
   "cedt_mapping": {
     "GSH_pool_fraction": "metabolic_mediator → GSH_state",
     "synergy_flag": "risk_modifier",

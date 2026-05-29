@@ -1,0 +1,5367 @@
+{
+  "layer": "causal",
+  "description": "ExposoGraph 3.0 causal edge projection — evidence-governed promotion from registry and execution layers",
+  "promotion_rule": "An edge is PROMOTED to the causal layer iff BOTH conditions hold: (1) Directional semantics: its predicate is one of {ACTIVATES, DETOXIFIES, FORMS_ADDUCT, REPAIRS, INDUCES, INHIBITS, TRANSPORTS} (baseline) OR {bioactivates, detoxifies, competes_at} (Phase 3 execution). (2) Evidence support: baseline edge has non-empty provenance OR a non-null evidence_id; OR Phase 3 edge has confidence in {high, medium} AND non-empty sources. Edges failing the evidence test are NOT promoted — they remain in the registry as promotion_status='registry'.",
+  "promoted_count": 169,
+  "retained_in_registry_count": 113,
+  "generated_from": [
+    "data/registry/edges.json",
+    "data/registry/execution_edges.json"
+  ],
+  "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+  "causal_edges": [
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0001",
+      "source": "DMBA",
+      "target": "DMBA_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Procarcinogen to 3,4-epoxide",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "DMBA->DMBA_epoxide",
+            "evidence": "Procarcinogen to 3,4-epoxide",
+            "citation": "Procarcinogen to 3,4-epoxide"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0002",
+      "source": "MeIQx",
+      "target": "NOH_MeIQx",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Procarcinogen to N-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "MeIQx->NOH_MeIQx",
+            "evidence": "Procarcinogen to N-hydroxylation",
+            "citation": "Procarcinogen to N-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0003",
+      "source": "Benzidine",
+      "target": "NOH_Benzidine",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Procarcinogen to N-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "Benzidine->NOH_Benzidine",
+            "evidence": "Procarcinogen to N-hydroxylation",
+            "citation": "Procarcinogen to N-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0004",
+      "source": "NDMA",
+      "target": "NDMA_hydroxyl",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Procarcinogen to alpha-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "NDMA->NDMA_hydroxyl",
+            "evidence": "Procarcinogen to alpha-hydroxylation",
+            "citation": "Procarcinogen to alpha-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0005",
+      "source": "NDMA",
+      "target": "Hydroxymethylnitrosamine",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:40390554",
+        "provenance": [
+          {
+            "evidence": "CYP2E1 alpha-hydroxylation; confirmed in HepG2-CYP2E1 cells (PMID:40390554)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:40390554"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0006",
+      "source": "E2",
+      "target": "HydroxyE2",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Procarcinogen to catechol estrogen",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "E2->HydroxyE2",
+            "evidence": "Procarcinogen to catechol estrogen",
+            "citation": "Procarcinogen to catechol estrogen"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0007",
+      "source": "VinylChloride",
+      "target": "Chloroethylene_oxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Procarcinogen to epoxidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "VinylChloride->Chloroethylene_oxide",
+            "evidence": "Procarcinogen to epoxidation",
+            "citation": "Procarcinogen to epoxidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0008",
+      "source": "CYP1A1",
+      "target": "BaP_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "BaP epoxidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1A1->BaP_epoxide",
+            "evidence": "BaP epoxidation",
+            "citation": "BaP epoxidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [
+          "PMID 9187241"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0009",
+      "source": "CYP1A1",
+      "target": "BPDE",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Second epoxidation to BPDE",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1A1->BPDE",
+            "evidence": "Second epoxidation to BPDE",
+            "citation": "Second epoxidation to BPDE"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [
+          "PMID 9187241"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0010",
+      "source": "CYP1A1",
+      "target": "DMBA_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "DMBA epoxidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1A1->DMBA_epoxide",
+            "evidence": "DMBA epoxidation",
+            "citation": "DMBA epoxidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [
+          "PMID 9187241"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0011",
+      "source": "CYP1A1",
+      "target": "DMBA_diol_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Diol-epoxide formation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1A1->DMBA_diol_epoxide",
+            "evidence": "Diol-epoxide formation",
+            "citation": "Diol-epoxide formation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [
+          "PMID 9187241"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0012",
+      "source": "CYP1A1",
+      "target": "Cd",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Singh et al. Urol Oncol 2023"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID 9187241"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0013",
+      "source": "CYP1B1",
+      "target": "BaP_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Extrahepatic BaP epoxidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1B1->BaP_epoxide",
+            "evidence": "Extrahepatic BaP epoxidation",
+            "citation": "Extrahepatic BaP epoxidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0014",
+      "source": "CYP1B1",
+      "target": "BPDE",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Second epoxidation to BPDE",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1B1->BPDE",
+            "evidence": "Second epoxidation to BPDE",
+            "citation": "Second epoxidation to BPDE"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0015",
+      "source": "CYP1B1",
+      "target": "HydroxyE2",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Catechol estrogen formation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1B1->HydroxyE2",
+            "evidence": "Catechol estrogen formation",
+            "citation": "Catechol estrogen formation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0016",
+      "source": "CYP1B1",
+      "target": "DMBA_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "DMBA epoxidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1B1->DMBA_epoxide",
+            "evidence": "DMBA epoxidation",
+            "citation": "DMBA epoxidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0017",
+      "source": "CYP1B1",
+      "target": "DMBA_diol_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Diol-epoxide formation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1B1->DMBA_diol_epoxide",
+            "evidence": "Diol-epoxide formation",
+            "citation": "Diol-epoxide formation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0018",
+      "source": "CYP1A2",
+      "target": "NOH_PhIP",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "N-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1A2->NOH_PhIP",
+            "evidence": "N-hydroxylation",
+            "citation": "N-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0019",
+      "source": "CYP1A2",
+      "target": "NOH_4ABP",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "N-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1A2->NOH_4ABP",
+            "evidence": "N-hydroxylation",
+            "citation": "N-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0020",
+      "source": "CYP1A2",
+      "target": "NOH_Benzidine",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Benzidine N-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1A2->NOH_Benzidine",
+            "evidence": "Benzidine N-hydroxylation",
+            "citation": "Benzidine N-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0021",
+      "source": "CYP1A2",
+      "target": "AFB1_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Secondary epoxidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1A2->AFB1_epoxide",
+            "evidence": "Secondary epoxidation",
+            "citation": "Secondary epoxidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0022",
+      "source": "CYP1A2",
+      "target": "NOH_MeIQx",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "N-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP1A2->NOH_MeIQx",
+            "evidence": "N-hydroxylation",
+            "citation": "N-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0023",
+      "source": "CYP2A6",
+      "target": "NNK_hydroxyl",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Alpha-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP2A6->NNK_hydroxyl",
+            "evidence": "Alpha-hydroxylation",
+            "citation": "Alpha-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0024",
+      "source": "CYP2A6",
+      "target": "NDMA",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Secondary activation at higher NDMA concentrations (ATSDR TP-141)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0025",
+      "source": "CYP2A13",
+      "target": "NNK_hydroxyl",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Pulmonary alpha-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP2A13->NNK_hydroxyl",
+            "evidence": "Pulmonary alpha-hydroxylation",
+            "citation": "Pulmonary alpha-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0026",
+      "source": "CYP2B6",
+      "target": "4OH_cyclophosphamide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:10220571",
+        "provenance": [
+          {
+            "evidence": "Major 4-hydroxylation activity; CYP2B6*6 (rs3745274) reduces clearance (PMID:10220571)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:10220571"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0027",
+      "source": "CYP2E1",
+      "target": "NDMA_hydroxyl",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Alpha-hydroxylation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP2E1->NDMA_hydroxyl",
+            "evidence": "Alpha-hydroxylation",
+            "citation": "Alpha-hydroxylation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [
+          "PMID 10950860 (Koop 1992)"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0028",
+      "source": "CYP2E1",
+      "target": "Benzene_oxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Benzene oxidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP2E1->Benzene_oxide",
+            "evidence": "Benzene oxidation",
+            "citation": "Benzene oxidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [
+          "PMID 10950860 (Koop 1992)"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0029",
+      "source": "CYP2E1",
+      "target": "Chloroethylene_oxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Vinyl chloride oxidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP2E1->Chloroethylene_oxide",
+            "evidence": "Vinyl chloride oxidation",
+            "citation": "Vinyl chloride oxidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [
+          "PMID 10950860 (Koop 1992)"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0030",
+      "source": "CYP2E1",
+      "target": "Hydroxymethylnitrosamine",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:40390554",
+        "provenance": [
+          {
+            "evidence": "Primary P450; required for NDMA genotoxicity (PMID:40390554)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:40390554",
+          "PMID 10950860 (Koop 1992)"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0031",
+      "source": "CYP2E1",
+      "target": "Chloral_hydrate",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Primary CYP2E1 oxidation of TCE"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID 10950860 (Koop 1992)"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0032",
+      "source": "CYP2E1",
+      "target": "Glycidamide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:17872912",
+        "provenance": [
+          {
+            "evidence": "Primary P450 for acrylamide epoxidation (PMID:17872912)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:17872912",
+          "PMID 10950860 (Koop 1992)"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0033",
+      "source": "CYP2E1",
+      "target": "Vinyl_carbamate",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:12860588",
+        "provenance": [
+          {
+            "evidence": "Primary P450 for urethane dehydrogenation; abolished in CYP2E1-null mice (PMID:12860588)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:12860588",
+          "PMID 10950860 (Koop 1992)"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0034",
+      "source": "CYP3A4",
+      "target": "AFB1_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Aflatoxin epoxidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "CYP3A4->AFB1_epoxide",
+            "evidence": "Aflatoxin epoxidation",
+            "citation": "Aflatoxin epoxidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [
+          "PMID 7865919"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0035",
+      "source": "CYP3A4",
+      "target": "4OH_cyclophosphamide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:10220571",
+        "provenance": [
+          {
+            "evidence": "Secondary 4-hydroxylation with competing N-dechloroethylation producing chloroacetaldehyde (PMID:10220571)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:10220571",
+          "PMID 7865919"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0036",
+      "source": "EPHX1",
+      "target": "DMBA_diol",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "Epoxide hydrolysis",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "EPHX1->DMBA_diol",
+            "evidence": "Epoxide hydrolysis",
+            "citation": "Epoxide hydrolysis"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0037",
+      "source": "GSTM1",
+      "target": "BPDE_GSH",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "Glutathione conjugation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "GSTM1->BPDE_GSH",
+            "evidence": "Glutathione conjugation",
+            "citation": "Glutathione conjugation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0038",
+      "source": "GSTM1",
+      "target": "As",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:21801416",
+        "provenance": [
+          {
+            "evidence": "PMID:21801416"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:21801416"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0039",
+      "source": "GSTM1",
+      "target": "Cd",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC3199751"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0040",
+      "source": "GSTM1",
+      "target": "Glycidamide",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Secondary GSH conjugation pathway (Besaratinia, Mutat Res 2010)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0041",
+      "source": "GSTM1",
+      "target": "Mustard_episulfonium",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "GSH conjugation; GSTM1-null correlates with elevated mustard-adduct burden in exposed veterans (IARC Monograph 100F)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0042",
+      "source": "GSTT1",
+      "target": "As",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:21801416",
+        "provenance": [
+          {
+            "evidence": "PMID:21801416"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:21801416"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0043",
+      "source": "GSTT1",
+      "target": "DCVG",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:20663906",
+        "provenance": [
+          {
+            "evidence": "BIOACTIVATION for TCE (inverted role); GSTT1-active required for renal carcinogenesis. GSTT1-null is PROTECTIVE (OR 0.93) (PMID:20663906)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:20663906"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0044",
+      "source": "GSTT1",
+      "target": "Vinyl_carbamate_epoxide",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "GSH conjugation of vinyl-carbamate epoxide; GSTT1-null allele elevates etheno-adduct burden (IARC Monograph 96)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0045",
+      "source": "GSTP1",
+      "target": "BPDE_GSH",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "Glutathione conjugation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "GSTP1->BPDE_GSH",
+            "evidence": "Glutathione conjugation",
+            "citation": "Glutathione conjugation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0046",
+      "source": "GSTP1",
+      "target": "CrVI",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC390765"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0047",
+      "source": "GSTP1",
+      "target": "Glycidamide",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "GSH conjugation of the epoxide; GSTP1/M1-null genotype elevates adduct burden (Besaratinia, Mutat Res 2010)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0048",
+      "source": "GSTP1",
+      "target": "Phosphoramide_mustard",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "GSH conjugation of aziridinium intermediates; GSTP1 Ile105Val (rs1695) modulates cyclophosphamide sensitivity (Yang et al., Pharmacogenet Genomics 2005)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0049",
+      "source": "GSTP1",
+      "target": "Chlorambucil_aziridinium",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "GSH conjugation; GSTP1 Ile105Val modulates chlorambucil response in CLL (Meier et al., Clin Cancer Res 2014)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0050",
+      "source": "GSTP1",
+      "target": "Busulfan",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "GSH-Bu conjugation; GSTA1/P1 polymorphisms alter busulfan clearance in pediatric HSCT (Ansari et al., Blood 2010)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0051",
+      "source": "GSTP1",
+      "target": "Acrolein",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "GSH conjugation yields 3-hydroxypropylmercapturic acid (HPMA), the principal urinary biomarker (IARC Monograph 128)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0052",
+      "source": "GSTP1",
+      "target": "Crotonaldehyde",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "GSH conjugation to 3-hydroxy-1-methylpropylmercapturic acid (HMPMA), a validated urinary biomarker for tobacco-smoke crotonaldehyde exposure"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0053",
+      "source": "GSTP1",
+      "target": "4_HNE",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:1937131",
+        "provenance": [
+          {
+            "evidence": "GSH conjugation is the dominant detoxification route; GSTA4 is a preferred isoform but GSTP1 provides substantial activity in human tissue (PMID:1937131)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:1937131"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0054",
+      "source": "NAT1",
+      "target": "MeIQx_acetoxy",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "Reactive acetoxy ester formation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "NAT1->MeIQx_acetoxy",
+            "evidence": "Reactive acetoxy ester formation",
+            "citation": "Reactive acetoxy ester formation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0055",
+      "source": "SULT1A1",
+      "target": "SMF",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:21538843",
+        "provenance": [
+          {
+            "evidence": "SULT1A1 is the principal sulfotransferase generating SMF in human liver and colon (PMID:21538843; EFSA CONTAM Panel 2011)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:21538843"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0056",
+      "source": "NQO1",
+      "target": "CrVI",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC390765"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0057",
+      "source": "UGT2B17",
+      "target": "DHT_gluc",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "Glucuronidation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "UGT2B17->DHT_gluc",
+            "evidence": "Glucuronidation",
+            "citation": "Glucuronidation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0058",
+      "source": "ABCC2",
+      "target": "DMA_V",
+      "causal_relation": "precedes",
+      "source_predicate": "TRANSPORTS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.003",
+      "motif_ids": [
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "ScienceDirect 2016"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0059",
+      "source": "XRCC1",
+      "target": "8_OHdG",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC6802009"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0060",
+      "source": "XRCC1",
+      "target": "N7_GA_dG",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:17872912",
+        "provenance": [
+          {
+            "evidence": "BER scaffold response to depurinated N7-glycidamide adducts (PMID:17872912)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:17872912"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0061",
+      "source": "XRCC1",
+      "target": "N7_methyl_dG",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "BER scaffold response to abasic sites generated by depurination of N7-methyl-dG"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0062",
+      "source": "XRCC1",
+      "target": "Acr_dG",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:19705912",
+        "provenance": [
+          {
+            "evidence": "BER scaffold response to ring-opened Acr-dG adducts with NER backup for bulky ring-closed forms (PMID:19705912)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:19705912"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0063",
+      "source": "XRCC1",
+      "target": "Cr_dG",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "NER/BER handling of exocyclic propano-dG adducts (IARC Monograph 63)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0064",
+      "source": "XRCC1",
+      "target": "M1_dG",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "NER plus BER handle M1-dG; repair deficiency elevates spontaneous mutation frequency (Niedernhofer et al., JBC 2003)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0065",
+      "source": "XPC",
+      "target": "Cr_DNA_ternary",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Metallomics 2023"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0066",
+      "source": "XPC",
+      "target": "Ni_DPC",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC6802009"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0067",
+      "source": "ERCC2",
+      "target": "Cr_DNA_binary",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Metallomics 2023"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0068",
+      "source": "ERCC2",
+      "target": "Ni_DPC",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC6802009; ACS Chem Res Toxicol 2007"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0069",
+      "source": "OGG1",
+      "target": "8_OHdG",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC6802009"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0070",
+      "source": "MGMT",
+      "target": "Ni",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC6802009"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0071",
+      "source": "Chloroethylene_oxide",
+      "target": "EthenoG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "Etheno adduct formation",
+        "provenance": [
+          {
+            "source_db": "Curated showcase",
+            "record_id": "Chloroethylene_oxide->EthenoG",
+            "evidence": "Etheno adduct formation",
+            "citation": "Etheno adduct formation"
+          }
+        ],
+        "sources": [
+          "Curated showcase"
+        ],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0072",
+      "source": "As",
+      "target": "MMA_V",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:34730462",
+        "provenance": [
+          {
+            "evidence": "PMID:34730462"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:34730462"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0073",
+      "source": "Cd",
+      "target": "Cd_MT",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC8141308"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0074",
+      "source": "Cd",
+      "target": "ROS_metal",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC6802009"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0075",
+      "source": "CrVI",
+      "target": "Cr_III",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Metallomics 2023 mfad045"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0076",
+      "source": "CrVI",
+      "target": "Cr_V",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Metallomics 2023 mfad045"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0077",
+      "source": "CrVI",
+      "target": "Asc_Cr_III",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Biochemistry 2003"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0078",
+      "source": "Ni",
+      "target": "ROS_metal",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC6802009"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0079",
+      "source": "Ni",
+      "target": "Ni_DPC",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC6802009"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0080",
+      "source": "Be",
+      "target": "HLA_DPB1",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Science 1993; PMC4685955"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0081",
+      "source": "AS3MT",
+      "target": "MMA_V",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:34730462",
+        "provenance": [
+          {
+            "evidence": "PMID:34730462"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:34730462"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0082",
+      "source": "AS3MT",
+      "target": "DMA_V",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:34730462",
+        "provenance": [
+          {
+            "evidence": "PMID:34730462"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:34730462"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0083",
+      "source": "GSTO1",
+      "target": "MMA_III",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:21801416",
+        "provenance": [
+          {
+            "evidence": "PMID:21801416"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:21801416"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0084",
+      "source": "GSTO2",
+      "target": "MMA_III",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:21801416",
+        "provenance": [
+          {
+            "evidence": "PMID:21801416"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:21801416"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0085",
+      "source": "MT1A",
+      "target": "Cd",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC8141308"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0086",
+      "source": "MT2A",
+      "target": "Cd",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC8141308; PMC8197913"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0087",
+      "source": "PARP1",
+      "target": "8_OHdG",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC3606021"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0088",
+      "source": "SLC11A1",
+      "target": "Cd",
+      "causal_relation": "precedes",
+      "source_predicate": "TRANSPORTS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.003",
+      "motif_ids": [
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC2898853"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0089",
+      "source": "MMA_III",
+      "target": "ROS_metal",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PMC3606021"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0090",
+      "source": "Cr_III",
+      "target": "Cr_DNA_binary",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Metallomics 2023; PMC10356904"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0091",
+      "source": "Cr_V",
+      "target": "ROS_metal",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Metallomics 2023"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0092",
+      "source": "Asc_Cr_III",
+      "target": "Cr_DNA_ternary",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Biochemistry 2003"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0093",
+      "source": "ROS_metal",
+      "target": "8_OHdG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:10417614",
+        "provenance": [
+          {
+            "evidence": "PMID:10417614"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:10417614"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0094",
+      "source": "Formaldehyde",
+      "target": "N2_HOMedG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:21222454",
+        "provenance": [
+          {
+            "evidence": "~20-fold N2-HOMedG increase in ALDH2/ADH5 double-KO mice (PMID:21222454)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:21222454"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0095",
+      "source": "TCDD",
+      "target": "AHR",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "TCDD binds AhR with picomolar Kd; displaces HSP90 (PMC3748760)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0096",
+      "source": "PCB_126",
+      "target": "AHR",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Dioxin-like PCB; WHO-TEF 0.1 relative to TCDD (PMC3748760)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0097",
+      "source": "NDEA",
+      "target": "Hydroxymethylnitrosamine",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Analogous CYP2E1 alpha-hydroxylation pathway as NDMA"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0098",
+      "source": "TCE",
+      "target": "Chloral_hydrate",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "CYP2E1 oxidative pathway; hepatic metabolism"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0099",
+      "source": "TCE",
+      "target": "DCVG",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:20663906",
+        "provenance": [
+          {
+            "evidence": "BIOACTIVATION (not detoxification); GSTT1-active genotype OR 1.88 for RCC (PMID:20663906)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:20663906"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0100",
+      "source": "PCE",
+      "target": "TCA",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "PCE CYP2E1 oxidation to trichloroacetic acid"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0101",
+      "source": "ALDH2",
+      "target": "Acetaldehyde_int",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Primary clearance; rs671 ALDH2*2 causes 6-19x acetaldehyde accumulation (PMC4376259)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0102",
+      "source": "ALDH2",
+      "target": "Formaldehyde",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Mitochondrial formaldehyde oxidation to formate (PMC7758861)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0103",
+      "source": "ALDH2",
+      "target": "Formate",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Mitochondrial formaldehyde clearance producing formate"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0104",
+      "source": "ALDH2",
+      "target": "Acrolein",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "ALDH2 oxidation of acrolein to acrylic acid; ALDH2*2 carriers show elevated acrolein-protein adducts (IARC Monograph 128)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0105",
+      "source": "ALDH2",
+      "target": "Crotonaldehyde",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "ALDH2 oxidation to crotonic acid; ALDH2*2 polymorphism amplifies Cr-dG burden (IARC Monograph 63)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0106",
+      "source": "ALDH2",
+      "target": "4_HNE",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:1937131",
+        "provenance": [
+          {
+            "evidence": "ALDH2 oxidation to 4-hydroxynon-2-enoic acid; ALDH2*2 carriers accumulate 4-HNE-protein adducts in alcoholic liver disease (PMID:1937131)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:1937131"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0107",
+      "source": "ADH1B",
+      "target": "Acetaldehyde_int",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "ADH1B oxidizes ethanol to acetaldehyde; *2 (rs1229984) fast allele ESCC OR 2.50 (PMC4122263)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0108",
+      "source": "ADH1C",
+      "target": "Acetaldehyde_int",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "ADH1C contributes to ethanol oxidation (rs698 Ile349Val)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0109",
+      "source": "ADH5",
+      "target": "Formaldehyde",
+      "causal_relation": "detoxifies",
+      "source_predicate": "DETOXIFIES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Cytosolic formaldehyde dehydrogenase; S-hydroxymethylglutathione pathway (PMC7758861)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0110",
+      "source": "ADH5",
+      "target": "Formate",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Formaldehyde to S-hydroxymethylglutathione to formate"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0111",
+      "source": "FANCD2",
+      "target": "N2_ethylidene_dG",
+      "causal_relation": "mediates",
+      "source_predicate": "REPAIRS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.006",
+      "motif_ids": [
+        "EG3.MOTIF.006",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Fanconi anemia pathway repairs acetaldehyde-induced ICLs (PMC5324749)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.MECHANISM.OXSTRESS.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0112",
+      "source": "AHR",
+      "target": "ARNT",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Nuclear translocation and dimerization with ARNT"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0113",
+      "source": "AHR",
+      "target": "AhR_ARNT_complex",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "AhR-ARNT heterodimerization forming active transcription factor"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0114",
+      "source": "AHR",
+      "target": "CYP1A1",
+      "causal_relation": "increases",
+      "source_predicate": "INDUCES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.007",
+      "motif_ids": [
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "XRE binding induces CYP1A1; CpG demethylation persists 40+ days (Sci Rep 2016, srep34989)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID 9187241"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0115",
+      "source": "AHR",
+      "target": "CYP1B1",
+      "causal_relation": "increases",
+      "source_predicate": "INDUCES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.007",
+      "motif_ids": [
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Amplifies estrogen/PAH bioactivation via CYP1B1 induction (PMC3748760)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0116",
+      "source": "ARNT",
+      "target": "AhR_ARNT_complex",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Obligate co-factor for AhR transcriptional complex"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0117",
+      "source": "AHRR",
+      "target": "AHR",
+      "causal_relation": "decreases",
+      "source_predicate": "INHIBITS",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Competes with AhR for ARNT binding; negative feedback loop"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0118",
+      "source": "CCBL1",
+      "target": "DCVC",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:20663906",
+        "provenance": [
+          {
+            "evidence": "Beta-lyase generates reactive DCVT thiol from DCVC (PMID:20663906)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:20663906"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0119",
+      "source": "Acetaldehyde_int",
+      "target": "N2_ethylidene_dG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Acetaldehyde forms DNA interstrand crosslinks via N2-ethylidene-dG (PMC5324749)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0120",
+      "source": "Hydroxymethylnitrosamine",
+      "target": "Methyldiazonium",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Spontaneous decomposition to formaldehyde + methyldiazonium"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0121",
+      "source": "Methyldiazonium",
+      "target": "O6_methyl_dG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:40390554",
+        "provenance": [
+          {
+            "evidence": "Methylates O6-G; causes G:C to A:T transitions (PMID:40390554)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:40390554"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0122",
+      "source": "Methyldiazonium",
+      "target": "N7_methyl_dG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:2185966",
+        "provenance": [
+          {
+            "evidence": "Dominant guanine methylation product from MNU; repaired by BER after spontaneous depurination (PMID:2185966)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:2185966"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0123",
+      "source": "DCVG",
+      "target": "DCVC",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Renal brush-border processing of DCVG to DCVC"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0124",
+      "source": "DCVC",
+      "target": "Renal_DNA_damage",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:20663906",
+        "provenance": [
+          {
+            "evidence": "DCVT thiol forms DNA adducts; VHL mutations in RCC (PMID:20663906)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:20663906"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0125",
+      "source": "Chloral_hydrate",
+      "target": "TCA",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Oxidized to trichloroacetic acid; urinary biomarker"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0126",
+      "source": "Ethanol",
+      "target": "Acetaldehyde_int",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "ADH1B/ADH1C-mediated oxidation of ethanol produces intracellular acetaldehyde; represented explicitly in the source Wave 2 expansion."
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0127",
+      "source": "Acrylamide",
+      "target": "Glycidamide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:7614537",
+        "provenance": [
+          {
+            "evidence": "CYP2E1-dependent epoxidation to glycidamide, the ultimate mutagen; demonstrated in rodent and human hepatic microsomes (Segerbaeck et al. 1995, PMID:7614537)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:7614537"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0128",
+      "source": "Glycidamide",
+      "target": "N7_GA_dG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:17872912",
+        "provenance": [
+          {
+            "evidence": "Direct alkylation at N7-guanine; principal acrylamide-related adduct in rodent and human tissues (PMID:17872912)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:17872912"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0129",
+      "source": "Cyclophosphamide",
+      "target": "4OH_cyclophosphamide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "CYP-catalyzed 4-hydroxylation is the obligatory prodrug activation step (IARC Monograph 100A)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0130",
+      "source": "Cyclophosphamide",
+      "target": "Acrolein",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:10220571",
+        "provenance": [
+          {
+            "evidence": "Acrolein is the obligate byproduct of aldophosphamide beta-elimination during cyclophosphamide activation; drives hemorrhagic cystitis and contributes to secondary bladder cancer (PMID:10220571)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:10220571"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0131",
+      "source": "Chlorambucil",
+      "target": "Chlorambucil_aziridinium",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:7523912",
+        "provenance": [
+          {
+            "evidence": "Intramolecular cyclization displaces chloride to form the cyclic aziridinium ultimate alkylator (PMID:7523912)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:7523912"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0132",
+      "source": "Sulfur_mustard",
+      "target": "Mustard_episulfonium",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:8635461",
+        "provenance": [
+          {
+            "evidence": "Intramolecular cyclization to cyclic episulfonium is the rate-limiting step of alkylation (PMID:8635461)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:8635461"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0133",
+      "source": "Busulfan",
+      "target": "Busulfan_methanesulfonate",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:12960109",
+        "provenance": [
+          {
+            "evidence": "Non-enzymatic hydrolytic displacement of methanesulfonate leaving groups produces the reactive bifunctional alkylator (PMID:12960109)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:12960109"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0134",
+      "source": "MNU",
+      "target": "Methyldiazonium",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:2185966",
+        "provenance": [
+          {
+            "evidence": "Spontaneous pH-dependent decomposition to methyldiazohydroxide and methyldiazonium ion; no enzymatic activation required (PMID:2185966)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:2185966"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0135",
+      "source": "Temozolomide",
+      "target": "MTIC",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:9327140",
+        "provenance": [
+          {
+            "evidence": "Spontaneous pH-dependent hydrolysis of the imidazotetrazine ring to MTIC; no enzymatic requirement (PMID:9327140)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:9327140"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0136",
+      "source": "4OH_cyclophosphamide",
+      "target": "Phosphoramide_mustard",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:10220571",
+        "provenance": [
+          {
+            "evidence": "Spontaneous tautomerization to aldophosphamide then beta-elimination to phosphoramide mustard plus acrolein (PMID:10220571)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:10220571"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0137",
+      "source": "Phosphoramide_mustard",
+      "target": "DNA_ICL_mustard",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:10220571",
+        "provenance": [
+          {
+            "evidence": "Bifunctional aziridinium forms G-G interstrand crosslinks (PMID:10220571)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:10220571"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0138",
+      "source": "Chlorambucil_aziridinium",
+      "target": "DNA_ICL_mustard",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:7523912",
+        "provenance": [
+          {
+            "evidence": "Bifunctional N7-dG interstrand crosslinks drive therapeutic cytotoxicity and therapy-related AML risk (PMID:7523912; IARC 100A)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:7523912"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0139",
+      "source": "Mustard_episulfonium",
+      "target": "DNA_ICL_mustard",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:8635461",
+        "provenance": [
+          {
+            "evidence": "Bifunctional alkylation produces N7-Gua monoadducts and 5'-d(GNC) interstrand crosslinks (PMID:8635461; IARC 100F)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:8635461"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0140",
+      "source": "Busulfan_methanesulfonate",
+      "target": "DNA_ICL_mustard",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:12960109",
+        "provenance": [
+          {
+            "evidence": "Bifunctional alkylation yields N7-THPG adducts and DNA-DNA interstrand crosslinks (PMID:12960109; IARC 100A)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:12960109"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0141",
+      "source": "MTIC",
+      "target": "Methyldiazonium",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:9327140",
+        "provenance": [
+          {
+            "evidence": "MTIC decomposes to methyldiazonium plus 5-aminoimidazole-4-carboxamide at physiological pH (PMID:9327140)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:9327140"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0142",
+      "source": "Urethane",
+      "target": "Vinyl_carbamate",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:12860588",
+        "provenance": [
+          {
+            "evidence": "CYP2E1 dehydrogenation of urethane to vinyl carbamate is the first obligatory activation step (PMID:12860588; IARC Monograph 96)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:12860588"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0143",
+      "source": "Acrolein",
+      "target": "Acr_dG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:19705912",
+        "provenance": [
+          {
+            "evidence": "Direct Michael addition yields alpha/gamma-hydroxy-1,N2-propano-dG adducts; dominant adduct class in smokers' lung DNA (PMID:19705912; IARC Monograph 128)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:19705912"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0144",
+      "source": "Crotonaldehyde",
+      "target": "Cr_dG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Michael addition/cyclization yields 1,N2-propano-dG exocyclic adduct detected in smokers' oral and lung tissue (Chung et al., Carcinogenesis 1989; IARC Monograph 63)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0145",
+      "source": "Furfural",
+      "target": "SMF",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:21538843",
+        "provenance": [
+          {
+            "evidence": "Furfural is reduced/hydroxylated to 5-hydroxymethylfurfural (HMF), then SULT1A1 sulfates HMF to the DNA-reactive 5-sulfoxymethylfurfural (SMF) (PMID:21538843)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:21538843"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0146",
+      "source": "MDA",
+      "target": "M1_dG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:10064842",
+        "provenance": [
+          {
+            "evidence": "Direct reaction of MDA with dG yields pyrimido[1,2-a]purin-10(3H)-one (M1-dG); quantitative biomarker of oxidative-stress mutagenesis (PMID:10064842)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:10064842"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0147",
+      "source": "4_HNE",
+      "target": "HNE_dG",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:1937131",
+        "provenance": [
+          {
+            "evidence": "Michael addition/cyclization yields 1,N2-propano-dG (HNE-dG); selectively enhanced at methylated CpG sites, linking lipid peroxidation to TP53 hotspot spectrum (PMID:1937131; Hu et al., PNAS 2002)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:1937131"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0148",
+      "source": "Vinyl_carbamate",
+      "target": "Vinyl_carbamate_epoxide",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:12860588",
+        "provenance": [
+          {
+            "evidence": "Second CYP2E1 epoxidation generates the ultimate electrophile (PMID:12860588)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:12860588"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0149",
+      "source": "Vinyl_carbamate_epoxide",
+      "target": "etheno_dA",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:12860588",
+        "provenance": [
+          {
+            "evidence": "Forms 1,N6-etheno-dA adducts mechanistically identical to vinyl-chloride chemistry (PMID:12860588; IARC Monograph 96)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:12860588"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0150",
+      "source": "Vinyl_carbamate_epoxide",
+      "target": "etheno_dC",
+      "causal_relation": "damages",
+      "source_predicate": "FORMS_ADDUCT",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.003"
+      ],
+      "evidence": {
+        "evidence_id": "PMID:12860588",
+        "provenance": [
+          {
+            "evidence": "Forms 3,N4-etheno-dC adducts detected in liver and lung of urethane-exposed rodents (PMID:12860588)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [
+          "PMID:12860588"
+        ],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0151",
+      "source": "PCB_169",
+      "target": "AHR",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Non-ortho dioxin-like PCB; WHO-TEF 0.03 relative to TCDD (van den Berg 2006; IARC Monograph 107, 2016)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0152",
+      "source": "PCB_77",
+      "target": "AHR",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Coplanar dioxin-like PCB; WHO-TEF 0.0001; CYP1A1 inducer in hepatocytes (IARC Monograph 107, 2016)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0153",
+      "source": "PCB_118",
+      "target": "AHR",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Mono-ortho dioxin-like PCB; WHO-TEF 0.00003; most abundant dioxin-like congener in human serum (IARC Monograph 107, 2016)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0154",
+      "source": "PeCDF_23478",
+      "target": "AHR",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Most potent non-TCDD AhR ligand; WHO-TEF 0.3; dominant PCDF in Yusho/Yu-cheng cohorts (IARC Monograph 100F, 2012)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0155",
+      "source": "HCB",
+      "target": "AHR",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Weak AhR agonist; induces CYP1A1/CYP1A2/CYP1B1 in rodent liver; associated with hepatic porphyria (IARC Monograph 79, 2001)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0156",
+      "source": "PCP",
+      "target": "AHR",
+      "causal_relation": "activates",
+      "source_predicate": "ACTIVATES",
+      "origin_layer": "registry_baseline",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": null,
+        "provenance": [
+          {
+            "evidence": "Pentachlorophenol is a moderate AhR agonist; tetrachloro-p-benzoquinone metabolite contributes to redox cycling (IARC Monograph 117, 2019)"
+          }
+        ],
+        "sources": [],
+        "pmid_refs": [],
+        "confidence": "curated"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [
+        "EG3.MOD.BIOTRANS.FLUX.v1",
+        "EG3.MOD.EVIDENCE.PROVENANCE.v1"
+      ]
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0157",
+      "source": "CYP1A1",
+      "target": "BaP",
+      "causal_relation": "activates",
+      "source_predicate": "bioactivates",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0001",
+        "provenance": [],
+        "sources": [
+          "Chaudhary & Willett",
+          "Shimada et al."
+        ],
+        "pmid_refs": [],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 0.054,
+        "Vmax": 59.4
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0158",
+      "source": "CYP3A4",
+      "target": "AFB1",
+      "causal_relation": "activates",
+      "source_predicate": "bioactivates",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0005",
+        "provenance": [],
+        "sources": [
+          "Lootens et al. 2022 PMC9469084"
+        ],
+        "pmid_refs": [
+          "PMC9469084"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 49.6,
+        "Vmax": 43.6
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0159",
+      "source": "CYP1A2",
+      "target": "AFB1",
+      "causal_relation": "activates",
+      "source_predicate": "bioactivates",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0006",
+        "provenance": [],
+        "sources": [
+          "Lootens et al. 2022 PMC9469084",
+          "PMID:8975785"
+        ],
+        "pmid_refs": [
+          "PMC9469084",
+          "PMID:8975785"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 58.2,
+        "Vmax": 283.0
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0160",
+      "source": "ADH1B",
+      "target": "Ethanol",
+      "causal_relation": "detoxifies",
+      "source_predicate": "detoxifies",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0008",
+        "provenance": [],
+        "sources": [
+          "PMC3525274"
+        ],
+        "pmid_refs": [
+          "PMC3525274"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 16.0,
+        "Vmax": 0.18
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0161",
+      "source": "ADH1B",
+      "target": "Ethanol",
+      "causal_relation": "detoxifies",
+      "source_predicate": "detoxifies",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0009",
+        "provenance": [],
+        "sources": [
+          "PMC3525274"
+        ],
+        "pmid_refs": [
+          "PMC3525274"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 1900.0,
+        "Vmax": 4.8
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0162",
+      "source": "ALDH2",
+      "target": "Acetaldehyde",
+      "causal_relation": "detoxifies",
+      "source_predicate": "detoxifies",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0010",
+        "provenance": [],
+        "sources": [
+          "PMC3525274"
+        ],
+        "pmid_refs": [
+          "PMC3525274"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 0.2,
+        "Vmax": 0.6
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0163",
+      "source": "ALDH2",
+      "target": "Acetaldehyde",
+      "causal_relation": "detoxifies",
+      "source_predicate": "detoxifies",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.002",
+      "motif_ids": [
+        "EG3.MOTIF.002",
+        "EG3.MOTIF.004"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0011",
+        "provenance": [],
+        "sources": [
+          "PMC3525274"
+        ],
+        "pmid_refs": [
+          "PMC3525274"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 4.6,
+        "Vmax": 0.017
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0164",
+      "source": "CYP2A13",
+      "target": "NNK",
+      "causal_relation": "activates",
+      "source_predicate": "bioactivates",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0014",
+        "provenance": [],
+        "sources": [
+          "PMID:12975327"
+        ],
+        "pmid_refs": [
+          "PMID:12975327"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 3.6,
+        "Vmax": 13.8
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0165",
+      "source": "CYP2E1",
+      "target": "NDMA",
+      "causal_relation": "activates",
+      "source_predicate": "bioactivates",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0016",
+        "provenance": [],
+        "sources": [
+          "PMID:1444447",
+          "PMID:20577029"
+        ],
+        "pmid_refs": [
+          "PMID:1444447",
+          "PMID:20577029"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 14.75
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0166",
+      "source": "CYP2E1",
+      "target": "NDMA",
+      "causal_relation": "activates",
+      "source_predicate": "bioactivates",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0017",
+        "provenance": [],
+        "sources": [
+          "PMID:1444447"
+        ],
+        "pmid_refs": [
+          "PMID:1444447"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 22.0
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0167",
+      "source": "CYP1A2",
+      "target": "PhIP",
+      "causal_relation": "activates",
+      "source_predicate": "bioactivates",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0018",
+        "provenance": [],
+        "sources": [
+          "Turesky et al., referenced in PMC1829392"
+        ],
+        "pmid_refs": [
+          "PMC1829392"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 79.0
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0168",
+      "source": "CYP1A1",
+      "target": "PhIP",
+      "causal_relation": "activates",
+      "source_predicate": "bioactivates",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0019",
+        "provenance": [],
+        "sources": [
+          "PMC1829392"
+        ],
+        "pmid_refs": [
+          "PMC1829392"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 5.1
+      }
+    },
+    {
+      "causal_edge_id": "EG3.CAUSAL.EDGE.0169",
+      "source": "CYP1B1",
+      "target": "PhIP",
+      "causal_relation": "activates",
+      "source_predicate": "bioactivates",
+      "origin_layer": "phase3_execution",
+      "motif_id": "EG3.MOTIF.001",
+      "motif_ids": [
+        "EG3.MOTIF.001",
+        "EG3.MOTIF.007"
+      ],
+      "evidence": {
+        "evidence_id": "EG3.EXEC.EDGE.0020",
+        "provenance": [],
+        "sources": [
+          "PMC1829392"
+        ],
+        "pmid_refs": [
+          "PMC1829392"
+        ],
+        "confidence": "high"
+      },
+      "promotion_status": "causal",
+      "version_origin": "ExposoGraph 3.0 Phase 4 (causal promotion)",
+      "module_membership": [],
+      "quantitative": {
+        "Km_uM": 4.5
+      }
+    }
+  ]
+}

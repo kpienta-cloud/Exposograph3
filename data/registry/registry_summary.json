@@ -1,6 +1,7 @@
 {
   "bundle": "Registry Graph v2-compat",
   "version_origin": "ExposoGraph 2.0 (v0.0.5; 212 nodes / 313 edges reference bundle)",
+  "phase": "Phase 4: Causal layer promotion",
   "node_count": 212,
   "edge_count": 313,
   "execution_edge_count": 74,
@@ -44,6 +45,127 @@
       "execution": 17
     }
   },
+  "causal_layer": {
+    "promoted_causal_edges": 169,
+    "retained_in_registry": 113,
+    "total_directional_accounted": 282,
+    "by_causal_relation": {
+      "activates": 98,
+      "detoxifies": 31,
+      "precedes": 2,
+      "mediates": 14,
+      "damages": 21,
+      "increases": 2,
+      "decreases": 1
+    },
+    "by_source_predicate": {
+      "ACTIVATES": 89,
+      "DETOXIFIES": 27,
+      "TRANSPORTS": 2,
+      "REPAIRS": 14,
+      "FORMS_ADDUCT": 21,
+      "INDUCES": 2,
+      "INHIBITS": 1,
+      "bioactivates": 9,
+      "detoxifies": 4
+    },
+    "by_origin_layer": {
+      "registry_baseline": 156,
+      "phase3_execution": 13
+    },
+    "motif_coverage": {
+      "EG3.MOTIF.001": 119,
+      "EG3.MOTIF.002": 32,
+      "EG3.MOTIF.003": 2,
+      "EG3.MOTIF.006": 14,
+      "EG3.MOTIF.007": 2
+    },
+    "pmids_attached": [
+      "PMID:19705912",
+      "PMID:9327140",
+      "PMID:8635461",
+      "PMID:10064842",
+      "PMID:20663906",
+      "PMID:40390554",
+      "PMID 9187241",
+      "PMID:2185966",
+      "PMID:10220571",
+      "PMID:21222454",
+      "PMID:7614537",
+      "PMC1829392",
+      "PMC9469084",
+      "PMC3525274",
+      "PMID 7865919",
+      "PMID:12860588",
+      "PMID:12975327",
+      "PMID:1444447",
+      "PMID:12960109",
+      "PMID:34730462",
+      "PMID:21801416",
+      "PMID:10417614",
+      "PMID 10950860 (Koop 1992)",
+      "PMID:8975785",
+      "PMID:21538843",
+      "PMID:17872912",
+      "PMID:20577029",
+      "PMID:1937131",
+      "PMID:7523912"
+    ]
+  },
+  "causal_motifs": {
+    "total": 7,
+    "motifs": [
+      {
+        "motif_id": "EG3.MOTIF.001",
+        "name": "Exposure → Metabolite → Target Damage",
+        "causal_relation": "activates",
+        "status": "active",
+        "edges_using_motif": 119
+      },
+      {
+        "motif_id": "EG3.MOTIF.002",
+        "name": "Detoxification / Competing Elimination",
+        "causal_relation": "detoxifies",
+        "status": "active",
+        "edges_using_motif": 32
+      },
+      {
+        "motif_id": "EG3.MOTIF.003",
+        "name": "Pathway → Phenotype / Outcome",
+        "causal_relation": "precedes",
+        "status": "active",
+        "edges_using_motif": 2
+      },
+      {
+        "motif_id": "EG3.MOTIF.004",
+        "name": "Modifier → Susceptibility",
+        "causal_relation": "modifies",
+        "status": "active",
+        "edges_using_motif": 0
+      },
+      {
+        "motif_id": "EG3.MOTIF.005",
+        "name": "Tissue Context → Outcome",
+        "causal_relation": "modifies",
+        "status": "active",
+        "edges_using_motif": 0
+      },
+      {
+        "motif_id": "EG3.MOTIF.006",
+        "name": "Repair → Damage Mitigation",
+        "causal_relation": "mediates",
+        "status": "active",
+        "edges_using_motif": 14
+      },
+      {
+        "motif_id": "EG3.MOTIF.007",
+        "name": "Induction → Increased Activation",
+        "causal_relation": "increases",
+        "status": "active",
+        "edges_using_motif": 2
+      }
+    ]
+  },
   "modules": [
     {
       "module_id": "EG3.MOD.BIOTRANS.FLUX.v1",
@@ -52,11 +174,13 @@
       "maturity_class": "E",
       "equation_type": "score-based / michaelis_menten",
       "promotion_status": "executable",
+      "validation_status": "curated-causal",
       "input_ports_count": 4,
       "output_ports_count": 3,
       "parameters_count": 37,
       "graph_nodes_count": 58,
       "graph_edges_count": 20,
+      "causal_edges_count": 150,
       "phase3_fields_populated": 22,
       "phase3_fields_total": 22,
       "phase3_completeness_pct": 100.0
@@ -65,14 +189,16 @@
       "module_id": "EG3.MOD.EVIDENCE.PROVENANCE.v1",
       "module_name": "Evidence and Provenance Module",
       "module_class": "EvidenceAssertion",
-      "maturity_class": "D",
+      "maturity_class": "C",
       "equation_type": "lookup",
       "promotion_status": "registry",
+      "validation_status": "curated-causal",
       "input_ports_count": 2,
       "output_ports_count": 1,
       "parameters_count": 106,
       "graph_nodes_count": 85,
       "graph_edges_count": 0,
+      "causal_edges_count": 165,
       "phase3_fields_populated": 22,
       "phase3_fields_total": 22,
       "phase3_completeness_pct": 100.0
@@ -84,11 +210,13 @@
       "maturity_class": "C",
       "equation_type": "lookup",
       "promotion_status": "causal",
+      "validation_status": "curated-causal",
       "input_ports_count": 3,
       "output_ports_count": 3,
       "parameters_count": 14,
       "graph_nodes_count": 56,
       "graph_edges_count": 0,
+      "causal_edges_count": 13,
       "phase3_fields_populated": 22,
       "phase3_fields_total": 22,
       "phase3_completeness_pct": 100.0
@@ -100,11 +228,13 @@
       "maturity_class": "C",
       "equation_type": "rule-based",
       "promotion_status": "causal",
+      "validation_status": "curated-causal",
       "input_ports_count": 3,
       "output_ports_count": 4,
       "parameters_count": 86,
       "graph_nodes_count": 20,
       "graph_edges_count": 0,
+      "causal_edges_count": 9,
       "phase3_fields_populated": 22,
       "phase3_fields_total": 22,
       "phase3_completeness_pct": 100.0
@@ -116,11 +246,13 @@
       "maturity_class": "C",
       "equation_type": "rule-based",
       "promotion_status": "causal",
+      "validation_status": "curated-causal",
       "input_ports_count": 3,
       "output_ports_count": 3,
       "parameters_count": 7,
       "graph_nodes_count": 12,
       "graph_edges_count": 25,
+      "causal_edges_count": 14,
       "phase3_fields_populated": 22,
       "phase3_fields_total": 22,
       "phase3_completeness_pct": 100.0
@@ -132,11 +264,13 @@
       "maturity_class": "C",
       "equation_type": "lookup multiplier",
       "promotion_status": "causal",
+      "validation_status": "curated-causal",
       "input_ports_count": 2,
       "output_ports_count": 1,
       "parameters_count": 27,
       "graph_nodes_count": 21,
       "graph_edges_count": 0,
+      "causal_edges_count": 9,
       "phase3_fields_populated": 22,
       "phase3_fields_total": 22,
       "phase3_completeness_pct": 100.0
@@ -148,11 +282,13 @@
       "maturity_class": "C",
       "equation_type": "lookup",
       "promotion_status": "causal",
+      "validation_status": "curated",
       "input_ports_count": 3,
       "output_ports_count": 3,
       "parameters_count": 28,
       "graph_nodes_count": 27,
       "graph_edges_count": 22,
+      "causal_edges_count": 0,
       "phase3_fields_populated": 22,
       "phase3_fields_total": 22,
       "phase3_completeness_pct": 100.0
@@ -164,11 +300,13 @@
       "maturity_class": "C",
       "equation_type": "lookup",
       "promotion_status": "causal",
+      "validation_status": "curated-causal",
       "input_ports_count": 2,
       "output_ports_count": 1,
       "parameters_count": 53,
       "graph_nodes_count": 53,
       "graph_edges_count": 15,
+      "causal_edges_count": 13,
       "phase3_fields_populated": 22,
       "phase3_fields_total": 22,
       "phase3_completeness_pct": 100.0
