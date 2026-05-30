@@ -562,6 +562,67 @@
   </div>
 </div>
 
+
+<!-- ─── CAUSAL PANEL ───────────────────────────────────────────────────────── -->
+<div id="causal-controls" class="controls" style="display:none;">
+  <div class="controls-group">
+    <input id="search-causal" class="search" type="text" placeholder="Search causal edges…" />
+    <select id="filter-causal-rel" class="filter-select"><option value="">All relations</option></select>
+    <select id="filter-causal-motif" class="filter-select"><option value="">All motifs</option></select>
+    <select id="filter-causal-origin" class="filter-select"><option value="">All origins</option></select>
+    <button class="toggle-btn" id="toggle-motif-library">Show motif library</button>
+  </div>
+</div>
+<div id="motif-panel"></div>
+<div id="ontology-controls" class="controls" style="display:none;"></div>
+<div id="twin-controls" class="controls" style="display:none;">
+  <div class="controls-group" style="color:var(--text-dim);font-size:12px;">
+    Phase 6 CEDT &mdash; <b style="color:#c459d8;">Digital Twin</b> &mdash; Cancer Ecology Digital Twin state vectors derived from Phase 5 golden runs
+  </div>
+</div>
+<div id="execute-controls" class="controls" style="display:none;">
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <label style="font-size:12px;color:var(--text-dim);">Scenario</label>
+    <select id="execute-scenario-select" style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:12px;">
+      <option value="">Select a scenario…</option>
+    </select>
+    <button class="toggle-btn on" id="run-scenario-btn" style="padding:6px 16px;">Run / Show Trace</button>
+  </div>
+</div>
+
+<div class="tab-panel" id="causal-panel" style="display:none;">
+  <div id="causal-sidebar">
+    <h2 id="causal-sidebar-count">Causal Edges</h2>
+    <div id="causal-list"></div>
+  </div>
+  <div id="causal-detail" style="flex:1; overflow-y:auto; padding:24px; background:var(--bg);">
+    <div class="placeholder">
+      <div class="big">⚗</div>
+      <div>Select a causal edge to view details</div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ─── EXECUTE TAB ─────────────────────────────────────────────────────────── -->
+<div class="tab-panel" id="execute-panel" style="display:none; flex-direction:column; padding:0;">
+  <div id="execute-scenario-info" style="padding:16px 24px 0; font-size:12px; color:var(--text-dim);">
+    Select a scenario above to view its computed trace.
+  </div>
+  <div id="execute-chain" style="padding:16px 24px; display:flex; flex-direction:column; gap:16px;">
+    <!-- chain steps rendered by JS -->
+  </div>
+</div>
+
+<!-- ─── ONTOLOGY TAB ─────────────────────────────────────────────────────────── -->
+<div class="tab-panel" id="ontology-panel" style="display:none;">
+  <div id="ont-entity-tree" class="ont-section"><h2>Entity Class Hierarchy</h2><div class="ont-tree" id="ont-tree-content">Loading...</div></div>
+  <div id="ont-interfaces" class="ont-section"><h2>8 Interface Contracts</h2><div id="ont-iface-content">Loading...</div></div>
+  <div id="ont-port-types" class="ont-section"><h2>Port-Type Vocabulary</h2><div id="ont-pt-content">Loading...</div></div>
+  <div id="ont-wiring" class="ont-section"><h2>Wiring Map (Type-Compatible Connections)</h2><div id="ont-wiring-content">Loading...</div></div>
+</div>
+
+
 <script>
 const DATA_BASE      = "./data/registry/";
 const MODULES_BASE   = "./data/modules/";
@@ -691,6 +752,10 @@ async function loadData() {
       }
       renderTwinList();
       renderTwinAdapterSummary();
+      // Auto-select the first twin scenario so the detail panel is not empty on load
+      if (twinStates.length > 0) {
+        selectTwin(twinStates[0].scenario_id);
+      }
     } catch(twinErr) {
       console.warn('CEDT twin data load error:', twinErr);
     }
@@ -1468,12 +1533,20 @@ async function loadExecuteData() {
     _scenarios = await scenResp.json();
 
     const sel = document.getElementById("execute-scenario-select");
+    sel.innerHTML = "";
     (_scenarios.scenarios || []).forEach(s => {
       const opt = document.createElement("option");
       opt.value = s.id;
       opt.textContent = `${s.id}: ${s.label.replace(/_/g," ")}`;
       sel.appendChild(opt);
     });
+    // Auto-select and render the first scenario so the panel is not empty on load
+    const firstScn = (_scenarios.scenarios || [])[0];
+    if (firstScn) {
+      sel.value = firstScn.id;
+      const run = (_exampleRuns.runs || []).find(r => r.scenario_id === firstScn.id);
+      renderExecuteTrace(run);
+    }
   } catch(e) {
     document.getElementById("execute-scenario-info").textContent = "Error loading execution data: " + e;
   }
@@ -1761,59 +1834,19 @@ function renderTwinDetail(ts) {
 }
 
 // ─── Init ────────────────────────────────────────────────────────────────────
-loadData();
-loadCausalData();
-loadExecuteData();
-<!-- ─── CAUSAL PANEL ───────────────────────────────────────────────────────── -->
-<div id="motif-panel"></div>
-<div id="ontology-controls" class="controls" style="display:none;"></div>
-<div id="twin-controls" class="controls" style="display:none;">
-  <div class="controls-group" style="color:var(--text-dim);font-size:12px;">
-    Phase 6 CEDT &mdash; <b style="color:#c459d8;">Digital Twin</b> &mdash; Cancer Ecology Digital Twin state vectors derived from Phase 5 golden runs
-  </div>
-</div>
-<div id="execute-controls" class="controls" style="display:none;">
-  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
-    <label style="font-size:12px;color:var(--text-dim);">Scenario</label>
-    <select id="execute-scenario-select" style="padding:5px 10px;border-radius:6px;border:1px solid var(--border);background:var(--panel);color:var(--text);font-size:12px;">
-      <option value="">Select a scenario…</option>
-    </select>
-    <button class="toggle-btn on" id="run-scenario-btn" style="padding:6px 16px;">Run / Show Trace</button>
-  </div>
-</div>
-
-<div class="tab-panel" id="causal-panel" style="display:none;">
-  <div id="causal-sidebar">
-    <h2 id="causal-sidebar-count">Causal Edges</h2>
-    <div id="causal-list"></div>
-  </div>
-  <div id="causal-detail" style="flex:1; overflow-y:auto; padding:24px; background:var(--bg);">
-    <div class="placeholder">
-      <div class="big">⚗</div>
-      <div>Select a causal edge to view details</div>
-    </div>
-  </div>
-</div>
-
-
-<!-- ─── EXECUTE TAB ─────────────────────────────────────────────────────────── -->
-<div class="tab-panel" id="execute-panel" style="display:none; flex-direction:column; padding:0;">
-  <div id="execute-scenario-info" style="padding:16px 24px 0; font-size:12px; color:var(--text-dim);">
-    Select a scenario above to view its computed trace.
-  </div>
-  <div id="execute-chain" style="padding:16px 24px; display:flex; flex-direction:column; gap:16px;">
-    <!-- chain steps rendered by JS -->
-  </div>
-</div>
-
-<!-- ─── ONTOLOGY TAB ─────────────────────────────────────────────────────────── -->
-<div class="tab-panel" id="ontology-panel" style="display:none;">
-  <div id="ont-entity-tree" class="ont-section"><h2>Entity Class Hierarchy</h2><div class="ont-tree" id="ont-tree-content">Loading...</div></div>
-  <div id="ont-interfaces" class="ont-section"><h2>8 Interface Contracts</h2><div id="ont-iface-content">Loading...</div></div>
-  <div id="ont-port-types" class="ont-section"><h2>Port-Type Vocabulary</h2><div id="ont-pt-content">Loading...</div></div>
-  <div id="ont-wiring" class="ont-section"><h2>Wiring Map (Type-Compatible Connections)</h2><div id="ont-wiring-content">Loading...</div></div>
-</div>
-
+// Defer init until the full DOM (including the tab panels/controls below this
+// script) is parsed, so getElementById calls during init resolve correctly.
+function _egInit() {
+  loadData();
+  loadCausalData();
+  loadExecuteData();
+}
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", _egInit);
+} else {
+  _egInit();
+}
 </script>
+
 </body>
 </html>
