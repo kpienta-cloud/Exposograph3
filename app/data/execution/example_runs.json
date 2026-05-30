@@ -1,0 +1,771 @@
+{
+  "schema_version": "3.0.0",
+  "description": "ExposoGraph 3.0 Phase 5: Golden regression runs. Full computed trace per scenario (per-enzyme MM rates with Km/Vmax used, activation/detox scores, flux_ratio, predicted SBS, confidence). Provenance lists which param records fed each number. Carcinogen-class aliases resolved via scripts/engine/aliases.py. Used as regression targets in validate.py EXECUTION pass (tolerance 1e-6).",
+  "run_count": 4,
+  "engine_entrypoint": "scripts.engine.runner:ScenarioRunner.run_scenario",
+  "deterministic": true,
+  "regression_tolerance": 1e-06,
+  "runs": [
+    {
+      "scenario_id": "SCN001",
+      "scenario_label": "PAH_Lung_CYP1A1UM_GSTM1null_Smoking",
+      "carcinogen_class": "PAH",
+      "tissue": "Lung",
+      "genotype_profile": {
+        "CYP1A1": "UM",
+        "CYP1B1": "NM",
+        "GSTM1": "null",
+        "GSTP1": "Ile105Ile"
+      },
+      "exposure_scenario": "smoker",
+      "exposure_class": "PAH",
+      "mutsig_class": "PAH",
+      "computed_trace": {
+        "exposure_step": {
+          "substrate_conc_uM": 0.015,
+          "exposure_multiplier": 3.0,
+          "source": "EG3_MOD_EXPOSURE_WAVE2_v1.json#exposure_scenarios[smoker].estimated_tissue_conc_uM"
+        },
+        "flux_step": {
+          "per_enzyme_mm_rates": [
+            {
+              "enzyme": "CYP1A1",
+              "gene": "CYP1A1",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": 0.054,
+              "Vmax": 59.4,
+              "substrate_conc_uM": 0.015,
+              "mm_rate": 12.913043478260867,
+              "tissue_weight": 0.1602,
+              "genotype_multiplier": 2.0,
+              "weighted_rate": 4.137339130434782,
+              "param_source": [
+                "Chaudhary & Willett",
+                "Shimada et al."
+              ],
+              "confidence": "high"
+            },
+            {
+              "enzyme": "CYP1B1",
+              "gene": "CYP1B1",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": 0.35,
+              "Vmax": 5.0,
+              "substrate_conc_uM": 0.015,
+              "mm_rate": 0.2054794520547945,
+              "tissue_weight": 0.4817,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": 0.09897945205479451,
+              "param_source": [
+                "Chaudhary & Willett"
+              ],
+              "confidence": "moderate"
+            },
+            {
+              "enzyme": "EPHX1",
+              "gene": "EPHX1",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": 5.0,
+              "Vmax": 200.0,
+              "substrate_conc_uM": 0.015,
+              "mm_rate": 0.5982053838484547,
+              "tissue_weight": 0.0868,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": 0.051924227318045864,
+              "param_source": [
+                "Literature estimates"
+              ],
+              "confidence": "moderate",
+              "note": "NOTE: Vmax derived from CLint*Km=40.0*5.0=200.0000 for PAH/EPHX1 (CLint proxy)"
+            },
+            {
+              "enzyme": "GSTM1",
+              "gene": "GSTM1",
+              "pathway_type": "detoxification",
+              "pathway_category": "detoxification",
+              "Km_uM": 50.0,
+              "Vmax": null,
+              "substrate_conc_uM": 0.015,
+              "mm_rate": null,
+              "tissue_weight": 0.0484,
+              "genotype_multiplier": 0.0,
+              "weighted_rate": null,
+              "param_source": [
+                "GST P1-1 kinetics literature",
+                "GSTM1 null polymorphism studies"
+              ],
+              "confidence": "moderate",
+              "note": "MISSING: Vmax is None for PAH/GSTM1 (param record present but Vmax not available) \u2014 using CLint proxy if available, else rate=None"
+            },
+            {
+              "enzyme": "GSTP1",
+              "gene": "GSTP1",
+              "pathway_type": "detoxification",
+              "pathway_category": "detoxification",
+              "Km_uM": 25.0,
+              "Vmax": null,
+              "substrate_conc_uM": 0.015,
+              "mm_rate": null,
+              "tissue_weight": 0.2291,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": null,
+              "param_source": [
+                "GST kinetics literature"
+              ],
+              "confidence": "moderate",
+              "note": "MISSING: Vmax is None for PAH/GSTP1 (param record present but Vmax not available) \u2014 using CLint proxy if available, else rate=None"
+            }
+          ],
+          "activation_score": 4.288242809807622,
+          "detoxification_score": 0.0,
+          "flux_ratio": 4288.2428098076225,
+          "internal_state_used": {
+            "GSH_pool_baseline_mM": 7.5,
+            "GSH_pool_threshold_mM": 1.5,
+            "activation_accumulator": 4.288242809807622,
+            "detox_accumulator": 0.0,
+            "source": "EG3_MOD_BIOTRANS_FLUX_v1.json#internal_state[GSH_pool_mM]"
+          },
+          "missing_params": [
+            "MISSING: Vmax is None for PAH/GSTM1 (param record present but Vmax not available) \u2014 using CLint proxy if available, else rate=None",
+            "MISSING: Vmax is None for PAH/GSTP1 (param record present but Vmax not available) \u2014 using CLint proxy if available, else rate=None"
+          ]
+        },
+        "mutsig_step": {
+          "predicted_SBS": [
+            "SBS4",
+            "SBS92",
+            "SBS18"
+          ],
+          "primary_SBS": [
+            "SBS4"
+          ],
+          "secondary_SBS": [
+            "SBS92",
+            "SBS18"
+          ],
+          "dominant_mutation": "C>A transversions",
+          "confidence": "high"
+        }
+      },
+      "wiring_connections_used": [
+        {
+          "from_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "from_port": "flux_ratio",
+          "to_module": "EG3.MOD.OUTCOME.MUTSIG.v1",
+          "to_port": "flux_ratio",
+          "dtype": "score:flux_ratio"
+        },
+        {
+          "from_module": "EG3.MOD.EXPOSURE.WAVE2.v1",
+          "from_port": "tissue_conc_uM",
+          "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "to_port": "substrate_conc_uM",
+          "dtype": "concentration:uM"
+        },
+        {
+          "from_module": "EG3.MOD.MODIFIER.POPGEN.v1",
+          "from_port": "activity_multiplier",
+          "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "to_port": "enzyme_genotype",
+          "dtype": "multiplier:genotype_activity"
+        }
+      ],
+      "provenance": {
+        "EXPOSURE_params": "EG3_MOD_EXPOSURE_WAVE2_v1.json#parameters[carcinogen_class=PAH].exposure_scenarios[smoker]",
+        "FLUX_params": "EG3_MOD_BIOTRANS_FLUX_v1.json#parameters[carcinogen_class=PAH]",
+        "POPGEN_params": "EG3_MOD_MODIFIER_POPGEN_v1.json#parameters + genotype_modifier_standard_scale",
+        "TISSUE_params": "EG3_MOD_TISSUE_SUBGRAPH_v1.json#parameters[normalized_weights]",
+        "MUTSIG_params": "EG3_MOD_OUTCOME_MUTSIG_v1.json#parameters[carcinogen_class=PAH]",
+        "wiring": "data/ontology/wiring.json#connections",
+        "class_alias_map": "scripts/engine/aliases.py#CLASS_ALIASES",
+        "per_param_records": [
+          "EXPOSURE.params[carcinogen_class=PAH].exposure_scenarios[smoker].estimated_tissue_conc_uM=0.015",
+          "EXPOSURE.params[carcinogen_class=PAH].exposure_scenarios[smoker].multiplier_vs_baseline=3.0",
+          "POPGEN.genotype_modifier_standard_scale[UM]=2.0 (fallback; gene=CYP1A1 not in explicit params)",
+          "POPGEN.genotype_modifier_standard_scale[NM]=1.0 (fallback; gene=CYP1B1 not in explicit params)",
+          "POPGEN.params[gene=GSTM1, phenotype=null].activity_multiplier=0.0 (source=interaction_parameters.json#genotype_modifiers)",
+          "POPGEN.params[gene=GSTP1, phenotype=Ile105Ile].activity_multiplier=1.0 (source=interaction_parameters.json#genotype_modifiers)",
+          "TISSUE.params[gene=CYP1B1].normalized_weights[Lung]=0.4817 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=EPHX1].normalized_weights[Lung]=0.0868 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=GSTM1].normalized_weights[Lung]=0.0484 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=CYP1A1].normalized_weights[Lung]=0.1602 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=GSTP1].normalized_weights[Lung]=0.2291 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "FLUX.params[carcinogen_class=PAH, enzyme=CYP1A1].Km_uM=0.054, Vmax=59.4 \u2192 mm_rate=12.913043478260867 \u00d7 tissue_w=0.1602 \u00d7 geno_m=2.0 = weighted=4.137339130434782",
+          "FLUX.params[carcinogen_class=PAH, enzyme=CYP1B1].Km_uM=0.35, Vmax=5.0 \u2192 mm_rate=0.2054794520547945 \u00d7 tissue_w=0.4817 \u00d7 geno_m=1.0 = weighted=0.09897945205479451",
+          "FLUX.params[carcinogen_class=PAH, enzyme=EPHX1].Km_uM=5.0, Vmax=200.0 \u2192 mm_rate=0.5982053838484547 \u00d7 tissue_w=0.0868 \u00d7 geno_m=1.0 = weighted=0.051924227318045864",
+          "FLUX.params[carcinogen_class=PAH, enzyme=GSTM1].Km_uM=50.0, Vmax=None \u2192 mm_rate=None \u00d7 tissue_w=0.0484 \u00d7 geno_m=0.0 = weighted=None",
+          "FLUX.params[carcinogen_class=PAH, enzyme=GSTP1].Km_uM=25.0, Vmax=None \u2192 mm_rate=None \u00d7 tissue_w=0.2291 \u00d7 geno_m=1.0 = weighted=None",
+          "FLUX.activation_score=4.288243 detoxification_score=0.000000 flux_ratio=4288.242810 (guard=0.001)",
+          "MUTSIG.params[carcinogen_class=PAH].primary_signatures=['SBS4'] secondary_signatures=['SBS92', 'SBS18']",
+          "MUTSIG.params[signature_id=SBS4].dominant_mutation=C>A transversions",
+          "MUTSIG.confidence_rule: flux_ratio=4288.2428 \u2265 5.0 \u2192 confidence elevated to 'high'"
+        ]
+      },
+      "missing_params_surfaced": [
+        "MISSING: Vmax is None for PAH/GSTM1 (param record present but Vmax not available) \u2014 using CLint proxy if available, else rate=None",
+        "MISSING: Vmax is None for PAH/GSTP1 (param record present but Vmax not available) \u2014 using CLint proxy if available, else rate=None"
+      ]
+    },
+    {
+      "scenario_id": "SCN002",
+      "scenario_label": "Aflatoxin_Liver_CYP3A4NM_GSTM1active_HighEndemicDiet",
+      "carcinogen_class": "Aflatoxin",
+      "tissue": "Liver",
+      "genotype_profile": {
+        "CYP3A4": "NM",
+        "CYP1A2": "NM",
+        "GSTM1": "active"
+      },
+      "exposure_scenario": "developing_country_moderate",
+      "exposure_class": "AflatoxinB1",
+      "mutsig_class": "Aflatoxin",
+      "computed_trace": {
+        "exposure_step": {
+          "substrate_conc_uM": 0.05,
+          "exposure_multiplier": 200.0,
+          "source": "EG3_MOD_EXPOSURE_WAVE2_v1.json#exposure_scenarios[developing_country_moderate].estimated_tissue_conc_uM"
+        },
+        "flux_step": {
+          "per_enzyme_mm_rates": [
+            {
+              "enzyme": "CYP3A4",
+              "gene": "CYP3A4",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": 49.6,
+              "Vmax": 43.6,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": 0.04390735146022155,
+              "tissue_weight": 1.0,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": 0.04390735146022155,
+              "param_source": [
+                "Lootens et al. 2022 PMC9469084"
+              ],
+              "confidence": "high"
+            },
+            {
+              "enzyme": "CYP1A2",
+              "gene": "CYP1A2",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": 58.2,
+              "Vmax": 283.0,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": 0.24291845493562234,
+              "tissue_weight": 1.0,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": 0.24291845493562234,
+              "param_source": [
+                "Lootens et al. 2022 PMC9469084",
+                "PMID:8975785"
+              ],
+              "confidence": "high"
+            },
+            {
+              "enzyme": "CYP3A4_AFQ1",
+              "gene": "CYP3A4",
+              "pathway_type": "detoxification",
+              "pathway_category": "detoxification",
+              "Km_uM": 160.0,
+              "Vmax": 67.0,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": 0.020930959075288972,
+              "tissue_weight": 1.0,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": 0.020930959075288972,
+              "param_source": [
+                "PMID:8975785",
+                "Hill model estimates"
+              ],
+              "confidence": "moderate"
+            },
+            {
+              "enzyme": "GSTA1",
+              "gene": "GSTA1",
+              "pathway_type": "detoxification",
+              "pathway_category": "detoxification",
+              "Km_uM": 10.0,
+              "Vmax": null,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": null,
+              "tissue_weight": 1.0,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": null,
+              "param_source": [
+                "Literature estimates"
+              ],
+              "confidence": "low",
+              "note": "MISSING: Vmax is None for Aflatoxin/GSTA1 (param record present but Vmax not available) \u2014 using CLint proxy if available, else rate=None"
+            }
+          ],
+          "activation_score": 0.2868258063958439,
+          "detoxification_score": 0.020930959075288972,
+          "flux_ratio": 13.703423974225316,
+          "internal_state_used": {
+            "GSH_pool_baseline_mM": 7.5,
+            "GSH_pool_threshold_mM": 1.5,
+            "activation_accumulator": 0.2868258063958439,
+            "detox_accumulator": 0.020930959075288972,
+            "source": "EG3_MOD_BIOTRANS_FLUX_v1.json#internal_state[GSH_pool_mM]"
+          },
+          "missing_params": [
+            "MISSING: Vmax is None for Aflatoxin/GSTA1 (param record present but Vmax not available) \u2014 using CLint proxy if available, else rate=None"
+          ]
+        },
+        "mutsig_step": {
+          "predicted_SBS": [
+            "SBS24"
+          ],
+          "primary_SBS": [
+            "SBS24"
+          ],
+          "secondary_SBS": [],
+          "dominant_mutation": "C>A, particularly at CpG with strand bias",
+          "confidence": "high"
+        }
+      },
+      "wiring_connections_used": [
+        {
+          "from_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "from_port": "flux_ratio",
+          "to_module": "EG3.MOD.OUTCOME.MUTSIG.v1",
+          "to_port": "flux_ratio",
+          "dtype": "score:flux_ratio"
+        },
+        {
+          "from_module": "EG3.MOD.EXPOSURE.WAVE2.v1",
+          "from_port": "tissue_conc_uM",
+          "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "to_port": "substrate_conc_uM",
+          "dtype": "concentration:uM"
+        },
+        {
+          "from_module": "EG3.MOD.MODIFIER.POPGEN.v1",
+          "from_port": "activity_multiplier",
+          "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "to_port": "enzyme_genotype",
+          "dtype": "multiplier:genotype_activity"
+        }
+      ],
+      "provenance": {
+        "EXPOSURE_params": "EG3_MOD_EXPOSURE_WAVE2_v1.json#parameters[carcinogen_class=AflatoxinB1].exposure_scenarios[developing_country_moderate]",
+        "FLUX_params": "EG3_MOD_BIOTRANS_FLUX_v1.json#parameters[carcinogen_class=Aflatoxin]",
+        "POPGEN_params": "EG3_MOD_MODIFIER_POPGEN_v1.json#parameters + genotype_modifier_standard_scale",
+        "TISSUE_params": "EG3_MOD_TISSUE_SUBGRAPH_v1.json#parameters[normalized_weights]",
+        "MUTSIG_params": "EG3_MOD_OUTCOME_MUTSIG_v1.json#parameters[carcinogen_class=Aflatoxin]",
+        "wiring": "data/ontology/wiring.json#connections",
+        "class_alias_map": "scripts/engine/aliases.py#CLASS_ALIASES",
+        "per_param_records": [
+          "EXPOSURE.params[carcinogen_class=AflatoxinB1].exposure_scenarios[developing_country_moderate].estimated_tissue_conc_uM=0.05",
+          "EXPOSURE.params[carcinogen_class=AflatoxinB1].exposure_scenarios[developing_country_moderate].multiplier_vs_baseline=200.0",
+          "POPGEN.params[gene=CYP3A4, phenotype=NM].activity_multiplier=1.0 (source=interaction_parameters.json#genotype_modifiers)",
+          "POPGEN.params[gene=CYP1A2, phenotype=NM].activity_multiplier=1.0 (source=interaction_parameters.json#genotype_modifiers)",
+          "POPGEN.params[gene=GSTM1, phenotype=active].activity_multiplier=1.0 (source=interaction_parameters.json#genotype_modifiers)",
+          "TISSUE.params[gene=CYP1A2].normalized_weights[Liver]=1.0 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "MISSING: TISSUE gene=GSTA1 \u2014 not in params; weight=None",
+          "TISSUE.params[gene=CYP3A4].normalized_weights[Liver]=1.0 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "FLUX.params[carcinogen_class=Aflatoxin, enzyme=CYP3A4].Km_uM=49.6, Vmax=43.6 \u2192 mm_rate=0.04390735146022155 \u00d7 tissue_w=1.0 \u00d7 geno_m=1.0 = weighted=0.04390735146022155",
+          "FLUX.params[carcinogen_class=Aflatoxin, enzyme=CYP1A2].Km_uM=58.2, Vmax=283.0 \u2192 mm_rate=0.24291845493562234 \u00d7 tissue_w=1.0 \u00d7 geno_m=1.0 = weighted=0.24291845493562234",
+          "FLUX.params[carcinogen_class=Aflatoxin, enzyme=CYP3A4_AFQ1].Km_uM=160.0, Vmax=67.0 \u2192 mm_rate=0.020930959075288972 \u00d7 tissue_w=1.0 \u00d7 geno_m=1.0 = weighted=0.020930959075288972",
+          "FLUX.params[carcinogen_class=Aflatoxin, enzyme=GSTA1].Km_uM=10.0, Vmax=None \u2192 mm_rate=None \u00d7 tissue_w=1.0 \u00d7 geno_m=1.0 = weighted=None",
+          "FLUX.activation_score=0.286826 detoxification_score=0.020931 flux_ratio=13.703424 (guard=0.001)",
+          "MUTSIG.params[carcinogen_class=Aflatoxin].primary_signatures=['SBS24'] secondary_signatures=[]",
+          "MUTSIG.params[signature_id=SBS24].dominant_mutation=C>A, particularly at CpG with strand bias",
+          "MUTSIG.confidence_rule: flux_ratio=13.7034 \u2265 5.0 \u2192 confidence elevated to 'high'"
+        ]
+      },
+      "missing_params_surfaced": [
+        "MISSING: Vmax is None for Aflatoxin/GSTA1 (param record present but Vmax not available) \u2014 using CLint proxy if available, else rate=None"
+      ]
+    },
+    {
+      "scenario_id": "SCN003",
+      "scenario_label": "AromaticAmines_Bladder_NAT2slow_Smoker",
+      "carcinogen_class": "AromaticAmines",
+      "tissue": "Bladder",
+      "genotype_profile": {
+        "CYP1A2": "NM",
+        "CYP1A1": "NM",
+        "NAT2": "slow",
+        "GSTP1": "Ile105Ile"
+      },
+      "exposure_scenario": "smoker",
+      "exposure_class": "AromaticAmines",
+      "mutsig_class": "AromaticAmines",
+      "computed_trace": {
+        "exposure_step": {
+          "substrate_conc_uM": 0.05,
+          "exposure_multiplier": 10.0,
+          "source": "EG3_MOD_EXPOSURE_WAVE2_v1.json#exposure_scenarios[smoker].estimated_tissue_conc_uM"
+        },
+        "flux_step": {
+          "per_enzyme_mm_rates": [
+            {
+              "enzyme": "CYP1A2",
+              "gene": "CYP1A2",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": 79.0,
+              "Vmax": 90.05999999999999,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": 0.0569639468690702,
+              "tissue_weight": 0.0002,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": 1.1392789373814041e-05,
+              "param_source": [
+                "Turesky et al., referenced in PMC1829392"
+              ],
+              "confidence": "high",
+              "note": "NOTE: Vmax derived from CLint*Km=1.14*79.0=90.0600 for HCA/CYP1A2 (CLint proxy)"
+            },
+            {
+              "enzyme": "CYP1A1",
+              "gene": "CYP1A1",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": 5.1,
+              "Vmax": 16.014,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": 0.1554757281553398,
+              "tissue_weight": 0.9644,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": 0.1499407922330097,
+              "param_source": [
+                "PMC1829392"
+              ],
+              "confidence": "high",
+              "note": "NOTE: Vmax derived from CLint*Km=3.14*5.1=16.0140 for HCA/CYP1A1 (CLint proxy)"
+            },
+            {
+              "enzyme": "CYP1B1",
+              "gene": "CYP1B1",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": 4.5,
+              "Vmax": 0.19799999999999998,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": 0.0021758241758241758,
+              "tissue_weight": 1.0,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": 0.0021758241758241758,
+              "param_source": [
+                "PMC1829392"
+              ],
+              "confidence": "high",
+              "note": "NOTE: Vmax derived from CLint*Km=0.044*4.5=0.1980 for HCA/CYP1B1 (CLint proxy)"
+            },
+            {
+              "enzyme": "SULT1A1",
+              "gene": "SULT1A1",
+              "pathway_type": "detoxification",
+              "pathway_category": "detoxification",
+              "Km_uM": null,
+              "Vmax": null,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": null,
+              "tissue_weight": 0.1,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": null,
+              "param_source": [
+                "Literature estimates"
+              ],
+              "confidence": "low",
+              "note": "MISSING: Km_uM is None for HCA/SULT1A1 (param record present but Km not available) \u2014 rate=None"
+            },
+            {
+              "enzyme": "NAT2",
+              "gene": "NAT2",
+              "pathway_type": "detoxification",
+              "pathway_category": "detoxification",
+              "Km_uM": null,
+              "Vmax": null,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": null,
+              "tissue_weight": 0.0,
+              "genotype_multiplier": 0.3,
+              "weighted_rate": null,
+              "param_source": [
+                "HCA literature"
+              ],
+              "confidence": "low",
+              "note": "MISSING: Km_uM is None for HCA/NAT2 (param record present but Km not available) \u2014 rate=None"
+            }
+          ],
+          "activation_score": 0.1521280091982077,
+          "detoxification_score": 0.0,
+          "flux_ratio": 152.1280091982077,
+          "internal_state_used": {
+            "GSH_pool_baseline_mM": 7.5,
+            "GSH_pool_threshold_mM": 1.5,
+            "activation_accumulator": 0.1521280091982077,
+            "detox_accumulator": 0.0,
+            "source": "EG3_MOD_BIOTRANS_FLUX_v1.json#internal_state[GSH_pool_mM]"
+          },
+          "missing_params": [
+            "MISSING: Km_uM is None for HCA/SULT1A1 (param record present but Km not available) \u2014 rate=None",
+            "MISSING: Km_uM is None for HCA/NAT2 (param record present but Km not available) \u2014 rate=None"
+          ]
+        },
+        "mutsig_step": {
+          "predicted_SBS": [
+            "SBS29",
+            "SBS4"
+          ],
+          "primary_SBS": [
+            "SBS29"
+          ],
+          "secondary_SBS": [
+            "SBS4"
+          ],
+          "dominant_mutation": "C>A",
+          "confidence": "high"
+        }
+      },
+      "wiring_connections_used": [
+        {
+          "from_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "from_port": "flux_ratio",
+          "to_module": "EG3.MOD.OUTCOME.MUTSIG.v1",
+          "to_port": "flux_ratio",
+          "dtype": "score:flux_ratio"
+        },
+        {
+          "from_module": "EG3.MOD.EXPOSURE.WAVE2.v1",
+          "from_port": "tissue_conc_uM",
+          "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "to_port": "substrate_conc_uM",
+          "dtype": "concentration:uM"
+        },
+        {
+          "from_module": "EG3.MOD.MODIFIER.POPGEN.v1",
+          "from_port": "activity_multiplier",
+          "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "to_port": "enzyme_genotype",
+          "dtype": "multiplier:genotype_activity"
+        }
+      ],
+      "provenance": {
+        "EXPOSURE_params": "EG3_MOD_EXPOSURE_WAVE2_v1.json#parameters[carcinogen_class=AromaticAmines].exposure_scenarios[smoker]",
+        "FLUX_params": "EG3_MOD_BIOTRANS_FLUX_v1.json#parameters[carcinogen_class=HCA]",
+        "POPGEN_params": "EG3_MOD_MODIFIER_POPGEN_v1.json#parameters + genotype_modifier_standard_scale",
+        "TISSUE_params": "EG3_MOD_TISSUE_SUBGRAPH_v1.json#parameters[normalized_weights]",
+        "MUTSIG_params": "EG3_MOD_OUTCOME_MUTSIG_v1.json#parameters[carcinogen_class=AromaticAmines]",
+        "wiring": "data/ontology/wiring.json#connections",
+        "class_alias_map": "scripts/engine/aliases.py#CLASS_ALIASES",
+        "per_param_records": [
+          "EXPOSURE.params[carcinogen_class=AromaticAmines].exposure_scenarios[smoker].estimated_tissue_conc_uM=0.05",
+          "EXPOSURE.params[carcinogen_class=AromaticAmines].exposure_scenarios[smoker].multiplier_vs_baseline=10.0",
+          "POPGEN.params[gene=CYP1A2, phenotype=NM].activity_multiplier=1.0 (source=interaction_parameters.json#genotype_modifiers)",
+          "POPGEN.genotype_modifier_standard_scale[NM]=1.0 (fallback; gene=CYP1A1 not in explicit params)",
+          "POPGEN.params[gene=NAT2, phenotype=slow].activity_multiplier=0.3 (source=interaction_parameters.json#genotype_modifiers)",
+          "POPGEN.params[gene=GSTP1, phenotype=Ile105Ile].activity_multiplier=1.0 (source=interaction_parameters.json#genotype_modifiers)",
+          "TISSUE.params[gene=CYP1B1].normalized_weights[Bladder]=1.0 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=SULT1A1].normalized_weights[Bladder]=0.1 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=CYP1A1].normalized_weights[Bladder]=0.9644 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=NAT2].normalized_weights[Bladder]=0.0 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=CYP1A2].normalized_weights[Bladder]=0.0002 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "FLUX.params[carcinogen_class=HCA, enzyme=CYP1A2].Km_uM=79.0, Vmax=90.05999999999999 \u2192 mm_rate=0.0569639468690702 \u00d7 tissue_w=0.0002 \u00d7 geno_m=1.0 = weighted=1.1392789373814041e-05",
+          "FLUX.params[carcinogen_class=HCA, enzyme=CYP1A1].Km_uM=5.1, Vmax=16.014 \u2192 mm_rate=0.1554757281553398 \u00d7 tissue_w=0.9644 \u00d7 geno_m=1.0 = weighted=0.1499407922330097",
+          "FLUX.params[carcinogen_class=HCA, enzyme=CYP1B1].Km_uM=4.5, Vmax=0.19799999999999998 \u2192 mm_rate=0.0021758241758241758 \u00d7 tissue_w=1.0 \u00d7 geno_m=1.0 = weighted=0.0021758241758241758",
+          "FLUX.params[carcinogen_class=HCA, enzyme=SULT1A1].Km_uM=None, Vmax=None \u2192 mm_rate=None \u00d7 tissue_w=0.1 \u00d7 geno_m=1.0 = weighted=None",
+          "FLUX.params[carcinogen_class=HCA, enzyme=NAT2].Km_uM=None, Vmax=None \u2192 mm_rate=None \u00d7 tissue_w=0.0 \u00d7 geno_m=0.3 = weighted=None",
+          "FLUX.activation_score=0.152128 detoxification_score=0.000000 flux_ratio=152.128009 (guard=0.001)",
+          "MUTSIG.params[carcinogen_class=AromaticAmines].primary_signatures=['SBS29'] secondary_signatures=['SBS4']",
+          "MUTSIG.params[signature_id=SBS29].dominant_mutation=C>A",
+          "MUTSIG.confidence_rule: flux_ratio=152.1280 \u2265 5.0 \u2192 confidence elevated to 'high'"
+        ]
+      },
+      "missing_params_surfaced": [
+        "MISSING: Km_uM is None for HCA/SULT1A1 (param record present but Km not available) \u2014 rate=None",
+        "MISSING: Km_uM is None for HCA/NAT2 (param record present but Km not available) \u2014 rate=None"
+      ]
+    },
+    {
+      "scenario_id": "SCN004",
+      "scenario_label": "Nitrosamine_Liver_CYP2A13NM_DietaryNitroso_HighProcessedMeat",
+      "carcinogen_class": "Nitrosamine",
+      "tissue": "Liver",
+      "genotype_profile": {
+        "CYP2A13": "NM",
+        "GSTM1": "active",
+        "GSTT1": "active"
+      },
+      "exposure_scenario": "high_processed_meat",
+      "exposure_class": "DietaryNitroso",
+      "mutsig_class": "Nitrosamine",
+      "computed_trace": {
+        "exposure_step": {
+          "substrate_conc_uM": 0.05,
+          "exposure_multiplier": 30.0,
+          "source": "EG3_MOD_EXPOSURE_WAVE2_v1.json#exposure_scenarios[high_processed_meat].estimated_tissue_conc_uM"
+        },
+        "flux_step": {
+          "per_enzyme_mm_rates": [
+            {
+              "enzyme": "CYP2A13",
+              "gene": "CYP2A13",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": 3.6,
+              "Vmax": 13.8,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": 0.189041095890411,
+              "tissue_weight": 1.0,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": 0.189041095890411,
+              "param_source": [
+                "PMID:12975327"
+              ],
+              "confidence": "high"
+            },
+            {
+              "enzyme": "CYP2A13_methyl",
+              "gene": "CYP2A13",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": null,
+              "Vmax": 4.6,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": null,
+              "tissue_weight": 1.0,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": null,
+              "param_source": [
+                "PMID:12975327"
+              ],
+              "confidence": "moderate",
+              "note": "MISSING: Km_uM is None for Nitrosamine/CYP2A13_methyl (param record present but Km not available) \u2014 rate=None"
+            },
+            {
+              "enzyme": "CYP2A6",
+              "gene": "CYP2A6",
+              "pathway_type": "activation",
+              "pathway_category": "activation",
+              "Km_uM": null,
+              "Vmax": null,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": null,
+              "tissue_weight": 1.0,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": null,
+              "param_source": [
+                "Jalas et al. 2005"
+              ],
+              "confidence": "moderate",
+              "note": "MISSING: Km_uM is None for Nitrosamine/CYP2A6 (param record present but Km not available) \u2014 rate=None"
+            },
+            {
+              "enzyme": "carbonyl_reduction",
+              "gene": "AKR1C2",
+              "pathway_type": "detoxification",
+              "pathway_category": "detoxification",
+              "Km_uM": null,
+              "Vmax": null,
+              "substrate_conc_uM": 0.05,
+              "mm_rate": null,
+              "tissue_weight": 1.0,
+              "genotype_multiplier": 1.0,
+              "weighted_rate": null,
+              "param_source": [
+                "Hecht SS nitrosamine review"
+              ],
+              "confidence": "low",
+              "note": "MISSING: Km_uM is None for Nitrosamine/carbonyl_reduction (param record present but Km not available) \u2014 rate=None"
+            }
+          ],
+          "activation_score": 0.189041095890411,
+          "detoxification_score": 0.0,
+          "flux_ratio": 189.041095890411,
+          "internal_state_used": {
+            "GSH_pool_baseline_mM": 7.5,
+            "GSH_pool_threshold_mM": 1.5,
+            "activation_accumulator": 0.189041095890411,
+            "detox_accumulator": 0.0,
+            "source": "EG3_MOD_BIOTRANS_FLUX_v1.json#internal_state[GSH_pool_mM]"
+          },
+          "missing_params": [
+            "MISSING: Km_uM is None for Nitrosamine/CYP2A13_methyl (param record present but Km not available) \u2014 rate=None",
+            "MISSING: Km_uM is None for Nitrosamine/CYP2A6 (param record present but Km not available) \u2014 rate=None",
+            "MISSING: Km_uM is None for Nitrosamine/carbonyl_reduction (param record present but Km not available) \u2014 rate=None"
+          ]
+        },
+        "mutsig_step": {
+          "predicted_SBS": [
+            "SBS29",
+            "SBS11",
+            "SBS4"
+          ],
+          "primary_SBS": [
+            "SBS29",
+            "SBS11"
+          ],
+          "secondary_SBS": [
+            "SBS4"
+          ],
+          "dominant_mutation": "C>A",
+          "confidence": "high"
+        }
+      },
+      "wiring_connections_used": [
+        {
+          "from_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "from_port": "flux_ratio",
+          "to_module": "EG3.MOD.OUTCOME.MUTSIG.v1",
+          "to_port": "flux_ratio",
+          "dtype": "score:flux_ratio"
+        },
+        {
+          "from_module": "EG3.MOD.EXPOSURE.WAVE2.v1",
+          "from_port": "tissue_conc_uM",
+          "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "to_port": "substrate_conc_uM",
+          "dtype": "concentration:uM"
+        },
+        {
+          "from_module": "EG3.MOD.MODIFIER.POPGEN.v1",
+          "from_port": "activity_multiplier",
+          "to_module": "EG3.MOD.BIOTRANS.FLUX.v1",
+          "to_port": "enzyme_genotype",
+          "dtype": "multiplier:genotype_activity"
+        }
+      ],
+      "provenance": {
+        "EXPOSURE_params": "EG3_MOD_EXPOSURE_WAVE2_v1.json#parameters[carcinogen_class=DietaryNitroso].exposure_scenarios[high_processed_meat]",
+        "FLUX_params": "EG3_MOD_BIOTRANS_FLUX_v1.json#parameters[carcinogen_class=Nitrosamine]",
+        "POPGEN_params": "EG3_MOD_MODIFIER_POPGEN_v1.json#parameters + genotype_modifier_standard_scale",
+        "TISSUE_params": "EG3_MOD_TISSUE_SUBGRAPH_v1.json#parameters[normalized_weights]",
+        "MUTSIG_params": "EG3_MOD_OUTCOME_MUTSIG_v1.json#parameters[carcinogen_class=Nitrosamine]",
+        "wiring": "data/ontology/wiring.json#connections",
+        "class_alias_map": "scripts/engine/aliases.py#CLASS_ALIASES",
+        "per_param_records": [
+          "EXPOSURE.params[carcinogen_class=DietaryNitroso].exposure_scenarios[high_processed_meat].estimated_tissue_conc_uM=0.05",
+          "EXPOSURE.params[carcinogen_class=DietaryNitroso].exposure_scenarios[high_processed_meat].multiplier_vs_baseline=30.0",
+          "POPGEN.genotype_modifier_standard_scale[NM]=1.0 (fallback; gene=CYP2A13 not in explicit params)",
+          "POPGEN.params[gene=GSTM1, phenotype=active].activity_multiplier=1.0 (source=interaction_parameters.json#genotype_modifiers)",
+          "POPGEN.params[gene=GSTT1, phenotype=active].activity_multiplier=1.0 (source=interaction_parameters.json#genotype_modifiers)",
+          "TISSUE.params[gene=CYP2A6].normalized_weights[Liver]=1.0 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=CYP2A13].normalized_weights[Liver]=1.0 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "TISSUE.params[gene=AKR1C2].normalized_weights[Liver]=1.0 (source=GTEx v8 via Human Protein Atlas (tissue_expression_data.json))",
+          "FLUX.params[carcinogen_class=Nitrosamine, enzyme=CYP2A13].Km_uM=3.6, Vmax=13.8 \u2192 mm_rate=0.189041095890411 \u00d7 tissue_w=1.0 \u00d7 geno_m=1.0 = weighted=0.189041095890411",
+          "FLUX.params[carcinogen_class=Nitrosamine, enzyme=CYP2A13_methyl].Km_uM=None, Vmax=4.6 \u2192 mm_rate=None \u00d7 tissue_w=1.0 \u00d7 geno_m=1.0 = weighted=None",
+          "FLUX.params[carcinogen_class=Nitrosamine, enzyme=CYP2A6].Km_uM=None, Vmax=None \u2192 mm_rate=None \u00d7 tissue_w=1.0 \u00d7 geno_m=1.0 = weighted=None",
+          "FLUX.params[carcinogen_class=Nitrosamine, enzyme=carbonyl_reduction].Km_uM=None, Vmax=None \u2192 mm_rate=None \u00d7 tissue_w=1.0 \u00d7 geno_m=1.0 = weighted=None",
+          "FLUX.activation_score=0.189041 detoxification_score=0.000000 flux_ratio=189.041096 (guard=0.001)",
+          "MUTSIG.params[carcinogen_class=Nitrosamine].primary_signatures=['SBS29', 'SBS11'] secondary_signatures=['SBS4']",
+          "MUTSIG.params[signature_id=SBS29].dominant_mutation=C>A",
+          "MUTSIG.confidence_rule: flux_ratio=189.0411 \u2265 5.0 \u2192 confidence elevated to 'high'"
+        ]
+      },
+      "missing_params_surfaced": [
+        "MISSING: Km_uM is None for Nitrosamine/CYP2A13_methyl (param record present but Km not available) \u2014 rate=None",
+        "MISSING: Km_uM is None for Nitrosamine/CYP2A6 (param record present but Km not available) \u2014 rate=None",
+        "MISSING: Km_uM is None for Nitrosamine/carbonyl_reduction (param record present but Km not available) \u2014 rate=None"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "exposograph3://schema/scenario",
+  "title": "ExposoGraph 3.0 Execution Scenario",
+  "description": "Schema for a biologically-meaningful execution scenario used to run the EXPOSURE\u2192FLUX\u2192MUTSIG chain.",
+  "type": "object",
+  "required": [
+    "id",
+    "label",
+    "description",
+    "carcinogen_class",
+    "tissue",
+    "genotype_profile",
+    "exposure_scenario",
+    "expected_qualitative"
+  ],
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "Unique scenario identifier (e.g. SCN001)",
+      "pattern": "^SCN[0-9]{3,}$"
+    },
+    "label": {
+      "type": "string",
+      "description": "Short human-readable label"
+    },
+    "description": {
+      "type": "string",
+      "description": "Detailed biological description of the scenario"
+    },
+    "carcinogen_class": {
+      "type": "string",
+      "description": "Carcinogen class key used for FLUX param lookup"
+    },
+    "tissue": {
+      "type": "string",
+      "description": "Target tissue name (must be in TISSUE module scope)",
+      "enum": ["Liver", "Lung", "Prostate", "Bladder", "Colon", "Breast", "Kidney", "Esophagus"]
+    },
+    "genotype_profile": {
+      "type": "object",
+      "description": "Map of gene symbol to phenotype string",
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "exposure_scenario": {
+      "type": "string",
+      "description": "Exposure scenario key (must exist in EXPOSURE module for exposure_class)"
+    },
+    "exposure_class": {
+      "type": "string",
+      "description": "Carcinogen class key for EXPOSURE module lookup (may differ from carcinogen_class if class names differ between modules)"
+    },
+    "mutsig_class": {
+      "type": "string",
+      "description": "Carcinogen class key for MUTSIG module lookup (may differ from carcinogen_class)"
+    },
+    "expected_qualitative": {
+      "type": "string",
+      "description": "Expected qualitative direction and dominant SBS signature"
+    },
+    "biological_rationale": {
+      "type": "string",
+      "description": "Biological justification citing source data"
+    }
+  },
+  "additionalProperties": false
+}

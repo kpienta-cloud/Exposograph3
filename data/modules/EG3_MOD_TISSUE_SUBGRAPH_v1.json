@@ -33,7 +33,7 @@
     {
       "name": "tissue",
       "type": "string",
-      "description": "Target tissue — one of ['Liver', 'Lung', 'Prostate', 'Bladder', 'Colon', 'Breast', 'Kidney', 'Esophagus']",
+      "description": "Target tissue \u2014 one of ['Liver', 'Lung', 'Prostate', 'Bladder', 'Colon', 'Breast', 'Kidney', 'Esophagus']",
       "dtype": "category:tissue_name"
     }
   ],
@@ -141,7 +141,7 @@
   ],
   "mechanism_type": "tissue_context_expression_weighting",
   "equation_type": "lookup",
-  "update_rule": "tissue_weighted_flux = flux × weight[gene][tissue];  weight[gene][tissue] = nTPM[gene][tissue] / max_tissue_nTPM[gene]",
+  "update_rule": "tissue_weighted_flux = flux \u00d7 weight[gene][tissue];  weight[gene][tissue] = nTPM[gene][tissue] / max_tissue_nTPM[gene]",
   "parameters": [
     {
       "gene": "CYP1A1",
@@ -1426,17 +1426,17 @@
       "note": "nTPM normalization and tissue panel"
     },
     {
-      "note": "53 genes × 8 tissues weight table in parameters; date 2026-03-30"
+      "note": "53 genes \u00d7 8 tissues weight table in parameters; date 2026-03-30"
     }
   ],
   "uncertainty": {
     "confidence": "high",
     "notes": "GTEx v8 is current gold standard; weight threshold 0.01 applied (below 1% max = 0.0)",
-    "context_sensitivity": "Single cell type not resolved — tissue-bulk averages used"
+    "context_sensitivity": "Single cell type not resolved \u2014 tissue-bulk averages used"
   },
   "validation_status": "curated-causal",
   "cedt_mapping": {
-    "tissue_expression_weight": "tissue_variable → TissueExpressionContext",
+    "tissue_expression_weight": "tissue_variable \u2192 TissueExpressionContext",
     "twin_layer": "tissue"
   },
   "promotion_status": "causal",
@@ -1448,5 +1448,32 @@
       "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
     ],
     "gaps": []
+  },
+  "execution_contract": {
+    "engine_entrypoint": "scripts.engine.modules:TissueSubgraphModule",
+    "deterministic": true,
+    "equation_type": "lookup",
+    "executable_as": "lookup",
+    "inputs": [
+      {
+        "name": "tissue",
+        "dtype": "category:tissue_name",
+        "description": "Target tissue name"
+      },
+      {
+        "name": "enzymes",
+        "dtype": "category:gene_name",
+        "description": "List of gene symbols to look up"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "weights",
+        "dtype": "weight:tissue_expression",
+        "description": "Dict of gene -> normalized_weight for the given tissue"
+      }
+    ],
+    "example_run_ref": "data/execution/example_runs.json#SCN001",
+    "notes": "Maturity C: executable-as-lookup. Returns normalized_weights[gene][tissue] from GTEx v8 data in 53 param records. Not elevated to E \u2014 pure lookup with no computation."
   }
 }

@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """
-ExposoGraph 3.0 — Phase 2/4 Validation Script
-Validates all JSON files against schemas and checks Phase 1 + Phase 2 + Phase 3 + Phase 4 requirements.
+ExposoGraph 3.0 — Phase 2/4/5 Validation Script
+Validates all JSON files against schemas and checks Phase 1 + Phase 2 + Phase 3 + Phase 4 + Phase 5 requirements.
 Phase 2 adds: ONTOLOGY CONFORMANCE pass (entity class hierarchy, interface contracts, port dtypes, wiring).
+Phase 5 adds: EXECUTION pass (re-runs all scenarios, asserts flux_ratio/predicted_SBS match within 1e-6 tolerance;
+               checks Km/Vmax provenance; checks wiring connection usage; validates data/execution/ directory).
 Exits 0 on success, non-zero on failure.
 """
 
@@ -97,7 +99,7 @@ print("=== ExposoGraph 3.0 Phase 4 Validation ===\n")
 
 required_dirs = [
     "app", "data/ontology", "data/registry", "data/causal",
-    "data/modules", "data/evidence", "data/adapters", "schema", "docs", "scripts",
+    "data/modules", "data/evidence", "data/adapters", "data/execution", "schema", "docs", "scripts",
 ]
 print("1. Directory structure...")
 for d in required_dirs:
@@ -770,7 +772,202 @@ if _classes_p.exists() and _ifaces_p.exists() and _pt_p.exists() and _wiring_p.e
 
 print()
 
-# ─── 13. Summary ──────────────────────────────────────────────────────────────
+
+# ─── 13. PHASE 5: EXECUTION PASS ────────────────────────────────────────────
+print("\n13. EXECUTION PASS (Phase 5)...")
+
+# 13a. Check execution schema files exist and load
+_exec_schema_files = ["schema/scenario.schema.json", "schema/execution_run.schema.json"]
+for _sf in _exec_schema_files:
+    _p = REPO_ROOT / _sf
+    check(_p.exists(), f"Phase 5: Missing execution schema file: {_sf}")
+    if _p.exists():
+        load_json(_p)
+        print(f"   \u2713 {_sf} loaded")
+
+# 13b. Check data/execution files exist (data/execution already in required_dirs above)
+_exec_scen_path = REPO_ROOT / "data/execution/scenarios.json"
+_exec_runs_path = REPO_ROOT / "data/execution/example_runs.json"
+check(_exec_scen_path.exists(), "Phase 5: data/execution/scenarios.json missing")
+check(_exec_runs_path.exists(), "Phase 5: data/execution/example_runs.json missing")
+
+_scen_doc = None
+_runs_doc = None
+if _exec_scen_path.exists() and _exec_runs_path.exists():
+    _scen_doc = load_json(_exec_scen_path)
+    _runs_doc = load_json(_exec_runs_path)
+
+if _scen_doc and _runs_doc:
+    _scenarios = _scen_doc.get("scenarios", [])
+    _golden_runs = _runs_doc.get("runs", [])
+    print(f"   Scenarios: {len(_scenarios)} | Golden runs: {len(_golden_runs)}")
+    check(len(_scenarios) >= 4, f"Phase 5: Expected \u22654 scenarios, got {len(_scenarios)}")
+    check(len(_golden_runs) >= 4, f"Phase 5: Expected \u22654 golden runs, got {len(_golden_runs)}")
+
+    # Validate against schemas
+    _exec_schema_p = REPO_ROOT / "schema/scenario.schema.json"
+    _run_schema_p = REPO_ROOT / "schema/execution_run.schema.json"
+    if _exec_schema_p.exists() and _run_schema_p.exists():
+        _scen_schema = load_json(_exec_schema_p)
+        _run_schema = load_json(_run_schema_p)
+        if _scen_schema and _run_schema:
+            for _scen in _scenarios:
+                validate_with_jsonschema(_scen, _scen_schema, f"scenario {_scen.get('id','?')}")
+            for _run in _golden_runs:
+                validate_with_jsonschema(_run, _run_schema, f"run {_run.get('scenario_id','?')}")
+            print(f"   \u2713 All execution files pass schema validation")
+
+    # Build golden index: scenario_id -> run
+    _golden_index = {r["scenario_id"]: r for r in _golden_runs}
+
+    # 13c. Import engine and RE-RUN all scenarios; assert match within 1e-6 tolerance
+    _REGRESSION_TOL = 1e-6
+    _runner = None
+    try:
+        import importlib as _importlib
+        import sys as _sys2
+        _sys2.path.insert(0, str(REPO_ROOT))
+        # Force reload to pick up any changes
+        if "scripts.engine.runner" in _sys2.modules:
+            _importlib.reload(_sys2.modules["scripts.engine.runner"])
+        from scripts.engine.runner import ScenarioRunner
+        _runner = ScenarioRunner()
+        print(f"   \u2713 Engine imported successfully")
+    except Exception as _e:
+        errors.append(f"  ERROR: Phase 5: Could not import engine: {_e}")
+
+    if _runner is not None:
+        _regression_passed = 0
+        _regression_failed = 0
+        for _scen in _scenarios:
+            _sid = _scen["id"]
+            if _sid not in _golden_index:
+                errors.append(f"  ERROR: Phase 5: No golden run for scenario {_sid}")
+                continue
+            _golden_run = _golden_index[_sid]
+            try:
+                _recomputed = _runner.run_scenario(
+                    carcinogen_class=_scen["carcinogen_class"],
+                    tissue=_scen["tissue"],
+                    genotype_profile=_scen["genotype_profile"],
+                    exposure_scenario=_scen["exposure_scenario"],
+                    exposure_class=_scen.get("exposure_class"),
+                    mutsig_class=_scen.get("mutsig_class"),
+                )
+            except Exception as _e:
+                errors.append(f"  ERROR: Phase 5: Engine exception on {_sid}: {_e}")
+                _regression_failed += 1
+                continue
+
+            # (a) Compare flux_ratio within 1e-6
+            _golden_flux = float(_golden_run["computed_trace"]["flux_step"]["flux_ratio"])
+            _recomputed_flux = float(_recomputed["chain_summary"]["flux_ratio"])
+            _flux_diff = abs(_golden_flux - _recomputed_flux)
+            if _flux_diff > _REGRESSION_TOL:
+                errors.append(
+                    f"  ERROR: Phase 5 REGRESSION FAIL [{_sid}]: "
+                    f"flux_ratio mismatch: golden={_golden_flux} "
+                    f"recomputed={_recomputed_flux} diff={_flux_diff:.2e} > tol={_REGRESSION_TOL}"
+                )
+                _regression_failed += 1
+                continue
+
+            # (a) Compare primary predicted_SBS (list equality)
+            _golden_sbs = _golden_run["computed_trace"]["mutsig_step"].get("primary_SBS", [])
+            _recomputed_sbs = _recomputed["chain_summary"].get("primary_SBS", [])
+            if _golden_sbs != _recomputed_sbs:
+                errors.append(
+                    f"  ERROR: Phase 5 REGRESSION FAIL [{_sid}]: "
+                    f"primary_SBS mismatch: golden={_golden_sbs} "
+                    f"recomputed={_recomputed_sbs}"
+                )
+                _regression_failed += 1
+                continue
+
+            _regression_passed += 1
+            print(f"   \u2713 [{_sid}] flux_ratio={_recomputed_flux:.6f} SBS={_recomputed_sbs} "
+                  f"diff={_flux_diff:.2e} (PASS)")
+
+        check(
+            _regression_failed == 0,
+            f"Phase 5: {_regression_failed} scenario(s) failed regression (tolerance 1e-6)"
+        )
+        if _regression_failed == 0:
+            print(f"   \u2713 All {_regression_passed} scenarios pass regression test (tol=1e-6)")
+
+        # (b) Assert every enzyme in golden runs traces to a real FLUX param record
+        _flux_module_path = REPO_ROOT / "data/modules/EG3_MOD_BIOTRANS_FLUX_v1.json"
+        if _flux_module_path.exists():
+            _flux_mod = load_json(_flux_module_path)
+            if _flux_mod:
+                _real_param_keys = set()
+                for _p in _flux_mod.get("parameters", []):
+                    _cc = _p.get("carcinogen_class")
+                    _enz = _p.get("enzyme")
+                    if _cc and _enz:
+                        _real_param_keys.add((_cc, _enz))
+
+                # Resolve the flux class via alias map (canonical class may differ from FLUX params key)
+                try:
+                    from scripts.engine.aliases import CLASS_ALIASES, ClassKeys
+                    def _resolve_flux_class(canonical: str) -> str:
+                        keys = CLASS_ALIASES.get(canonical)
+                        return keys.flux if keys is not None else canonical
+                except Exception:
+                    def _resolve_flux_class(canonical: str) -> str:
+                        return canonical
+
+                _orphan_params = []
+                for _run in _golden_runs:
+                    _cc_canonical = _run["carcinogen_class"]
+                    _cc = _resolve_flux_class(_cc_canonical)
+                    for _er in _run["computed_trace"]["flux_step"].get("per_enzyme_mm_rates", []):
+                        _key = (_cc, _er["enzyme"])
+                        if _key not in _real_param_keys:
+                            _orphan_params.append(
+                                f"{_run['scenario_id']}: ({_cc_canonical}→{_cc}, {_er['enzyme']}) not in FLUX params"
+                            )
+                check(
+                    not _orphan_params,
+                    f"Phase 5: {len(_orphan_params)} orphan enzyme(s) in golden runs: {_orphan_params[:3]}"
+                )
+                if not _orphan_params:
+                    print(f"   \u2713 All enzyme Km/Vmax in golden runs trace to real FLUX params")
+
+        # (c) Assert wiring connections used all exist in wiring.json
+        _wiring_doc_path = REPO_ROOT / "data/ontology/wiring.json"
+        if _wiring_doc_path.exists():
+            _wiring_check = load_json(_wiring_doc_path)
+            if _wiring_check:
+                _declared_conns = set(
+                    (c["from_module"], c["from_port"])
+                    for c in _wiring_check.get("connections", [])
+                )
+                _unknown_conns = []
+                for _run in _golden_runs:
+                    for _conn in _run.get("wiring_connections_used", []):
+                        _key = (_conn["from_module"], _conn["from_port"])
+                        if _key not in _declared_conns:
+                            _unknown_conns.append(
+                                f"{_run['scenario_id']}: {_key} not in wiring.json"
+                            )
+                check(
+                    not _unknown_conns,
+                    f"Phase 5: {len(_unknown_conns)} wiring connection(s) used but not declared: {_unknown_conns[:3]}"
+                )
+                if not _unknown_conns:
+                    print(f"   \u2713 All wiring connections used exist in wiring.json")
+
+    # 13f. Check app/data/execution mirror
+    _exec_app_dir = REPO_ROOT / "app/data/execution"
+    if _exec_app_dir.exists():
+        _app_exec_files = list(_exec_app_dir.glob("*.json"))
+        print(f"   \u2713 app/data/execution/ mirror present ({len(_app_exec_files)} files)")
+    else:
+        warnings.append("  WARNING: app/data/execution/ mirror not yet created (non-fatal)")
+
+
+# ─── 14. Summary ──────────────────────────────────────────────────────────────
 print("\n" + "=" * 50)
 if errors:
     print(f"VALIDATION FAILED — {len(errors)} error(s):")
@@ -789,3 +986,5 @@ else:
     else:
         print("VALIDATION PASSED — all checks OK")
     sys.exit(0)
+
+# The previous section 13 header conflicts; the new section follows as 13 after renaming the old to the summary section above

@@ -298,6 +298,77 @@ def main():
     except Exception as _e:
         print(f"  WARNING: Could not compute Layer-0 stats: {_e}", file=sys.stderr)
 
+
+    # ─── Execution layer (Phase 5) ─────────────────────────────────────────────
+    exec_scen_path = REPO_ROOT / "data/execution/scenarios.json"
+    exec_runs_path = REPO_ROOT / "data/execution/example_runs.json"
+    execution_layer = {}
+    if exec_scen_path.exists() and exec_runs_path.exists():
+        import sys as _sys_brs
+        _sys_brs.path.insert(0, str(REPO_ROOT))
+        scen_data = json.loads(exec_scen_path.read_text(encoding="utf-8"))
+        runs_data = json.loads(exec_runs_path.read_text(encoding="utf-8"))
+        scenarios_list = scen_data.get("scenarios", [])
+        runs_list = runs_data.get("runs", [])
+
+        # Count modules with execution_contract
+        modules_with_contract = [
+            m.get("module_id") for m in modules if "execution_contract" in m
+        ]
+        modules_maturity_e = [
+            m.get("module_id") for m in modules if m.get("maturity_class") == "E"
+        ]
+        modules_lookup_executable = [
+            m.get("module_id")
+            for m in modules
+            if "execution_contract" in m
+            and m.get("execution_contract", {}).get("equation_type") == "lookup"
+        ]
+
+        # Per-scenario summary
+        per_scenario = []
+        for run in runs_list:
+            per_scenario.append({
+                "scenario_id": run["scenario_id"],
+                "scenario_label": run["scenario_label"],
+                "carcinogen_class": run["carcinogen_class"],
+                "tissue": run["tissue"],
+                "flux_ratio": run["computed_trace"]["flux_step"]["flux_ratio"],
+                "activation_score": run["computed_trace"]["flux_step"]["activation_score"],
+                "detoxification_score": run["computed_trace"]["flux_step"]["detoxification_score"],
+                "primary_SBS": run["computed_trace"]["mutsig_step"].get("primary_SBS", []),
+                "dominant_mutation": run["computed_trace"]["mutsig_step"].get("dominant_mutation"),
+                "confidence": run["computed_trace"]["mutsig_step"].get("confidence"),
+                "missing_params_count": len(run.get("missing_params_surfaced", [])),
+            })
+
+        execution_layer = {
+            "scenario_count": len(scenarios_list),
+            "golden_run_count": len(runs_list),
+            "modules_with_execution_contract": len(modules_with_contract),
+            "modules_maturity_e": modules_maturity_e,
+            "modules_executable_as_lookup": modules_lookup_executable,
+            "regression_tolerance": runs_data.get("regression_tolerance", 1e-6),
+            "engine_entrypoint": runs_data.get("engine_entrypoint", "scripts.engine.runner:ScenarioRunner"),
+            "deterministic": runs_data.get("deterministic", True),
+            "per_scenario_results": per_scenario,
+        }
+
+        print(f"\n--- Execution Layer (Phase 5) ---")
+        print(f"  Scenarios: {len(scenarios_list)}")
+        print(f"  Golden runs: {len(runs_list)}")
+        print(f"  Modules with execution_contract: {len(modules_with_contract)}")
+        print(f"    Maturity E (fully executable): {modules_maturity_e}")
+        print(f"    Executable-as-lookup (C): {modules_lookup_executable}")
+        print(f"\n  Per-scenario results:")
+        for ps in per_scenario:
+            print(f"    [{ps['scenario_id']}] {ps['carcinogen_class']}/{ps['tissue']}: "
+                  f"flux_ratio={ps['flux_ratio']:.4f} SBS={ps['primary_SBS']} "
+                  f"conf={ps['confidence']}")
+    else:
+        print("\n  WARNING: data/execution/ not found (Phase 5 incomplete)", file=sys.stderr)
+
+
     summary = {
         "bundle": reg.get("bundle"),
         "version_origin": reg.get("version_origin"),
@@ -328,6 +399,7 @@ def main():
             "edges_total": len(edges),
         },
         "layer0_ontology": layer0_stats,
+        "execution_layer": execution_layer,
     }
 
     out_path = REPO_ROOT / "data/registry/registry_summary.json"

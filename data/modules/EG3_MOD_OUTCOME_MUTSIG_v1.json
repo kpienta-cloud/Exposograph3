@@ -1,6 +1,6 @@
 {
   "module_id": "EG3.MOD.OUTCOME.MUTSIG.v1",
-  "module_name": "Outcome Module — Mutational Signatures",
+  "module_name": "Outcome Module \u2014 Mutational Signatures",
   "module_class": "Outcome",
   "maturity_class": "C",
   "extends": [
@@ -449,12 +449,12 @@
   ],
   "uncertainty": {
     "confidence": "high for primary signatures; medium for secondary",
-    "notes": "Some carcinogen classes (Dioxin, Estrogen) lack dedicated COSMIC signatures — secondary/indirect only. SBS88 (colibactin) is microbiome-derived, not directly ExposoGraph carcinogen-class modeled.",
+    "notes": "Some carcinogen classes (Dioxin, Estrogen) lack dedicated COSMIC signatures \u2014 secondary/indirect only. SBS88 (colibactin) is microbiome-derived, not directly ExposoGraph carcinogen-class modeled.",
     "context_sensitivity": "Signature expression is tumor-type dependent; pan-cancer averages used"
   },
   "validation_status": "curated",
   "cedt_mapping": {
-    "predicted_SBS_signature": "outcome → state_quality_mutational_pattern",
+    "predicted_SBS_signature": "outcome \u2192 state_quality_mutational_pattern",
     "dominant_mutation": "outcome_twin_variable",
     "twin_layer": "state_quality"
   },
@@ -467,5 +467,42 @@
       "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
     ],
     "gaps": []
+  },
+  "execution_contract": {
+    "engine_entrypoint": "scripts.engine.modules:MutsigOutcomeModule",
+    "deterministic": true,
+    "equation_type": "lookup",
+    "executable_as": "lookup",
+    "inputs": [
+      {
+        "name": "carcinogen_class",
+        "dtype": "category:carcinogen_class",
+        "description": "Carcinogen class key"
+      },
+      {
+        "name": "flux_ratio",
+        "dtype": "score:flux_ratio",
+        "description": "Flux ratio from BIOTRANS.FLUX (wired input)"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "predicted_SBS",
+        "dtype": "category:signature_id",
+        "description": "List of SBS signature IDs"
+      },
+      {
+        "name": "dominant_mutation",
+        "dtype": "category:mutation_type",
+        "description": "Dominant mutation type string"
+      },
+      {
+        "name": "confidence",
+        "dtype": "score:confidence",
+        "description": "Confidence level (high/medium/low) influenced by flux_ratio magnitude"
+      }
+    ],
+    "example_run_ref": "data/execution/example_runs.json#SCN001",
+    "notes": "Maturity C: executable-as-lookup. Maps carcinogen_class to SBS signatures from 28 param records (12 signature records + 16 class-map records). Confidence modulated by flux_ratio: >=5 -> high, <=0.5 -> low. Not elevated to E \u2014 no computation beyond threshold rule."
   }
 }

@@ -1,0 +1,179 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "exposograph3://schema/execution_run",
+  "title": "ExposoGraph 3.0 Execution Run",
+  "description": "Schema for a single golden regression run output from the Phase 5 engine.",
+  "type": "object",
+  "required": [
+    "scenario_id",
+    "scenario_label",
+    "carcinogen_class",
+    "tissue",
+    "genotype_profile",
+    "exposure_scenario",
+    "computed_trace",
+    "provenance"
+  ],
+  "properties": {
+    "scenario_id": {
+      "type": "string",
+      "pattern": "^SCN[0-9]{3,}$"
+    },
+    "scenario_label": {
+      "type": "string"
+    },
+    "carcinogen_class": {
+      "type": "string"
+    },
+    "tissue": {
+      "type": "string"
+    },
+    "genotype_profile": {
+      "type": "object",
+      "additionalProperties": {"type": "string"}
+    },
+    "exposure_scenario": {
+      "type": "string"
+    },
+    "exposure_class": {
+      "type": "string"
+    },
+    "mutsig_class": {
+      "type": "string"
+    },
+    "computed_trace": {
+      "type": "object",
+      "required": ["exposure_step", "flux_step", "mutsig_step"],
+      "properties": {
+        "exposure_step": {
+          "type": "object",
+          "required": ["substrate_conc_uM"],
+          "properties": {
+            "substrate_conc_uM": {
+              "type": ["number", "null"],
+              "description": "Estimated tissue concentration in micromolar"
+            },
+            "exposure_multiplier": {
+              "type": ["number", "null"],
+              "description": "Multiplier vs baseline"
+            },
+            "source": {
+              "type": "string",
+              "description": "Parameter record reference"
+            }
+          }
+        },
+        "flux_step": {
+          "type": "object",
+          "required": ["activation_score", "detoxification_score", "flux_ratio"],
+          "properties": {
+            "per_enzyme_mm_rates": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "required": ["enzyme", "pathway_category", "mm_rate", "weighted_rate"],
+                "properties": {
+                  "enzyme": {"type": "string"},
+                  "gene": {"type": "string"},
+                  "pathway_type": {"type": "string"},
+                  "pathway_category": {
+                    "type": "string",
+                    "enum": ["activation", "detoxification", "other"]
+                  },
+                  "Km_uM": {"type": ["number", "null"]},
+                  "Vmax": {"type": ["number", "null"]},
+                  "substrate_conc_uM": {"type": "number"},
+                  "mm_rate": {"type": ["number", "null"]},
+                  "tissue_weight": {"type": ["number", "null"]},
+                  "genotype_multiplier": {"type": ["number", "null"]},
+                  "weighted_rate": {"type": ["number", "null"]},
+                  "param_source": {"type": "array", "items": {"type": "string"}},
+                  "confidence": {"type": "string"}
+                }
+              }
+            },
+            "activation_score": {
+              "type": "number",
+              "minimum": 0
+            },
+            "detoxification_score": {
+              "type": "number",
+              "minimum": 0
+            },
+            "flux_ratio": {
+              "type": "number",
+              "minimum": 0
+            },
+            "internal_state_used": {
+              "type": "object"
+            },
+            "missing_params": {
+              "type": "array",
+              "items": {"type": "string"}
+            }
+          }
+        },
+        "mutsig_step": {
+          "type": "object",
+          "required": ["predicted_SBS", "confidence"],
+          "properties": {
+            "predicted_SBS": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "primary_SBS": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "secondary_SBS": {
+              "type": "array",
+              "items": {"type": "string"}
+            },
+            "dominant_mutation": {
+              "type": ["string", "null"]
+            },
+            "confidence": {
+              "type": "string",
+              "enum": ["high", "medium", "low", "none"]
+            }
+          }
+        }
+      }
+    },
+    "wiring_connections_used": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["from_module", "from_port", "to_module", "to_port", "dtype"],
+        "properties": {
+          "from_module": {"type": "string"},
+          "from_port": {"type": "string"},
+          "to_module": {"type": "string"},
+          "to_port": {"type": "string"},
+          "dtype": {"type": "string"}
+        }
+      }
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["EXPOSURE_params", "FLUX_params", "POPGEN_params", "TISSUE_params", "MUTSIG_params"],
+      "properties": {
+        "EXPOSURE_params": {"type": "string"},
+        "FLUX_params": {"type": "string"},
+        "POPGEN_params": {"type": "string"},
+        "TISSUE_params": {"type": "string"},
+        "MUTSIG_params": {"type": "string"},
+        "wiring": {"type": "string"},
+        "per_param_records": {
+          "type": "array",
+          "items": {"type": "string"}
+        }
+      }
+    },
+    "missing_params_surfaced": {
+      "type": "array",
+      "items": {"type": "string"}
+    }
+  },
+  "additionalProperties": false
+}

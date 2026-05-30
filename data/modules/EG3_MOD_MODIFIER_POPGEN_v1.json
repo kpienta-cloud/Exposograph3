@@ -1,6 +1,6 @@
 {
   "module_id": "EG3.MOD.MODIFIER.POPGEN.v1",
-  "module_name": "Susceptibility Modifier Module — Population Genomics",
+  "module_name": "Susceptibility Modifier Module \u2014 Population Genomics",
   "module_class": "Modifier",
   "maturity_class": "C",
   "extends": [
@@ -100,7 +100,7 @@
   ],
   "mechanism_type": "genotype_activity_scaling",
   "equation_type": "lookup multiplier",
-  "update_rule": "effective_Vmax = Vmax × activity_multiplier[gene][genotype]",
+  "update_rule": "effective_Vmax = Vmax \u00d7 activity_multiplier[gene][genotype]",
   "parameters": [
     {
       "gene": "CYP1A2",
@@ -147,7 +147,7 @@
       "phenotype": "UM_c1c1",
       "activity_multiplier": 1.4,
       "frequency": 0.12,
-      "alleles": "*1C/*1C — higher inducibility",
+      "alleles": "*1C/*1C \u2014 higher inducibility",
       "source": "interaction_parameters.json#genotype_modifiers"
     },
     {
@@ -187,7 +187,7 @@
       "phenotype": "active",
       "activity_multiplier": 1.0,
       "frequency": 0.5,
-      "alleles": "GSTM1 present — PAH-GSH conjugation functional",
+      "alleles": "GSTM1 present \u2014 PAH-GSH conjugation functional",
       "source": "interaction_parameters.json#genotype_modifiers"
     },
     {
@@ -195,7 +195,7 @@
       "phenotype": "null",
       "activity_multiplier": 0.0,
       "frequency": 0.5,
-      "alleles": "GSTM1 deletion — NO GSH conjugation of PAH epoxides. Major cancer risk factor.",
+      "alleles": "GSTM1 deletion \u2014 NO GSH conjugation of PAH epoxides. Major cancer risk factor.",
       "source": "interaction_parameters.json#genotype_modifiers"
     },
     {
@@ -211,7 +211,7 @@
       "phenotype": "null",
       "activity_multiplier": 0.0,
       "frequency": 0.2,
-      "alleles": "GSTT1 deletion — impaired detox of small electrophiles including ethylene oxide",
+      "alleles": "GSTT1 deletion \u2014 impaired detox of small electrophiles including ethylene oxide",
       "source": "interaction_parameters.json#genotype_modifiers"
     },
     {
@@ -267,7 +267,7 @@
       "phenotype": "rapid",
       "activity_multiplier": 2.0,
       "frequency": 0.25,
-      "alleles": "Fast N-acetyltransferase — HCA detox vs activation balance",
+      "alleles": "Fast N-acetyltransferase \u2014 HCA detox vs activation balance",
       "source": "interaction_parameters.json#genotype_modifiers"
     },
     {
@@ -283,7 +283,7 @@
       "phenotype": "slow",
       "activity_multiplier": 0.3,
       "frequency": 0.3,
-      "alleles": "Slow N-acetyltransferase — reduced HCA detoxification in colon; increased bladder risk",
+      "alleles": "Slow N-acetyltransferase \u2014 reduced HCA detoxification in colon; increased bladder risk",
       "source": "interaction_parameters.json#genotype_modifiers"
     },
     {
@@ -350,7 +350,7 @@
   },
   "validation_status": "curated-causal",
   "cedt_mapping": {
-    "activity_multiplier": "host_variable → EnzymeActivityModifier",
+    "activity_multiplier": "host_variable \u2192 EnzymeActivityModifier",
     "twin_layer": "host"
   },
   "promotion_status": "causal",
@@ -362,5 +362,27 @@
       "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
     ],
     "gaps": []
+  },
+  "execution_contract": {
+    "engine_entrypoint": "scripts.engine.modules:PopgenModifierModule",
+    "deterministic": true,
+    "equation_type": "lookup",
+    "executable_as": "lookup",
+    "inputs": [
+      {
+        "name": "genotype_profile",
+        "dtype": "multiplier:genotype_activity",
+        "description": "Dict of gene -> phenotype string"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "multipliers",
+        "dtype": "multiplier:genotype_activity",
+        "description": "Dict of gene -> activity_multiplier float"
+      }
+    ],
+    "example_run_ref": "data/execution/example_runs.json#SCN001",
+    "notes": "Maturity C: executable-as-lookup. Returns activity_multiplier from 27 explicit param records. Falls back to genotype_modifier_standard_scale (PM:0.0, IM:0.5, NM:1.0, RM:1.5, UM:2.0) for genes not in explicit params."
   }
 }

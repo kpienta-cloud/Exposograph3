@@ -66,7 +66,7 @@
     {
       "name": "activation_score",
       "type": "float",
-      "description": "Summed activation flux = Σ(Vmax·[S]/(Km+[S])) for activation enzymes × tissue_weight × genotype_multiplier",
+      "description": "Summed activation flux = \u03a3(Vmax\u00b7[S]/(Km+[S])) for activation enzymes \u00d7 tissue_weight \u00d7 genotype_multiplier",
       "dtype": "score:activation",
       "unit": "dimensionless"
     },
@@ -344,13 +344,13 @@
   ],
   "mechanism_type": "michaelis_menten_flux",
   "equation_type": "score-based / michaelis_menten",
-  "update_rule": "v = Vmax × [S] / (Km + [S]);  activation_score = Σ v_i(enzyme_i) × tissue_weight[enzyme_i][tissue] × genotype_multiplier[enzyme_i];  detoxification_score = Σ v_j(enzyme_j) × tissue_weight[enzyme_j][tissue] × genotype_multiplier[enzyme_j];  flux_ratio = activation_score / max(detoxification_score, 0.001);  effective_Vmax = Vmax × activity_multiplier[genotype]",
+  "update_rule": "v = Vmax \u00d7 [S] / (Km + [S]);  activation_score = \u03a3 v_i(enzyme_i) \u00d7 tissue_weight[enzyme_i][tissue] \u00d7 genotype_multiplier[enzyme_i];  detoxification_score = \u03a3 v_j(enzyme_j) \u00d7 tissue_weight[enzyme_j][tissue] \u00d7 genotype_multiplier[enzyme_j];  flux_ratio = activation_score / max(detoxification_score, 0.001);  effective_Vmax = Vmax \u00d7 activity_multiplier[genotype]",
   "parameters": [
     {
       "carcinogen_class": "PAH",
       "pathway_type": "activation",
       "enzyme": "CYP1A1",
-      "reaction": "BaP → BaP-7,8-oxide",
+      "reaction": "BaP \u2192 BaP-7,8-oxide",
       "Km_uM": 0.054,
       "confidence": "high",
       "sources": [
@@ -364,7 +364,7 @@
       "carcinogen_class": "PAH",
       "pathway_type": "activation",
       "enzyme": "CYP1B1",
-      "reaction": "BaP → BaP-7,8-oxide",
+      "reaction": "BaP \u2192 BaP-7,8-oxide",
       "Km_uM": 0.35,
       "confidence": "moderate",
       "sources": [
@@ -377,7 +377,7 @@
       "carcinogen_class": "PAH",
       "pathway_type": "activation",
       "enzyme": "EPHX1",
-      "reaction": "BaP-7,8-oxide → BaP-7,8-diol",
+      "reaction": "BaP-7,8-oxide \u2192 BaP-7,8-diol",
       "Km_uM": 5.0,
       "confidence": "moderate",
       "sources": [
@@ -389,7 +389,7 @@
       "carcinogen_class": "PAH",
       "pathway_type": "detoxification",
       "enzyme": "GSTM1",
-      "reaction": "BPDE → BPDE-GSH conjugate",
+      "reaction": "BPDE \u2192 BPDE-GSH conjugate",
       "Km_uM": 50.0,
       "confidence": "moderate",
       "sources": [
@@ -402,7 +402,7 @@
       "carcinogen_class": "PAH",
       "pathway_type": "detoxification",
       "enzyme": "GSTP1",
-      "reaction": "BPDE → BPDE-GSH conjugate",
+      "reaction": "BPDE \u2192 BPDE-GSH conjugate",
       "Km_uM": 25.0,
       "confidence": "moderate",
       "sources": [
@@ -414,7 +414,7 @@
       "carcinogen_class": "Aflatoxin",
       "pathway_type": "activation",
       "enzyme": "CYP3A4",
-      "reaction": "AFB1 → AFB1-8,9-epoxide (AFBO)",
+      "reaction": "AFB1 \u2192 AFB1-8,9-epoxide (AFBO)",
       "Km_uM": 49.6,
       "confidence": "high",
       "sources": [
@@ -427,7 +427,7 @@
       "carcinogen_class": "Aflatoxin",
       "pathway_type": "activation",
       "enzyme": "CYP1A2",
-      "reaction": "AFB1 → AFB1-8,9-epoxide (AFBO)",
+      "reaction": "AFB1 \u2192 AFB1-8,9-epoxide (AFBO)",
       "Km_uM": 58.2,
       "confidence": "high",
       "sources": [
@@ -441,7 +441,7 @@
       "carcinogen_class": "Aflatoxin",
       "pathway_type": "detoxification",
       "enzyme": "CYP3A4_AFQ1",
-      "reaction": "AFB1 → AFQ1 (hydroxylation, non-reactive detox product)",
+      "reaction": "AFB1 \u2192 AFQ1 (hydroxylation, non-reactive detox product)",
       "Km_uM": 160.0,
       "confidence": "moderate",
       "sources": [
@@ -455,7 +455,7 @@
       "carcinogen_class": "Aflatoxin",
       "pathway_type": "detoxification",
       "enzyme": "GSTA1",
-      "reaction": "AFBO → AFBO-GSH conjugate",
+      "reaction": "AFBO \u2192 AFBO-GSH conjugate",
       "Km_uM": 10.0,
       "confidence": "low",
       "sources": [
@@ -466,7 +466,7 @@
       "carcinogen_class": "Aldehyde",
       "pathway_type": "ethanol_oxidation",
       "enzyme": "ADH1B_star1",
-      "reaction": "Ethanol → Acetaldehyde",
+      "reaction": "Ethanol \u2192 Acetaldehyde",
       "Km_uM": 16.0,
       "confidence": "high",
       "sources": [
@@ -479,7 +479,7 @@
       "carcinogen_class": "Aldehyde",
       "pathway_type": "ethanol_oxidation",
       "enzyme": "ADH1B_star2",
-      "reaction": "Ethanol → Acetaldehyde",
+      "reaction": "Ethanol \u2192 Acetaldehyde",
       "Km_uM": 1900.0,
       "confidence": "high",
       "sources": [
@@ -492,7 +492,7 @@
       "carcinogen_class": "Aldehyde",
       "pathway_type": "acetaldehyde_clearance",
       "enzyme": "ALDH2_star1",
-      "reaction": "Acetaldehyde → Acetate",
+      "reaction": "Acetaldehyde \u2192 Acetate",
       "Km_uM": 0.2,
       "confidence": "high",
       "sources": [
@@ -505,7 +505,7 @@
       "carcinogen_class": "Aldehyde",
       "pathway_type": "acetaldehyde_clearance",
       "enzyme": "ALDH2_star2_homozygous",
-      "reaction": "Acetaldehyde → Acetate",
+      "reaction": "Acetaldehyde \u2192 Acetate",
       "Km_uM": 4.6,
       "confidence": "high",
       "sources": [
@@ -518,18 +518,18 @@
       "carcinogen_class": "Aldehyde",
       "pathway_type": "acetaldehyde_clearance",
       "enzyme": "ALDH2_star1_star2",
-      "reaction": "Acetaldehyde → Acetate",
+      "reaction": "Acetaldehyde \u2192 Acetate",
       "Km_uM": null,
       "confidence": "moderate",
       "sources": [
-        "PMC3525274 — partial dominance model"
+        "PMC3525274 \u2014 partial dominance model"
       ]
     },
     {
       "carcinogen_class": "Aldehyde",
       "pathway_type": "acetaldehyde_clearance",
       "enzyme": "ALDH1A1",
-      "reaction": "Acetaldehyde → Acetate (backup pathway)",
+      "reaction": "Acetaldehyde \u2192 Acetate (backup pathway)",
       "Km_uM": 33.0,
       "confidence": "high",
       "sources": [
@@ -542,7 +542,7 @@
       "carcinogen_class": "Aldehyde",
       "pathway_type": "formaldehyde_oxidation",
       "enzyme": "ADH5",
-      "reaction": "Formaldehyde → Formate",
+      "reaction": "Formaldehyde \u2192 Formate",
       "Km_uM": 300.0,
       "confidence": "low",
       "sources": [
@@ -553,7 +553,7 @@
       "carcinogen_class": "Nitrosamine",
       "pathway_type": "activation",
       "enzyme": "CYP2A13",
-      "reaction": "NNK → 4-hydroxy-NNK (α-hydroxylation, major activation)",
+      "reaction": "NNK \u2192 4-hydroxy-NNK (\u03b1-hydroxylation, major activation)",
       "Km_uM": 3.6,
       "confidence": "high",
       "sources": [
@@ -566,7 +566,7 @@
       "carcinogen_class": "Nitrosamine",
       "pathway_type": "activation",
       "enzyme": "CYP2A13_methyl",
-      "reaction": "NNK → methyl-hydroxy-NNK",
+      "reaction": "NNK \u2192 methyl-hydroxy-NNK",
       "Km_uM": null,
       "confidence": "moderate",
       "sources": [
@@ -579,7 +579,7 @@
       "carcinogen_class": "Nitrosamine",
       "pathway_type": "activation",
       "enzyme": "CYP2A6",
-      "reaction": "NNK → α-hydroxy-NNK (much lower efficiency than CYP2A13)",
+      "reaction": "NNK \u2192 \u03b1-hydroxy-NNK (much lower efficiency than CYP2A13)",
       "Km_uM": null,
       "confidence": "moderate",
       "sources": [
@@ -591,7 +591,7 @@
       "carcinogen_class": "Nitrosamine",
       "pathway_type": "detoxification",
       "enzyme": "carbonyl_reduction",
-      "reaction": "NNK → NNAL (reduction, detoxification product)",
+      "reaction": "NNK \u2192 NNAL (reduction, detoxification product)",
       "Km_uM": null,
       "confidence": "low",
       "sources": [
@@ -602,7 +602,7 @@
       "carcinogen_class": "NDMA",
       "pathway_type": "activation",
       "enzyme": "CYP2E1",
-      "reaction": "NDMA → hydroxymethylnitrosamine (α-demethylation)",
+      "reaction": "NDMA \u2192 hydroxymethylnitrosamine (\u03b1-demethylation)",
       "Km_uM": 14.75,
       "confidence": "high",
       "sources": [
@@ -614,7 +614,7 @@
       "carcinogen_class": "NDMA",
       "pathway_type": "activation",
       "enzyme": "CYP2E1_with_b5",
-      "reaction": "NDMA → hydroxymethylnitrosamine (with cytochrome b5)",
+      "reaction": "NDMA \u2192 hydroxymethylnitrosamine (with cytochrome b5)",
       "Km_uM": 22.0,
       "confidence": "high",
       "sources": [
@@ -625,7 +625,7 @@
       "carcinogen_class": "NDMA",
       "pathway_type": "detoxification",
       "enzyme": "ADH5_formaldehyde",
-      "reaction": "Formaldehyde (downstream) → Formate",
+      "reaction": "Formaldehyde (downstream) \u2192 Formate",
       "Km_uM": null,
       "confidence": "low",
       "sources": [
@@ -636,7 +636,7 @@
       "carcinogen_class": "HCA",
       "pathway_type": "activation",
       "enzyme": "CYP1A2",
-      "reaction": "PhIP → N-OH-PhIP (N-hydroxylation)",
+      "reaction": "PhIP \u2192 N-OH-PhIP (N-hydroxylation)",
       "Km_uM": 79.0,
       "confidence": "high",
       "sources": [
@@ -648,7 +648,7 @@
       "carcinogen_class": "HCA",
       "pathway_type": "activation",
       "enzyme": "CYP1A1",
-      "reaction": "PhIP → N-OH-PhIP (N-hydroxylation)",
+      "reaction": "PhIP \u2192 N-OH-PhIP (N-hydroxylation)",
       "Km_uM": 5.1,
       "confidence": "high",
       "sources": [
@@ -660,7 +660,7 @@
       "carcinogen_class": "HCA",
       "pathway_type": "activation",
       "enzyme": "CYP1B1",
-      "reaction": "PhIP → N-OH-PhIP + 4-OH-PhIP",
+      "reaction": "PhIP \u2192 N-OH-PhIP + 4-OH-PhIP",
       "Km_uM": 4.5,
       "confidence": "high",
       "sources": [
@@ -672,7 +672,7 @@
       "carcinogen_class": "HCA",
       "pathway_type": "detoxification",
       "enzyme": "SULT1A1",
-      "reaction": "N-OH-PhIP → N-sulfonyloxy-PhIP (further activation) OR competing detox sulfation",
+      "reaction": "N-OH-PhIP \u2192 N-sulfonyloxy-PhIP (further activation) OR competing detox sulfation",
       "Km_uM": null,
       "confidence": "low",
       "sources": [
@@ -683,7 +683,7 @@
       "carcinogen_class": "HCA",
       "pathway_type": "detoxification",
       "enzyme": "NAT2",
-      "reaction": "PhIP → PhIP-N-acetate (competing N-acetylation pathway)",
+      "reaction": "PhIP \u2192 PhIP-N-acetate (competing N-acetylation pathway)",
       "Km_uM": null,
       "confidence": "low",
       "sources": [
@@ -694,7 +694,7 @@
       "carcinogen_class": "Benzene",
       "pathway_type": "activation",
       "enzyme": "CYP2E1_liver",
-      "reaction": "Benzene → Benzene oxide → Phenol (hepatic)",
+      "reaction": "Benzene \u2192 Benzene oxide \u2192 Phenol (hepatic)",
       "Km_uM": 75.0,
       "confidence": "moderate",
       "sources": [
@@ -705,7 +705,7 @@
       "carcinogen_class": "Benzene",
       "pathway_type": "activation",
       "enzyme": "CYP2F2_lung",
-      "reaction": "Benzene → Phenol (pulmonary, lung-specific)",
+      "reaction": "Benzene \u2192 Phenol (pulmonary, lung-specific)",
       "Km_uM": null,
       "confidence": "low",
       "sources": [
@@ -716,7 +716,7 @@
       "carcinogen_class": "Benzene",
       "pathway_type": "detoxification",
       "enzyme": "NQO1",
-      "reaction": "Benzoquinone → Hydroquinone (reduction, protective)",
+      "reaction": "Benzoquinone \u2192 Hydroquinone (reduction, protective)",
       "Km_uM": null,
       "confidence": "low",
       "sources": [
@@ -727,7 +727,7 @@
       "carcinogen_class": "Benzene",
       "pathway_type": "detoxification",
       "enzyme": "GSTT1",
-      "reaction": "Benzene oxide → Benzene-GSH (detoxification)",
+      "reaction": "Benzene oxide \u2192 Benzene-GSH (detoxification)",
       "Km_uM": null,
       "confidence": "low",
       "sources": [
@@ -738,7 +738,7 @@
       "carcinogen_class": "HeavyMetal",
       "pathway_type": "biotransformation",
       "enzyme": "AS3MT",
-      "reaction": "Inorganic arsenic → methylarsonate (MMA) → dimethylarsinate (DMA) — methylation series",
+      "reaction": "Inorganic arsenic \u2192 methylarsonate (MMA) \u2192 dimethylarsinate (DMA) \u2014 methylation series",
       "Km_uM": 50.0,
       "confidence": "low",
       "sources": [
@@ -749,7 +749,7 @@
       "carcinogen_class": "HeavyMetal",
       "pathway_type": "oxidative_stress",
       "enzyme": "general_ROS",
-      "reaction": "Arsenic → ROS generation → oxidative DNA damage",
+      "reaction": "Arsenic \u2192 ROS generation \u2192 oxidative DNA damage",
       "Km_uM": null,
       "confidence": "estimated",
       "sources": [
@@ -760,7 +760,7 @@
       "carcinogen_class": "Dioxin",
       "pathway_type": "AhR_signaling",
       "enzyme": "AhR_binding",
-      "reaction": "TCDD → AhR complex → CYP1A1/CYP1B1 induction",
+      "reaction": "TCDD \u2192 AhR complex \u2192 CYP1A1/CYP1B1 induction",
       "Km_uM": null,
       "confidence": "moderate",
       "sources": [
@@ -771,7 +771,7 @@
       "carcinogen_class": "ChlorinatedSolvent",
       "pathway_type": "oxidation",
       "enzyme": "CYP2E1_TCE",
-      "reaction": "TCE → trichloroethylene oxide",
+      "reaction": "TCE \u2192 trichloroethylene oxide",
       "Km_uM": 85.0,
       "confidence": "low",
       "sources": [
@@ -782,7 +782,7 @@
       "carcinogen_class": "ChlorinatedSolvent",
       "pathway_type": "GSH_conjugation",
       "enzyme": "GSTT1_TCE",
-      "reaction": "TCE → TCE-GSH (GSTT1-mediated) → reactive kidney metabolites",
+      "reaction": "TCE \u2192 TCE-GSH (GSTT1-mediated) \u2192 reactive kidney metabolites",
       "Km_uM": null,
       "confidence": "low",
       "sources": [
@@ -867,7 +867,7 @@
   },
   "validation_status": "curated-causal",
   "cedt_mapping": {
-    "flux_ratio": "metabolic_state_variable → MetabolicActivationScore",
+    "flux_ratio": "metabolic_state_variable \u2192 MetabolicActivationScore",
     "GSH_pool": "internal_mediator_state",
     "twin_layer": "metabolic"
   },
@@ -880,5 +880,56 @@
       "CONFORMANT: all interface required_fields present; all port dtypes resolve; all interface port-type contracts satisfied."
     ],
     "gaps": []
+  },
+  "execution_contract": {
+    "engine_entrypoint": "scripts.engine.modules:BiotransFluxModule",
+    "deterministic": true,
+    "equation_type": "michaelis_menten",
+    "inputs": [
+      {
+        "name": "substrate_conc_uM",
+        "dtype": "concentration:uM",
+        "description": "Carcinogen concentration in micromolar [S]"
+      },
+      {
+        "name": "carcinogen_class",
+        "dtype": "category:carcinogen_class",
+        "description": "Selects which enzyme params to use"
+      },
+      {
+        "name": "tissue",
+        "dtype": "category:tissue_name",
+        "description": "Target tissue"
+      },
+      {
+        "name": "genotype_multipliers",
+        "dtype": "multiplier:genotype_activity",
+        "description": "Per-enzyme activity multipliers from POPGEN"
+      },
+      {
+        "name": "tissue_weights",
+        "dtype": "weight:tissue_expression",
+        "description": "Per-enzyme tissue expression weights from TISSUE"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "activation_score",
+        "dtype": "score:activation",
+        "description": "Weighted sum of MM activation rates"
+      },
+      {
+        "name": "detoxification_score",
+        "dtype": "score:detoxification",
+        "description": "Weighted sum of MM detox rates"
+      },
+      {
+        "name": "flux_ratio",
+        "dtype": "score:flux_ratio",
+        "description": "activation_score / max(detoxification_score, 0.001)"
+      }
+    ],
+    "example_run_ref": "data/execution/example_runs.json#SCN001",
+    "notes": "Maturity E: fully executable Michaelis-Menten engine. Uses real Km_uM/Vmax from 37 param records. Missing Vmax surfaced as None (not guessed). CLint proxy used when Vmax absent but CLint present."
   }
 }
