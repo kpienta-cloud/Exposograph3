@@ -1643,7 +1643,17 @@
   },
   "validation_status": "curated-causal",
   "cedt_mapping": {
-    "_notes": "Evidence backbone module — no direct CEDT mapping in D-maturity"
+    "adapter_id": "EG3.ADAPT.EVIDENCE.STATE_QUALITY.v2",
+    "twin_layer": "state_quality",
+    "twin_ready": false,
+    "maturity_evidence": "Maturity C (D→C in Phase 3): EVIDENCE module emits a structured provenance_record, not a numeric confidence score. evidence_confidence in twin states is populated from MUTSIG adapter (not this adapter directly). twin_ready=false: no direct numeric twin variable computed from provenance_record alone. Honest D-maturity adapter.",
+    "port_mappings": [
+      {
+        "eg3_output_port": "provenance_record",
+        "twin_variable": "evidence_confidence",
+        "transform": "categorical-lookup"
+      }
+    ]
   },
   "promotion_status": "registry",
   "version": "1.0.0",

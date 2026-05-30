@@ -1,6 +1,6 @@
 {
   "module_id": "EG3.MOD.OUTCOME.MUTSIG.v1",
-  "module_name": "Outcome Module \u2014 Mutational Signatures",
+  "module_name": "Outcome Module — Mutational Signatures",
   "module_class": "Outcome",
   "maturity_class": "C",
   "extends": [
@@ -449,14 +449,32 @@
   ],
   "uncertainty": {
     "confidence": "high for primary signatures; medium for secondary",
-    "notes": "Some carcinogen classes (Dioxin, Estrogen) lack dedicated COSMIC signatures \u2014 secondary/indirect only. SBS88 (colibactin) is microbiome-derived, not directly ExposoGraph carcinogen-class modeled.",
+    "notes": "Some carcinogen classes (Dioxin, Estrogen) lack dedicated COSMIC signatures — secondary/indirect only. SBS88 (colibactin) is microbiome-derived, not directly ExposoGraph carcinogen-class modeled.",
     "context_sensitivity": "Signature expression is tumor-type dependent; pan-cancer averages used"
   },
   "validation_status": "curated",
   "cedt_mapping": {
-    "predicted_SBS_signature": "outcome \u2192 state_quality_mutational_pattern",
-    "dominant_mutation": "outcome_twin_variable",
-    "twin_layer": "state_quality"
+    "adapter_id": "EG3.ADAPT.MUTSIG.STATE_QUALITY.v2",
+    "twin_layer": "state_quality",
+    "twin_ready": false,
+    "maturity_evidence": "Maturity C: MutSig outputs (predicted_SBS, dominant_mutation, confidence) are real regression-tested values from Phase 5 golden runs, but derive from rule-based SBS lookup (not a kinetic model). twin_ready=false: outputs are categorical/lookup; no continuous numeric computation to regress.",
+    "port_mappings": [
+      {
+        "eg3_output_port": "predicted_SBS_signature",
+        "twin_variable": "predicted_mutational_signature",
+        "transform": "identity"
+      },
+      {
+        "eg3_output_port": "dominant_mutation",
+        "twin_variable": "dominant_mutation",
+        "transform": "identity"
+      },
+      {
+        "eg3_output_port": "confidence",
+        "twin_variable": "evidence_confidence",
+        "transform": "identity"
+      }
+    ]
   },
   "promotion_status": "causal",
   "version": "1.0.0",
@@ -503,6 +521,6 @@
       }
     ],
     "example_run_ref": "data/execution/example_runs.json#SCN001",
-    "notes": "Maturity C: executable-as-lookup. Maps carcinogen_class to SBS signatures from 28 param records (12 signature records + 16 class-map records). Confidence modulated by flux_ratio: >=5 -> high, <=0.5 -> low. Not elevated to E \u2014 no computation beyond threshold rule."
+    "notes": "Maturity C: executable-as-lookup. Maps carcinogen_class to SBS signatures from 28 param records (12 signature records + 16 class-map records). Confidence modulated by flux_ratio: >=5 -> high, <=0.5 -> low. Not elevated to E — no computation beyond threshold rule."
   }
 }

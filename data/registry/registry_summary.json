@@ -1,10 +1,10 @@
 {
   "bundle": "Registry Graph v2-compat",
-  "version_origin": "ExposoGraph 2.0 (v0.0.5; 212 nodes / 313 edges reference bundle)",
-  "phase": "Phase 2+4: Ontology + Causal layer promotion",
+  "version_origin": "ExposoGraph 3.0 Phase 6 (CEDT adapter)",
+  "phase": "Phase 2+4+6: Ontology + Causal + CEDT Digital Twin adapters",
   "node_count": 212,
   "edge_count": 313,
-  "execution_edge_count": 74,
+  "execution_edge_count": 94,
   "module_count": 8,
   "total_module_parameters": 358,
   "node_type_distribution": {
@@ -29,7 +29,7 @@
     "registry": 88
   },
   "execution_edges": {
-    "total": 74,
+    "total": 94,
     "by_type": {
       "bioactivates": 12,
       "detoxifies": 15,
@@ -37,12 +37,12 @@
       "feeds_input": 5,
       "consumes_parameter": 3,
       "emits_output": 2,
-      "maps_to_twin_state": 5,
+      "maps_to_twin_state": 25,
       "writes_observation": 2
     },
     "by_family": {
       "causal": 57,
-      "execution": 17
+      "execution": 37
     }
   },
   "causal_layer": {
@@ -81,35 +81,35 @@
       "EG3.MOTIF.007": 2
     },
     "pmids_attached": [
+      "PMC1829392",
+      "PMID 9187241",
+      "PMID:1444447",
+      "PMID:10220571",
+      "PMID:34730462",
+      "PMID:8975785",
+      "PMID:12975327",
+      "PMID:17872912",
+      "PMC9469084",
+      "PMID 10950860 (Koop 1992)",
+      "PMID:2185966",
+      "PMID:19705912",
+      "PMID:40390554",
+      "PMID:7523912",
+      "PMID:20577029",
+      "PMID:10064842",
+      "PMID:10417614",
+      "PMID:21538843",
+      "PMID:21801416",
+      "PMID:9327140",
+      "PMID:1937131",
       "PMID:21222454",
       "PMID 7865919",
-      "PMID:19705912",
-      "PMID:17872912",
-      "PMID 10950860 (Koop 1992)",
-      "PMID:8975785",
-      "PMID:1937131",
       "PMID:8635461",
-      "PMID:2185966",
-      "PMID:10064842",
-      "PMID:12860588",
-      "PMID:10220571",
-      "PMID:20663906",
       "PMID:12960109",
       "PMC3525274",
-      "PMID:7523912",
-      "PMID:34730462",
-      "PMID:12975327",
-      "PMID:21801416",
-      "PMC1829392",
-      "PMC9469084",
-      "PMID:20577029",
-      "PMID:1444447",
-      "PMID:9327140",
-      "PMID:21538843",
-      "PMID:10417614",
-      "PMID:40390554",
-      "PMID 9187241",
-      "PMID:7614537"
+      "PMID:7614537",
+      "PMID:12860588",
+      "PMID:20663906"
     ]
   },
   "causal_motifs": {
@@ -171,7 +171,7 @@
       "module_id": "EG3.MOD.BIOTRANS.FLUX.v1",
       "module_name": "Biotransformation / Flux Engine",
       "module_class": "BiotransformationProcess",
-      "maturity_class": "E",
+      "maturity_class": "T",
       "equation_type": "score-based / michaelis_menten",
       "promotion_status": "executable",
       "validation_status": "curated-causal",
@@ -330,9 +330,7 @@
     "scenario_count": 4,
     "golden_run_count": 4,
     "modules_with_execution_contract": 5,
-    "modules_maturity_e": [
-      "EG3.MOD.BIOTRANS.FLUX.v1"
-    ],
+    "modules_maturity_e": [],
     "modules_executable_as_lookup": [
       "EG3.MOD.EXPOSURE.WAVE2.v1",
       "EG3.MOD.MODIFIER.POPGEN.v1",
@@ -404,6 +402,38 @@
         "confidence": "high",
         "missing_params_count": 3
       }
+    ]
+  },
+  "cedt_layer": {
+    "phase": "Phase 6 (CEDT adapter)",
+    "adapter_count": 8,
+    "total_mappings": 20,
+    "layers_covered": [
+      "exposure",
+      "host",
+      "metabolic",
+      "state_quality",
+      "tissue"
+    ],
+    "twin_state_variable_count": 18,
+    "twin_state_variables_by_layer": {
+      "exposure": 4,
+      "tissue": 3,
+      "metabolic": 4,
+      "host": 2,
+      "state_quality": 5
+    },
+    "modules_twin_ready": 1,
+    "modules_twin_ready_list": [
+      "EG3.MOD.BIOTRANS.FLUX.v1"
+    ],
+    "modules_twin_not_ready": 7,
+    "maps_to_twin_state_edges": 25,
+    "twin_state_scenario_count": 4,
+    "null_variable_count": 12,
+    "cedt_schemas": [
+      "twin_state_variable.schema.json",
+      "cedt_adapter.schema.json"
     ]
   }
 }

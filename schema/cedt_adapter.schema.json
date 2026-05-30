@@ -1,0 +1,77 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://exposograph3/schema/cedt_adapter.schema.json",
+  "title": "CEDT Adapter",
+  "description": "Schema for a single Cancer Ecology Digital Twin (CEDT) adapter record, as defined in data/adapters/cedt_mappings.json. Each adapter binds a module's actual output ports (from Phase-2 typed ports) to twin state variables in twin_state_schema.json.",
+  "type": "object",
+  "required": ["adapter_id", "source_module", "twin_layer", "status", "description", "mappings"],
+  "additionalProperties": false,
+  "properties": {
+    "adapter_id": {
+      "type": "string",
+      "description": "Unique adapter identifier (e.g. 'EG3.ADAPT.FLUX.METABOLIC.v2').",
+      "pattern": "^EG3\\.ADAPT\\.[A-Z0-9_]+\\.v[0-9]+$"
+    },
+    "source_module": {
+      "type": "string",
+      "description": "Module ID that this adapter binds to (e.g. 'EG3.MOD.BIOTRANS.FLUX.v1').",
+      "pattern": "^EG3\\.MOD\\.[A-Z0-9_.]+$"
+    },
+    "twin_layer": {
+      "type": "string",
+      "description": "Primary CEDT layer targeted by this adapter.",
+      "enum": ["host", "exposure", "tissue", "metabolic", "state_quality"]
+    },
+    "status": {
+      "type": "string",
+      "description": "Lifecycle status of this adapter.",
+      "enum": ["active", "draft", "deprecated"]
+    },
+    "description": {
+      "type": "string",
+      "description": "Narrative description of what this adapter does and any honest limitations."
+    },
+    "mappings": {
+      "type": "array",
+      "description": "List of individual port-to-twin-variable mappings.",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["eg3_output_port", "eg3_dtype", "twin_variable", "twin_layer", "transform", "provenance_note"],
+        "additionalProperties": false,
+        "properties": {
+          "eg3_output_port": {
+            "type": "string",
+            "description": "Name of the source module output port (must match a real output_port in the module JSON)."
+          },
+          "eg3_dtype": {
+            "type": "string",
+            "description": "Data type of the source port (from Phase-2 typed port definitions, e.g. 'score:activation')."
+          },
+          "twin_variable": {
+            "type": "string",
+            "description": "Target CEDT twin state variable name (must exist in twin_state_schema.json)."
+          },
+          "twin_layer": {
+            "type": "string",
+            "description": "CEDT layer of the target variable.",
+            "enum": ["host", "exposure", "tissue", "metabolic", "state_quality"]
+          },
+          "transform": {
+            "type": "string",
+            "description": "Transformation applied from port to twin variable.",
+            "enum": ["identity", "normalize", "categorical-lookup", "derived"]
+          },
+          "unit": {
+            "type": ["string", "null"],
+            "description": "Unit of the mapped value, or null if categorical."
+          },
+          "provenance_note": {
+            "type": "string",
+            "description": "Mandatory provenance note documenting the source of the value and any null conditions. Must not fabricate biology."
+          }
+        }
+      }
+    }
+  }
+}

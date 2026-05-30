@@ -1,0 +1,262 @@
+{
+  "bundle": "ExposoGraph 3.0 CEDT Twin States",
+  "version_origin": "ExposoGraph 3.0 Phase 6 (CEDT adapter)",
+  "description": "Per-scenario CEDT twin state vectors derived from Phase 5 golden run outputs. All numeric values are traced to real engine computations (regression-tested at 1e-6). Null values are explicitly documented with reasons.",
+  "generated_by": "scripts/engine/cedt.py build_twin_states_batch()",
+  "scenario_count": 4,
+  "twin_states": [
+    {
+      "scenario_id": "SCN001",
+      "generated_by": "ExposoGraph 3.0 Phase 6 (CEDT engine)",
+      "generated_at": "2026-05-30T00:38:14Z",
+      "adapter_version": "3.0.0",
+      "carcinogen_class": "PAH",
+      "tissue": "Lung",
+      "genotype_profile": {
+        "CYP1A1": "UM",
+        "CYP1B1": "NM",
+        "GSTM1": "null",
+        "GSTP1": "Ile105Ile"
+      },
+      "exposure_scenario": "smoker",
+      "twin_state": {
+        "host": {
+          "enzyme_activity_modifier": {
+            "CYP1A1": 2.0,
+            "CYP1B1": 1.0,
+            "EPHX1": 1.0,
+            "GSTM1": 0.0,
+            "GSTP1": 1.0
+          },
+          "susceptibility_index": 1.0
+        },
+        "exposure": {
+          "exposure_intensity": 3.0,
+          "exposure_multiplier": 3.0,
+          "exposure_class": "PAH",
+          "exposure_duration_context": "smoker"
+        },
+        "tissue": {
+          "tissue_context_id": "Lung",
+          "tissue_expression_weight": 0.20124,
+          "tissue_sensitivity": 0.4817
+        },
+        "metabolic": {
+          "metabolic_activation_score": 4.288242809807622,
+          "metabolic_detoxification_score": 0.0,
+          "metabolic_flux_ratio": 4288.2428098076225,
+          "gsh_pool_fraction": null
+        },
+        "state_quality": {
+          "predicted_mutational_signature": [
+            "SBS4",
+            "SBS92",
+            "SBS18"
+          ],
+          "dominant_mutation": "C>A transversions",
+          "evidence_confidence": "high",
+          "oxidative_stress_level": null,
+          "adduct_burden": null
+        }
+      },
+      "null_notes": [
+        "metabolic.gsh_pool_fraction: INTERACTION module was not invoked in this scenario (no co-exposure inputs). GSH_pool_fraction is null. Would be populated in co-exposure scenarios.",
+        "state_quality.oxidative_stress_level: OxStress module not invoked (Phase 5 scenarios: PAH/Aflatoxin/AromaticAmines/Nitrosamine — no HeavyMetal/direct ROS input). Would be populated with ROS_burden in Arsenic/HeavyMetal scenarios.",
+        "state_quality.adduct_burden: OxStress module not invoked; same reason as oxidative_stress_level. Would be populated with oxidative_adduct_score in ROS-generating scenarios."
+      ],
+      "provenance": {
+        "source": "Phase 5 golden run trace (regression-tested at 1e-6)",
+        "flux_values_frozen": true,
+        "sbs_values_frozen": true
+      }
+    },
+    {
+      "scenario_id": "SCN002",
+      "generated_by": "ExposoGraph 3.0 Phase 6 (CEDT engine)",
+      "generated_at": "2026-05-30T00:38:14Z",
+      "adapter_version": "3.0.0",
+      "carcinogen_class": "Aflatoxin",
+      "tissue": "Liver",
+      "genotype_profile": {
+        "CYP3A4": "NM",
+        "CYP1A2": "NM",
+        "GSTM1": "active"
+      },
+      "exposure_scenario": "developing_country_moderate",
+      "twin_state": {
+        "host": {
+          "enzyme_activity_modifier": {
+            "CYP3A4": 1.0,
+            "CYP1A2": 1.0,
+            "CYP3A4_AFQ1": 1.0,
+            "GSTA1": 1.0
+          },
+          "susceptibility_index": 1.0
+        },
+        "exposure": {
+          "exposure_intensity": 200.0,
+          "exposure_multiplier": 200.0,
+          "exposure_class": "Aflatoxin",
+          "exposure_duration_context": "developing_country_moderate"
+        },
+        "tissue": {
+          "tissue_context_id": "Liver",
+          "tissue_expression_weight": 1.0,
+          "tissue_sensitivity": 1.0
+        },
+        "metabolic": {
+          "metabolic_activation_score": 0.2868258063958439,
+          "metabolic_detoxification_score": 0.020930959075288972,
+          "metabolic_flux_ratio": 13.703423974225316,
+          "gsh_pool_fraction": null
+        },
+        "state_quality": {
+          "predicted_mutational_signature": [
+            "SBS24"
+          ],
+          "dominant_mutation": "C>A, particularly at CpG with strand bias",
+          "evidence_confidence": "high",
+          "oxidative_stress_level": null,
+          "adduct_burden": null
+        }
+      },
+      "null_notes": [
+        "metabolic.gsh_pool_fraction: INTERACTION module was not invoked in this scenario (no co-exposure inputs). GSH_pool_fraction is null. Would be populated in co-exposure scenarios.",
+        "state_quality.oxidative_stress_level: OxStress module not invoked (Phase 5 scenarios: PAH/Aflatoxin/AromaticAmines/Nitrosamine — no HeavyMetal/direct ROS input). Would be populated with ROS_burden in Arsenic/HeavyMetal scenarios.",
+        "state_quality.adduct_burden: OxStress module not invoked; same reason as oxidative_stress_level. Would be populated with oxidative_adduct_score in ROS-generating scenarios."
+      ],
+      "provenance": {
+        "source": "Phase 5 golden run trace (regression-tested at 1e-6)",
+        "flux_values_frozen": true,
+        "sbs_values_frozen": true
+      }
+    },
+    {
+      "scenario_id": "SCN003",
+      "generated_by": "ExposoGraph 3.0 Phase 6 (CEDT engine)",
+      "generated_at": "2026-05-30T00:38:14Z",
+      "adapter_version": "3.0.0",
+      "carcinogen_class": "AromaticAmines",
+      "tissue": "Bladder",
+      "genotype_profile": {
+        "CYP1A2": "NM",
+        "CYP1A1": "NM",
+        "NAT2": "slow",
+        "GSTP1": "Ile105Ile"
+      },
+      "exposure_scenario": "smoker",
+      "twin_state": {
+        "host": {
+          "enzyme_activity_modifier": {
+            "CYP1A2": 1.0,
+            "CYP1A1": 1.0,
+            "CYP1B1": 1.0,
+            "SULT1A1": 1.0,
+            "NAT2": 0.3
+          },
+          "susceptibility_index": 0.86
+        },
+        "exposure": {
+          "exposure_intensity": 10.0,
+          "exposure_multiplier": 10.0,
+          "exposure_class": "AromaticAmines",
+          "exposure_duration_context": "smoker"
+        },
+        "tissue": {
+          "tissue_context_id": "Bladder",
+          "tissue_expression_weight": 0.41292,
+          "tissue_sensitivity": 1.0
+        },
+        "metabolic": {
+          "metabolic_activation_score": 0.1521280091982077,
+          "metabolic_detoxification_score": 0.0,
+          "metabolic_flux_ratio": 152.1280091982077,
+          "gsh_pool_fraction": null
+        },
+        "state_quality": {
+          "predicted_mutational_signature": [
+            "SBS29",
+            "SBS4"
+          ],
+          "dominant_mutation": "C>A",
+          "evidence_confidence": "high",
+          "oxidative_stress_level": null,
+          "adduct_burden": null
+        }
+      },
+      "null_notes": [
+        "metabolic.gsh_pool_fraction: INTERACTION module was not invoked in this scenario (no co-exposure inputs). GSH_pool_fraction is null. Would be populated in co-exposure scenarios.",
+        "state_quality.oxidative_stress_level: OxStress module not invoked (Phase 5 scenarios: PAH/Aflatoxin/AromaticAmines/Nitrosamine — no HeavyMetal/direct ROS input). Would be populated with ROS_burden in Arsenic/HeavyMetal scenarios.",
+        "state_quality.adduct_burden: OxStress module not invoked; same reason as oxidative_stress_level. Would be populated with oxidative_adduct_score in ROS-generating scenarios."
+      ],
+      "provenance": {
+        "source": "Phase 5 golden run trace (regression-tested at 1e-6)",
+        "flux_values_frozen": true,
+        "sbs_values_frozen": true
+      }
+    },
+    {
+      "scenario_id": "SCN004",
+      "generated_by": "ExposoGraph 3.0 Phase 6 (CEDT engine)",
+      "generated_at": "2026-05-30T00:38:14Z",
+      "adapter_version": "3.0.0",
+      "carcinogen_class": "Nitrosamine",
+      "tissue": "Liver",
+      "genotype_profile": {
+        "CYP2A13": "NM",
+        "GSTM1": "active",
+        "GSTT1": "active"
+      },
+      "exposure_scenario": "high_processed_meat",
+      "twin_state": {
+        "host": {
+          "enzyme_activity_modifier": {
+            "CYP2A13": 1.0,
+            "CYP2A13_methyl": 1.0,
+            "CYP2A6": 1.0,
+            "carbonyl_reduction": 1.0
+          },
+          "susceptibility_index": 1.0
+        },
+        "exposure": {
+          "exposure_intensity": 30.0,
+          "exposure_multiplier": 30.0,
+          "exposure_class": "Nitrosamine",
+          "exposure_duration_context": "high_processed_meat"
+        },
+        "tissue": {
+          "tissue_context_id": "Liver",
+          "tissue_expression_weight": 1.0,
+          "tissue_sensitivity": 1.0
+        },
+        "metabolic": {
+          "metabolic_activation_score": 0.189041095890411,
+          "metabolic_detoxification_score": 0.0,
+          "metabolic_flux_ratio": 189.041095890411,
+          "gsh_pool_fraction": null
+        },
+        "state_quality": {
+          "predicted_mutational_signature": [
+            "SBS29",
+            "SBS11",
+            "SBS4"
+          ],
+          "dominant_mutation": "C>A",
+          "evidence_confidence": "high",
+          "oxidative_stress_level": null,
+          "adduct_burden": null
+        }
+      },
+      "null_notes": [
+        "metabolic.gsh_pool_fraction: INTERACTION module was not invoked in this scenario (no co-exposure inputs). GSH_pool_fraction is null. Would be populated in co-exposure scenarios.",
+        "state_quality.oxidative_stress_level: OxStress module not invoked (Phase 5 scenarios: PAH/Aflatoxin/AromaticAmines/Nitrosamine — no HeavyMetal/direct ROS input). Would be populated with ROS_burden in Arsenic/HeavyMetal scenarios.",
+        "state_quality.adduct_burden: OxStress module not invoked; same reason as oxidative_stress_level. Would be populated with oxidative_adduct_score in ROS-generating scenarios."
+      ],
+      "provenance": {
+        "source": "Phase 5 golden run trace (regression-tested at 1e-6)",
+        "flux_values_frozen": true,
+        "sbs_values_frozen": true
+      }
+    }
+  ]
+}

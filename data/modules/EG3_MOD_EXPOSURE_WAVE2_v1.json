@@ -1,6 +1,6 @@
 {
   "module_id": "EG3.MOD.EXPOSURE.WAVE2.v1",
-  "module_name": "Exposure Source Module \u2014 Wave 2 Carcinogen Classes",
+  "module_name": "Exposure Source Module — Wave 2 Carcinogen Classes",
   "module_class": "ExposureSource",
   "maturity_class": "C",
   "extends": [
@@ -154,7 +154,7 @@
   ],
   "mechanism_type": "exposure_weighting",
   "equation_type": "lookup",
-  "update_rule": "exposure_weighted_risk = flux_ratio \u00d7 exposure_multiplier; tissue_conc_uM = biomarker_derived via reverse dosimetry (partition_coefficient)",
+  "update_rule": "exposure_weighted_risk = flux_ratio × exposure_multiplier; tissue_conc_uM = biomarker_derived via reverse dosimetry (partition_coefficient)",
   "parameters": [
     {
       "carcinogen_class": "PAH",
@@ -210,7 +210,7 @@
           "daily_intake_ug_kg": 0.01,
           "multiplier_vs_baseline": 2.0,
           "dietary_bap_ug_day": 0.3,
-          "note": "Grilled/charred meat 0.1-10 ng/g BaP; total dietary BaP ~0.1-0.4 \u03bcg/day typical US diet",
+          "note": "Grilled/charred meat 0.1-10 ng/g BaP; total dietary BaP ~0.1-0.4 μg/day typical US diet",
           "source": "FDA Total Diet Study"
         },
         "smoker_heavy_grilled_meat": {
@@ -475,7 +475,7 @@
           "daily_intake_ug_kg_bw": 0.005,
           "multiplier_vs_baseline": 1.0,
           "biomarker": "AFB1-albumin adducts detectable in ~1-3% of US blood samples",
-          "note": "US FDA action level: 20 ppb total aflatoxins; estimated dietary exposure <0.01 \u03bcg/kg BW/day",
+          "note": "US FDA action level: 20 ppb total aflatoxins; estimated dietary exposure <0.01 μg/kg BW/day",
           "source": "FDA; IARC 1993; ATSDR"
         },
         "high_processed_grain": {
@@ -490,7 +490,7 @@
           "estimated_tissue_conc_uM": 0.05,
           "daily_intake_ug_kg_bw": 1.0,
           "multiplier_vs_baseline": 200.0,
-          "note": "Sub-Saharan Africa, parts of Asia: 10-100x higher than US; dietary intake up to 2 \u03bcg/kg BW/day",
+          "note": "Sub-Saharan Africa, parts of Asia: 10-100x higher than US; dietary intake up to 2 μg/kg BW/day",
           "source": "IARC; Wild & Turner 2002; WHO AFB1 risk assessment"
         },
         "developing_country_high": {
@@ -606,7 +606,7 @@
           "air_concentration_ug_m3": 3.0,
           "blood_benzene_ug_L": 0.05,
           "multiplier_vs_baseline": 1.0,
-          "note": "Urban air: 1-10 \u03bcg/m\u00b3 (0.3-3 ppb); indoor from gasoline/solvents: 2-20 \u03bcg/m\u00b3",
+          "note": "Urban air: 1-10 μg/m³ (0.3-3 ppb); indoor from gasoline/solvents: 2-20 μg/m³",
           "source": "EPA IRIS; NHANES volatile organic compounds"
         },
         "smoker": {
@@ -627,7 +627,7 @@
           "label": "Petroleum / chemical / oil refinery worker",
           "estimated_tissue_conc_uM": 5.0,
           "multiplier_vs_baseline": 150.0,
-          "note": "OSHA PEL 1 ppm (3.19 mg/m\u00b3); occupational: 1-10 \u03bcM blood level",
+          "note": "OSHA PEL 1 ppm (3.19 mg/m³); occupational: 1-10 μM blood level",
           "osha_PEL_ppm": 1.0,
           "source": "OSHA 29 CFR 1910.1028; Rothman et al. 1997"
         }
@@ -732,14 +732,14 @@
             "mercury": 0.003
           },
           "multiplier_vs_baseline": 1.0,
-          "note": "NHANES 2007-2012: Blood Cd GM 0.27 \u03bcg/L; urinary As GM 7.91 \u03bcg/L creatinine-adjusted",
+          "note": "NHANES 2007-2012: Blood Cd GM 0.27 μg/L; urinary As GM 7.91 μg/L creatinine-adjusted",
           "source": "NHANES 2007-2012; CDC fourth national report on human exposure to environmental chemicals"
         },
         "smoker": {
           "label": "Current smoker (elevated Cd from tobacco)",
           "biomarkers": {
             "blood_cadmium_ug_L": 0.54,
-            "note": "Blood Cd ~2x higher in smokers (cotinine \u226510 ng/mL)"
+            "note": "Blood Cd ~2x higher in smokers (cotinine ≥10 ng/mL)"
           },
           "multiplier_vs_baseline": 2.0,
           "source": "NHANES; ATSDR ToxProfile Cadmium"
@@ -761,7 +761,7 @@
           },
           "water_arsenic_ug_L": 200,
           "multiplier_vs_baseline": 50.0,
-          "note": "EPA MCL 10 \u03bcg/L; some well water areas >100-500 \u03bcg/L; WHO limit 10 \u03bcg/L",
+          "note": "EPA MCL 10 μg/L; some well water areas >100-500 μg/L; WHO limit 10 μg/L",
           "source": "ATSDR; EPA; Argos 2010 Bangladesh cohort"
         },
         "occupational_chromium_vi": {
@@ -773,7 +773,7 @@
           "multiplier_vs_baseline_chromium": 1000.0,
           "osha_PEL_cr_vi_ug_m3": 5.0,
           "osha_action_level_ug_m3": 2.5,
-          "note": "OSHA PEL Cr(VI): 5 \u03bcg/m\u00b3; action level 2.5 \u03bcg/m\u00b3; NCI occupational cohort RR lung cancer ~4-15",
+          "note": "OSHA PEL Cr(VI): 5 μg/m³; action level 2.5 μg/m³; NCI occupational cohort RR lung cancer ~4-15",
           "source": "OSHA 29 CFR 1910.1026; IARC Monograph Vol 49"
         },
         "occupational_cadmium": {
@@ -816,7 +816,7 @@
         "nondrinker": {
           "label": "Nondrinker (endogenous formaldehyde only)",
           "tissue_conc_uM": 0.5,
-          "note": "Endogenous formaldehyde: ~50-100 \u03bcM in blood (continuously produced); exogenous contribution negligible in non-drinkers. Acetaldehyde tissue conc ~0.",
+          "note": "Endogenous formaldehyde: ~50-100 μM in blood (continuously produced); exogenous contribution negligible in non-drinkers. Acetaldehyde tissue conc ~0.",
           "acetaldehyde_tissue_conc_uM": 0.0,
           "formaldehyde_blood_uM": 75,
           "multiplier_vs_baseline": 0.05,
@@ -879,7 +879,7 @@
           "tissue_conc_uM": 5.0,
           "air_ppm": 0.5,
           "multiplier_vs_baseline": 3.0,
-          "note": "OSHA PEL 0.75 ppm TWA, 2 ppm STEL; endogenous already ~50-100 \u03bcM; exogenous adds incrementally",
+          "note": "OSHA PEL 0.75 ppm TWA, 2 ppm STEL; endogenous already ~50-100 μM; exogenous adds incrementally",
           "osha_PEL_ppm": 0.75,
           "osha_STEL_ppm": 2.0,
           "source": "OSHA 29 CFR 1910.1048; NIOSH REL 0.016 ppm"
@@ -993,7 +993,7 @@
           "estimated_tissue_conc_uM": 0.005,
           "daily_intake_ug_person": 0.15,
           "multiplier_vs_baseline": 1.0,
-          "note": "US mean dietary intake: 0.1-0.2 \u03bcg/person/day; processed meats >40% of daily nitrosamine exposure",
+          "note": "US mean dietary intake: 0.1-0.2 μg/person/day; processed meats >40% of daily nitrosamine exposure",
           "source": "Taylor & Francis 2024; FDA Total Diet Study"
         },
         "high_processed_meat": {
@@ -1001,15 +1001,15 @@
           "estimated_tissue_conc_uM": 0.05,
           "daily_intake_ug_person": 5.0,
           "multiplier_vs_baseline": 30.0,
-          "note": "Hotdogs: 159.24 \u03bcg/g NDMA (highest); sausages/burgers: 2.36-2.37 \u03bcg/g",
+          "note": "Hotdogs: 159.24 μg/g NDMA (highest); sausages/burgers: 2.36-2.37 μg/g",
           "source": "Taylor & Francis 2024; European Food Safety Authority"
         },
         "contaminated_water_above_advisory": {
-          "label": "Drinking water above EPA advisory (NDMA >0.07 \u03bcg/L)",
+          "label": "Drinking water above EPA advisory (NDMA >0.07 μg/L)",
           "estimated_tissue_conc_uM": 0.02,
           "daily_intake_ug_person": 1.0,
           "multiplier_vs_baseline": 10.0,
-          "note": "Water NDMA: median 0.004 \u03bcg/L, mean 0.008 \u03bcg/L; EPA health advisory 0.07 \u03bcg/L",
+          "note": "Water NDMA: median 0.004 μg/L, mean 0.008 μg/L; EPA health advisory 0.07 μg/L",
           "source": "EPA; IARC; Stern et al. 1997"
         },
         "occupational_rubber_tanning": {
@@ -1042,7 +1042,7 @@
       ],
       "key_enzymes_activation": [
         "CYP2E1",
-        "GSTT1 (inverted role \u2014 bioactivation)"
+        "GSTT1 (inverted role — bioactivation)"
       ],
       "key_enzymes_detox": [
         "GSTP1",
@@ -1055,7 +1055,7 @@
           "estimated_tissue_conc_uM": 0.01,
           "air_concentration_ug_m3": 0.5,
           "multiplier_vs_baseline": 1.0,
-          "note": "EPA MCL 5 \u03bcg/L for TCE in drinking water",
+          "note": "EPA MCL 5 μg/L for TCE in drinking water",
           "source": "EPA; ATSDR ToxProfile TCE"
         },
         "near_superfund_site": {
@@ -1064,7 +1064,7 @@
           "water_concentration_ug_L": 50.0,
           "air_concentration_ug_m3": 20.0,
           "multiplier_vs_baseline": 50.0,
-          "note": "Environmental air near contaminated sites: 1-100 \u03bcg/m\u00b3",
+          "note": "Environmental air near contaminated sites: 1-100 μg/m³",
           "source": "ATSDR; EPA Superfund TCE reports"
         },
         "occupational_moderate": {
@@ -1072,7 +1072,7 @@
           "estimated_tissue_conc_uM": 5.0,
           "air_concentration_ppm": 10.0,
           "multiplier_vs_baseline": 500.0,
-          "note": "ACGIH TLV 10 ppm; historical OSHA PEL 100 ppm; internal dose: 0.1-10 \u03bcM blood level occupational",
+          "note": "ACGIH TLV 10 ppm; historical OSHA PEL 100 ppm; internal dose: 0.1-10 μM blood level occupational",
           "source": "OSHA; ACGIH; Raaschou-Nielsen 2003"
         },
         "occupational_high": {
@@ -1198,19 +1198,42 @@
   ],
   "uncertainty": {
     "confidence": "moderate",
-    "evidence_heterogeneity": "high \u2014 biomarker data, regulatory estimates, and cohort studies combined",
+    "evidence_heterogeneity": "high — biomarker data, regulatory estimates, and cohort studies combined",
     "missingness": "some carcinogen classes lack measured tissue concentrations; reverse dosimetry applied",
     "context_sensitivity": "multipliers are scenario-dependent; occupational >> general population"
   },
   "validation_status": "curated-causal",
   "cedt_mapping": {
-    "exposure_state_variable": "exposure_multiplier \u2192 ExposureIntensity[class]",
+    "adapter_id": "EG3.ADAPT.EXPOSURE.STATE.v2",
     "twin_layer": "exposure",
-    "notes": "Per-class multiplier maps to exposure state in Cancer Ecology Digital Twin"
+    "twin_ready": false,
+    "maturity_evidence": "Maturity C: exposure_multiplier is a real scalar from lookup params (not MM-computed). Outputs map to exposure-layer twin variables, but no regression-tested numeric calculation. twin_ready=false: categorical mappings (exposure_class, exposure_duration_context) require scenario context, not a standalone numeric output port.",
+    "port_mappings": [
+      {
+        "eg3_output_port": "exposure_multiplier",
+        "twin_variable": "exposure_intensity",
+        "transform": "identity"
+      },
+      {
+        "eg3_output_port": "exposure_multiplier",
+        "twin_variable": "exposure_multiplier",
+        "transform": "identity"
+      },
+      {
+        "eg3_output_port": "tissue_conc_uM",
+        "twin_variable": "exposure_class",
+        "transform": "categorical-lookup"
+      },
+      {
+        "eg3_output_port": "tissue_conc_uM",
+        "twin_variable": "exposure_duration_context",
+        "transform": "categorical-lookup"
+      }
+    ]
   },
   "promotion_status": "causal",
   "version": "1.0.0",
-  "_notes": "maturity upgraded D\u2192C in Phase 3; 14 carcinogen classes with real exposure scenarios and biomarker data copied from exposure_database.json",
+  "_notes": "maturity upgraded D→C in Phase 3; 14 carcinogen classes with real exposure scenarios and biomarker data copied from exposure_database.json",
   "_conformance_notes": {
     "phase": "Phase 2",
     "conformant": true,
@@ -1249,6 +1272,6 @@
       }
     ],
     "example_run_ref": "data/execution/example_runs.json#SCN001",
-    "notes": "Maturity C: executable-as-lookup. Reads estimated_tissue_conc_uM and multiplier_vs_baseline from 14 carcinogen class param records. No computation \u2014 pure table lookup."
+    "notes": "Maturity C: executable-as-lookup. Reads estimated_tissue_conc_uM and multiplier_vs_baseline from 14 carcinogen class param records. No computation — pure table lookup."
   }
 }

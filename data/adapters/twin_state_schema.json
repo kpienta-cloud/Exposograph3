@@ -1,0 +1,206 @@
+{
+  "schema_version": "3.0.0",
+  "description": "Cancer Ecology Digital Twin (CEDT) state-space schema. Defines the five twin layers and their typed state-variable records. Used by Phase 6 CEDT adapters to map ExposoGraph 3.0 module outputs into the twin architecture.",
+  "generated_by": "ExposoGraph 3.0 Phase 6 (CEDT adapter)",
+  "twin_layers": ["host", "exposure", "tissue", "metabolic", "state_quality"],
+  "state_variables": [
+    {
+      "layer": "exposure",
+      "variable_id": "exposure_intensity",
+      "label": "Exposure Intensity",
+      "dtype": "multiplier:exposure",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Dimensionless exposure multiplier vs unexposed baseline, derived from scenario-specific multiplier_vs_baseline for the carcinogen class. Higher values indicate greater carcinogenic exposure burden.",
+      "default": null,
+      "source_hint": "EG3.MOD.EXPOSURE.WAVE2.v1 output_port: exposure_multiplier"
+    },
+    {
+      "layer": "exposure",
+      "variable_id": "exposure_multiplier",
+      "label": "Raw Exposure Multiplier",
+      "dtype": "multiplier:exposure",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Numeric multiplier_vs_baseline value from the Exposure module, directly passed as a twin state value.",
+      "default": null,
+      "source_hint": "EG3.MOD.EXPOSURE.WAVE2.v1 output_port: exposure_multiplier"
+    },
+    {
+      "layer": "exposure",
+      "variable_id": "exposure_class",
+      "label": "Carcinogen Exposure Class",
+      "dtype": "category:carcinogen_class",
+      "unit": null,
+      "range": null,
+      "description": "Controlled vocabulary identifier for the carcinogen class active in this scenario (e.g. PAH, Aflatoxin, AromaticAmines, Nitrosamine).",
+      "default": null,
+      "source_hint": "EG3.MOD.EXPOSURE.WAVE2.v1 input carcinogen_class, resolved per scenario"
+    },
+    {
+      "layer": "exposure",
+      "variable_id": "exposure_duration_context",
+      "label": "Exposure Duration Context",
+      "dtype": "category:exposure_scenario",
+      "unit": null,
+      "range": null,
+      "description": "Categorical exposure scenario identifier (e.g. smoker, general_population, developing_country_moderate) that encodes duration and intensity context.",
+      "default": null,
+      "source_hint": "EG3.MOD.EXPOSURE.WAVE2.v1 input exposure_scenario"
+    },
+    {
+      "layer": "tissue",
+      "variable_id": "tissue_context_id",
+      "label": "Tissue Context Identifier",
+      "dtype": "category:tissue_name",
+      "unit": null,
+      "range": null,
+      "description": "Controlled tissue identifier (Liver, Lung, Bladder, etc.) specifying the target organ for this twin state vector.",
+      "default": null,
+      "source_hint": "EG3.MOD.TISSUE.SUBGRAPH.v1 scope.tissues; scenario tissue field"
+    },
+    {
+      "layer": "tissue",
+      "variable_id": "tissue_expression_weight",
+      "label": "Tissue Expression Weight (mean)",
+      "dtype": "weight:tissue_expression",
+      "unit": "dimensionless [0-1]",
+      "range": "[0.0, 1.0]",
+      "description": "Mean normalized gene expression weight across enzymes relevant to the scenario, derived from GTEx-normalized tissue weights used in the Flux engine. Represents tissue-specific enzymatic context.",
+      "default": null,
+      "source_hint": "EG3.MOD.TISSUE.SUBGRAPH.v1 output_port: tissue_expression_weight; averaged over per_enzyme_mm_rates"
+    },
+    {
+      "layer": "tissue",
+      "variable_id": "tissue_sensitivity",
+      "label": "Tissue Sensitivity Index",
+      "dtype": "weight:tissue_expression",
+      "unit": "dimensionless [0-1]",
+      "range": "[0.0, 1.0]",
+      "description": "Max tissue expression weight among enzymes in the scenario, serving as a proxy for peak tissue susceptibility. Derived from the same GTEx weights as tissue_expression_weight.",
+      "default": null,
+      "source_hint": "EG3.MOD.TISSUE.SUBGRAPH.v1; max of tissue_weight across per_enzyme_mm_rates"
+    },
+    {
+      "layer": "metabolic",
+      "variable_id": "metabolic_activation_score",
+      "label": "Metabolic Activation Score",
+      "dtype": "score:activation",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Summed weighted Michaelis-Menten activation flux: Σ(Vmax·[S]/(Km+[S])) × tissue_weight × genotype_multiplier for all activation enzymes. Directly from the Flux engine output.",
+      "default": null,
+      "source_hint": "EG3.MOD.BIOTRANS.FLUX.v1 output_port: activation_score → computed_trace.flux_step.activation_score"
+    },
+    {
+      "layer": "metabolic",
+      "variable_id": "metabolic_detoxification_score",
+      "label": "Metabolic Detoxification Score",
+      "dtype": "score:detoxification",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Summed weighted Michaelis-Menten detoxification flux for all detox enzymes. Directly from the Flux engine output.",
+      "default": null,
+      "source_hint": "EG3.MOD.BIOTRANS.FLUX.v1 output_port: detoxification_score → computed_trace.flux_step.detoxification_score"
+    },
+    {
+      "layer": "metabolic",
+      "variable_id": "metabolic_flux_ratio",
+      "label": "Metabolic Flux Ratio",
+      "dtype": "score:flux_ratio",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Ratio of activation_score to detoxification_score (guarded at min 0.001). Values >1 indicate net activation predominance. Core regression-tested output of the Flux module. Direct identity mapping from flux_ratio.",
+      "default": null,
+      "source_hint": "EG3.MOD.BIOTRANS.FLUX.v1 output_port: flux_ratio → computed_trace.flux_step.flux_ratio"
+    },
+    {
+      "layer": "metabolic",
+      "variable_id": "gsh_pool_fraction",
+      "label": "GSH Pool Fraction",
+      "dtype": "fraction:GSH_pool",
+      "unit": "dimensionless",
+      "range": "[0.0, 1.0]",
+      "description": "Remaining fraction of the glutathione (GSH) pool relative to the 7.5 mM baseline. Exported by the Interaction module; reflects co-exposure GSH depletion. Null if INTERACTION module not run.",
+      "default": null,
+      "source_hint": "EG3.MOD.MECHANISM.INTERACTION.v1 output_port: GSH_pool_fraction"
+    },
+    {
+      "layer": "host",
+      "variable_id": "enzyme_activity_modifier",
+      "label": "Enzyme Activity Modifier (per gene)",
+      "dtype": "multiplier:genotype_activity",
+      "unit": "dimensionless",
+      "range": "[0.0, 2.0]",
+      "description": "Per-gene genotype activity multiplier from the PopGen module (PM=0.0, IM=0.5, NM=1.0, RM=1.5, UM=2.0, or null-allele=0.0). Stored as a dict keyed by gene symbol. Multiple enzymes may be present per scenario.",
+      "default": null,
+      "source_hint": "EG3.MOD.MODIFIER.POPGEN.v1 output_port: activity_multiplier → per_enzyme_mm_rates[*].genotype_multiplier"
+    },
+    {
+      "layer": "host",
+      "variable_id": "susceptibility_index",
+      "label": "Susceptibility Index",
+      "dtype": "multiplier:genotype_activity",
+      "unit": "dimensionless",
+      "range": "[0.0, 2.0]",
+      "description": "Composite susceptibility index derived from the mean genotype activity multiplier across enzymes in the scenario. Values >1.0 indicate elevated susceptibility; <1.0 indicates reduced activation or enhanced detoxification.",
+      "default": null,
+      "source_hint": "EG3.MOD.MODIFIER.POPGEN.v1; mean of genotype_multiplier across per_enzyme_mm_rates"
+    },
+    {
+      "layer": "state_quality",
+      "variable_id": "oxidative_stress_level",
+      "label": "Oxidative Stress Level",
+      "dtype": "score:ROS_burden",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Aggregate reactive oxygen species burden score. Populated only when OxStress module runs (i.e., when ROS_burden input is provided). Null for standard Exposure→Flux→MutSig scenarios where OxStress was not activated.",
+      "default": null,
+      "source_hint": "EG3.MOD.MECHANISM.OXSTRESS.v1 output_port: ROS_burden (null if module not run)"
+    },
+    {
+      "layer": "state_quality",
+      "variable_id": "adduct_burden",
+      "label": "Adduct Burden Score",
+      "dtype": "score:oxidative_adduct",
+      "unit": "dimensionless",
+      "range": "[0.0, ∞)",
+      "description": "Predicted oxidative DNA adduct score (8-OHdG / Oxo-dG type). Derived from OxStress module output. Null when OxStress did not run in a given scenario.",
+      "default": null,
+      "source_hint": "EG3.MOD.MECHANISM.OXSTRESS.v1 output_port: oxidative_adduct_score (null if module not run)"
+    },
+    {
+      "layer": "state_quality",
+      "variable_id": "predicted_mutational_signature",
+      "label": "Predicted Mutational Signature(s)",
+      "dtype": "signature:SBS",
+      "unit": null,
+      "range": null,
+      "description": "List of COSMIC SBS signature identifiers predicted for this scenario (e.g. ['SBS4', 'SBS92', 'SBS18']). Primary output of the MutSig module, regression-tested against golden run.",
+      "default": null,
+      "source_hint": "EG3.MOD.OUTCOME.MUTSIG.v1 output_port: predicted_SBS_signature → computed_trace.mutsig_step.predicted_SBS"
+    },
+    {
+      "layer": "state_quality",
+      "variable_id": "dominant_mutation",
+      "label": "Dominant Mutation Type",
+      "dtype": "category:dominant_mutation",
+      "unit": null,
+      "range": null,
+      "description": "Predicted dominant mutation category for the primary SBS signature (e.g. 'C>A transversions'). Directly from MutSig module output.",
+      "default": null,
+      "source_hint": "EG3.MOD.OUTCOME.MUTSIG.v1 output_port: dominant_mutation → computed_trace.mutsig_step.dominant_mutation"
+    },
+    {
+      "layer": "state_quality",
+      "variable_id": "evidence_confidence",
+      "label": "Evidence Confidence",
+      "dtype": "category:confidence_level",
+      "unit": null,
+      "range": null,
+      "description": "Categorical confidence tier (high | medium | exploratory) from the MutSig module's flux_ratio-governed confidence rule. Also informed by provenance quality from the Evidence module.",
+      "default": null,
+      "source_hint": "EG3.MOD.OUTCOME.MUTSIG.v1 output_port: confidence → computed_trace.mutsig_step.confidence"
+    }
+  ]
+}

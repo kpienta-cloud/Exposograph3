@@ -1161,9 +1161,22 @@
   },
   "validation_status": "curated-causal",
   "cedt_mapping": {
-    "GSH_pool_fraction": "metabolic_mediator → GSH_state",
-    "synergy_flag": "risk_modifier",
-    "twin_layer": "metabolic"
+    "adapter_id": "EG3.ADAPT.INTERACTION.METABOLIC.v2",
+    "twin_layer": "metabolic",
+    "twin_ready": false,
+    "maturity_evidence": "Maturity C: INTERACTION module not run in Phase 5 scenarios (no co-exposure inputs). GSH_pool_fraction and susceptibility_index mappings produce null values in Phase 5 twin states. twin_ready=false: module requires co-exposure scenario inputs to produce non-null outputs.",
+    "port_mappings": [
+      {
+        "eg3_output_port": "GSH_pool_fraction",
+        "twin_variable": "gsh_pool_fraction",
+        "transform": "identity"
+      },
+      {
+        "eg3_output_port": "synergy_flag",
+        "twin_variable": "susceptibility_index",
+        "transform": "categorical-lookup"
+      }
+    ]
   },
   "promotion_status": "causal",
   "version": "1.0.0",

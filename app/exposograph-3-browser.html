@@ -153,6 +153,32 @@
     .mat-E { background: #122a1e; color: var(--mat-e); }
     .mat-D { background: #1a2240; color: var(--mat-d); }
     .mat-C { background: #3a2800; color: var(--mat-c); }
+    .mat-T { background: #1a0e2e; color: #c459d8; }
+    /* Digital Twin tab styles */
+    #twin-panel { display: none; flex-direction: column; height: calc(100vh - 115px); overflow: hidden; }
+    #twin-panel.active { display: flex; flex-direction: column; }
+    #twin-top { display: flex; height: 100%; overflow: hidden; }
+    #twin-sidebar {
+      width: 300px; min-width: 200px;
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      background: var(--surface);
+    }
+    #twin-sidebar h2 { font-size: 12px; color: var(--text-dim); padding: 10px 16px 8px; border-bottom: 1px solid var(--border); text-transform: uppercase; letter-spacing: 1px; }
+    #twin-detail { flex: 1; overflow-y: auto; padding: 24px; background: var(--bg); }
+    .twin-scen-item { padding: 10px 16px; border-bottom: 1px solid #1e2138; cursor: pointer; transition: background 0.1s; }
+    .twin-scen-item:hover { background: #222540; }
+    .twin-scen-item.selected { background: #1f2e52; border-left: 3px solid #c459d8; }
+    .twin-layer-block { margin-bottom: 18px; }
+    .twin-layer-title { font-size: 11px; color: var(--text-dim); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; border-bottom: 1px solid var(--border); padding-bottom: 4px; }
+    .twin-var-row { display: grid; grid-template-columns: 200px 1fr; gap: 4px 12px; margin-bottom: 4px; }
+    .twin-var-key { color: var(--text-dim); font-size: 12px; }
+    .twin-var-val { font-size: 12px; word-break: break-all; }
+    .twin-var-null { color: #5a3a3a; font-style: italic; }
+    .adapter-row { padding: 8px 0; border-bottom: 1px solid #1e2138; font-size: 12px; }
+    .adapter-id { font-weight: 600; color: var(--accent); }
+    .mapping-chip { display: inline-block; background: #1a1e35; border: 1px solid #2d3148; border-radius: 4px; padding: 1px 7px; font-size: 10px; margin: 2px; }
+    .null-note { background: #1e1010; border: 1px solid #3a1010; border-radius: 4px; padding: 6px 10px; font-size: 11px; color: #c08080; margin-bottom: 4px; }
     /* Detail pane */
     #detail, #mod-detail, #exec-detail {
       flex: 1;
@@ -360,7 +386,7 @@
 </head>
 <body>
 <header>
-  <h1>ExposoGraph 3.0 <span>Registry Browser — Phase 4</span></h1>
+  <h1>ExposoGraph 3.0 <span>Registry Browser — Phase 6 (CEDT)</span></h1>
   <div class="stat-badge" id="stat-nodes">Nodes: <b>—</b></div>
   <div class="stat-badge" id="stat-edges">Baseline edges: <b>—</b></div>
   <div class="stat-badge" id="stat-exec">Execution edges: <b>—</b></div>
@@ -377,6 +403,7 @@
   <button class="tab-btn" data-tab="causal">Causal Layer</button>
   <button class="tab-btn" data-tab="ontology">Ontology</button>
   <button class="tab-btn" data-tab="execute">Execute</button>
+  <button class="tab-btn" data-tab="twin">Digital Twin</button>
 </div>
 
 <!-- ─── NODES TAB ───────────────────────────────────────────────────────────── -->
@@ -510,9 +537,36 @@
   </div>
 </div>
 
+<!-- ─── DIGITAL TWIN TAB ──────────────────────────────────────────────────────── -->
+<div class="tab-panel" id="twin-panel">
+  <div id="twin-top">
+    <div id="twin-sidebar">
+      <h2>CEDT Scenarios</h2>
+      <div id="twin-scen-list"></div>
+      <div style="padding:12px 16px; border-top:1px solid var(--border); margin-top:8px;">
+        <div style="font-size:11px; color:var(--text-dim); margin-bottom:6px;">Adapter Coverage</div>
+        <div id="twin-adapter-summary"></div>
+      </div>
+    </div>
+    <div id="twin-detail">
+      <div class="placeholder" id="twin-placeholder">
+        <div class="big">🧬</div>
+        <div>Select a scenario to view its CEDT twin state vector</div>
+        <div style="font-size:11px; margin-top:4px; color:var(--text-dim);">
+          All values derived from Phase 5 regression-tested engine outputs.
+          Null values are documented with reasons.
+        </div>
+      </div>
+      <div id="twin-content" style="display:none;"></div>
+    </div>
+  </div>
+</div>
+
 <script>
 const DATA_BASE      = "./data/registry/";
 const MODULES_BASE   = "./data/modules/";
+const ADAPTERS_BASE  = "./data/adapters/";
+const EXECUTION_BASE = "./data/execution/";
 const PAGE_SIZE = 50;
 
 let allNodes = [], allEdges = [], allModules = [], allExecEdges = [];
@@ -522,6 +576,12 @@ let selectedNodeId = null;
 let selectedModId = null;
 let selectedExecId = null;
 let showExecEdges = false;
+
+// CEDT Digital Twin data
+let twinStates = [];
+let twinAdapters = [];
+let twinSchema = {};
+let selectedTwinId = null;
 
 // Edge lookup maps
 let nodeEdgesOut = {}, nodeEdgesIn = {};
@@ -610,6 +670,30 @@ async function loadData() {
       opt.value = c; opt.textContent = c;
       classSelect.appendChild(opt);
     });
+
+    // CEDT Digital Twin data loading
+    try {
+      const [twinResp, adaptersResp, schemaResp] = await Promise.all([
+        fetch(EXECUTION_BASE + "twin_states.json").catch(() => null),
+        fetch(ADAPTERS_BASE  + "cedt_mappings.json").catch(() => null),
+        fetch(ADAPTERS_BASE  + "twin_state_schema.json").catch(() => null),
+      ]);
+      if (twinResp && twinResp.ok) {
+        const twinDoc = await twinResp.json();
+        twinStates = twinDoc.twin_states || [];
+      }
+      if (adaptersResp && adaptersResp.ok) {
+        const adaptersDoc = await adaptersResp.json();
+        twinAdapters = adaptersDoc.adapters || [];
+      }
+      if (schemaResp && schemaResp.ok) {
+        twinSchema = await schemaResp.json();
+      }
+      renderTwinList();
+      renderTwinAdapterSummary();
+    } catch(twinErr) {
+      console.warn('CEDT twin data load error:', twinErr);
+    }
 
     applyFilters();
     renderModuleList();
@@ -714,6 +798,8 @@ const tabPanels = {
   exec:    { panel: "exec-panel",    controls: "exec-controls" },
   causal:   { panel: "causal-panel",   controls: "causal-controls" },
   ontology: { panel: "ontology-panel", controls: "ontology-controls" },
+  execute:  { panel: "execute-panel",  controls: "execute-controls" },
+  twin:     { panel: "twin-panel",     controls: "twin-controls" },
 };
 
 document.querySelectorAll(".tab-btn").forEach(btn => {
@@ -1511,6 +1597,169 @@ document.getElementById("run-scenario-btn").addEventListener("click", () => {
   renderExecuteTrace(run);
 });
 
+
+// ─── CEDT DIGITAL TWIN TAB ───────────────────────────────────────────────────
+
+function renderTwinList() {
+  const el = document.getElementById("twin-scen-list");
+  if (!el) return;
+  if (!twinStates || twinStates.length === 0) {
+    el.innerHTML = '<div style="padding:12px;color:var(--text-dim);font-size:12px;">No twin states loaded.</div>';
+    return;
+  }
+  el.innerHTML = twinStates.map(ts => {
+    const active = ts.scenario_id === selectedTwinId;
+    const conf = ts.confidence || "—";
+    const confColor = conf === "high" ? "#4eaaff" : conf === "medium" ? "#f0c040" : "#aaa";
+    return `<div class="node-item${active ? " active" : ""}"
+      style="cursor:pointer;padding:10px 14px;border-bottom:1px solid var(--border);"
+      onclick="selectTwin('${ts.scenario_id}')">
+      <div style="font-size:13px;font-weight:600;color:var(--text);">${ts.scenario_id}</div>
+      <div style="font-size:11px;color:var(--text-dim);margin-top:2px;">
+        ${ts.carcinogen || "—"} &rarr; ${ts.tissue || "—"} &bull;
+        <span style="color:${confColor};">&#x25cf; ${conf}</span>
+      </div>
+    </div>`;
+  }).join("");
+}
+
+function renderTwinAdapterSummary() {
+  const el = document.getElementById("twin-adapter-summary");
+  if (!el) return;
+  const activeCount = (twinAdapters || []).filter(a => a.status === "active").length;
+  const totalCount = (twinAdapters || []).length;
+  const layers = {};
+  (twinAdapters || []).forEach(a => {
+    const L = a.twin_layer || "unknown";
+    if (!layers[L]) layers[L] = 0;
+    layers[L]++;
+  });
+  const layerPills = Object.entries(layers).map(([L, n]) =>
+    `<span style="background:rgba(196,89,216,0.15);color:#c459d8;padding:2px 8px;border-radius:10px;font-size:11px;margin:2px;">${L}: ${n}</span>`
+  ).join(" ");
+  el.innerHTML = `
+    <div style="padding:10px 14px;border-bottom:1px solid var(--border);">
+      <div style="font-size:12px;color:var(--text-dim);margin-bottom:4px;">CEDT Adapters</div>
+      <div style="font-size:20px;font-weight:700;color:#c459d8;">${activeCount} <span style="font-size:12px;color:var(--text-dim);">active / ${totalCount} total</span></div>
+      <div style="margin-top:6px;flex-wrap:wrap;display:flex;gap:2px;">${layerPills}</div>
+    </div>`;
+}
+
+function selectTwin(sid) {
+  selectedTwinId = sid;
+  renderTwinList();
+  const ts = (twinStates || []).find(t => t.scenario_id === sid);
+  if (!ts) return;
+  renderTwinDetail(ts);
+}
+
+function renderTwinDetail(ts) {
+  const placeholder = document.getElementById("twin-placeholder");
+  const content = document.getElementById("twin-content");
+  if (!ts) { placeholder.style.display=""; content.style.display="none"; return; }
+  placeholder.style.display = "none";
+  content.style.display = "";
+
+  // Layer metadata from schema
+  const layerMeta = {};
+  if (twinSchema && twinSchema.layers) {
+    twinSchema.layers.forEach(L => { layerMeta[L.layer_id] = L; });
+  }
+
+  // Organize variables by layer
+  const byLayer = {};
+  (ts.twin_state_vector || []).forEach(v => {
+    const lid = v.layer || "unknown";
+    if (!byLayer[lid]) byLayer[lid] = [];
+    byLayer[lid].push(v);
+  });
+
+  const layerColors = {
+    "L1_exposure":    "#4eaaff",
+    "L2_molecular":   "#c459d8",
+    "L3_damage":      "#f0804e",
+    "L4_phenotype":   "#50c878",
+    "L5_population":  "#f0c040"
+  };
+
+  const layerOrder = ["L1_exposure","L2_molecular","L3_damage","L4_phenotype","L5_population"];
+
+  const scenColor = ts.confidence === "high" ? "#4eaaff" : ts.confidence === "medium" ? "#f0c040" : "#aaa";
+
+  let html = `
+    <div style="padding:16px 20px;border-bottom:1px solid var(--border);">
+      <div style="display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap;">
+        <div style="flex:1;min-width:200px;">
+          <div style="font-size:18px;font-weight:700;color:var(--text);">${ts.scenario_id}</div>
+          <div style="font-size:13px;color:var(--text-dim);margin-top:4px;">
+            ${ts.carcinogen || "—"} &rarr; ${ts.tissue || "—"} &bull; ${ts.exposure_context || "—"}
+          </div>
+        </div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;">
+          <span style="padding:4px 12px;border-radius:12px;background:rgba(78,170,255,0.15);color:${scenColor};font-size:12px;font-weight:600;">
+            &#x25cf; ${ts.confidence || "—"} confidence
+          </span>
+          <span style="padding:4px 12px;border-radius:12px;background:rgba(196,89,216,0.12);color:#c459d8;font-size:12px;">
+            CEDT v${ts.cedt_version || "1.0"}
+          </span>
+        </div>
+      </div>
+      <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;">
+        <div style="background:var(--panel);border-radius:8px;padding:10px;border:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;">Flux Ratio</div>
+          <div style="font-size:16px;font-weight:700;color:#c459d8;margin-top:2px;">${ts.flux_ratio != null ? ts.flux_ratio.toFixed(2) : "—"}</div>
+        </div>
+        <div style="background:var(--panel);border-radius:8px;padding:10px;border:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;">Exposure &times;</div>
+          <div style="font-size:16px;font-weight:700;color:#4eaaff;margin-top:2px;">${ts.exposure_multiplier != null ? ts.exposure_multiplier : "—"}</div>
+        </div>
+        <div style="background:var(--panel);border-radius:8px;padding:10px;border:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;">SBS Signatures</div>
+          <div style="font-size:13px;font-weight:600;color:#50c878;margin-top:2px;">${(ts.sbs_signatures || []).join(", ") || "—"}</div>
+        </div>
+        <div style="background:var(--panel);border-radius:8px;padding:10px;border:1px solid var(--border);">
+          <div style="font-size:10px;color:var(--text-dim);text-transform:uppercase;letter-spacing:0.5px;">Twin State Vars</div>
+          <div style="font-size:16px;font-weight:700;color:#f0c040;margin-top:2px;">${(ts.twin_state_vector || []).length}</div>
+        </div>
+      </div>
+    </div>`;
+
+  // Render each layer
+  layerOrder.forEach(lid => {
+    const vars = byLayer[lid];
+    if (!vars || vars.length === 0) return;
+    const lm = layerMeta[lid] || {};
+    const lcolor = layerColors[lid] || "#aaa";
+    html += `
+    <div style="padding:14px 20px;border-bottom:1px solid var(--border);">
+      <div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">
+        <span style="width:10px;height:10px;border-radius:50%;background:${lcolor};display:inline-block;"></span>
+        <span style="font-size:13px;font-weight:600;color:${lcolor};">${lid}</span>
+        <span style="font-size:11px;color:var(--text-dim);">${lm.name || ""}</span>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;">`;
+    vars.forEach(v => {
+      const isNull = v.value === null || v.value === undefined;
+      const valDisplay = isNull
+        ? `<span style="color:#888;font-style:italic;">null</span>`
+        : (typeof v.value === "number"
+            ? `<span style="color:${lcolor};font-weight:700;">${v.value.toFixed ? v.value.toFixed(4) : v.value}</span>`
+            : `<span style="color:${lcolor};font-weight:700;">${Array.isArray(v.value) ? v.value.join(", ") : String(v.value)}</span>`);
+      html += `
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px;">
+          <div style="font-size:11px;font-weight:600;color:var(--text);margin-bottom:4px;">${v.variable_id || v.var_id || "?"}</div>
+          <div style="font-size:13px;">${valDisplay}</div>
+          ${v.unit ? `<div style="font-size:10px;color:var(--text-dim);margin-top:2px;">${v.unit}</div>` : ""}
+          ${isNull && v.null_reason ? `<div style="font-size:10px;color:#888;margin-top:3px;font-style:italic;">${v.null_reason}</div>` : ""}
+          ${v.source ? `<div style="font-size:10px;color:var(--text-dim);margin-top:3px;">src: ${v.source}</div>` : ""}
+        </div>`;
+    });
+    html += `</div></div>`;
+  });
+
+  content.innerHTML = html;
+}
+
 // ─── Init ────────────────────────────────────────────────────────────────────
 loadData();
 loadCausalData();
@@ -1518,6 +1767,11 @@ loadExecuteData();
 <!-- ─── CAUSAL PANEL ───────────────────────────────────────────────────────── -->
 <div id="motif-panel"></div>
 <div id="ontology-controls" class="controls" style="display:none;"></div>
+<div id="twin-controls" class="controls" style="display:none;">
+  <div class="controls-group" style="color:var(--text-dim);font-size:12px;">
+    Phase 6 CEDT &mdash; <b style="color:#c459d8;">Digital Twin</b> &mdash; Cancer Ecology Digital Twin state vectors derived from Phase 5 golden runs
+  </div>
+</div>
 <div id="execute-controls" class="controls" style="display:none;">
   <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
     <label style="font-size:12px;color:var(--text-dim);">Scenario</label>

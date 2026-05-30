@@ -967,7 +967,200 @@ if _scen_doc and _runs_doc:
         warnings.append("  WARNING: app/data/execution/ mirror not yet created (non-fatal)")
 
 
-# ─── 14. Summary ──────────────────────────────────────────────────────────────
+# ─── 14. CEDT Phase 6 Pass ────────────────────────────────────────────────────
+print("\n─── Section 14: CEDT Phase 6 Adapter Validation ───")
+
+# 14a. twin_state_schema.json — check exists, has 5 layers, >=1 variable each
+_schema_path = REPO_ROOT / "data/adapters/twin_state_schema.json"
+if _schema_path.exists():
+    _schema_doc = load_json(_schema_path)
+    if _schema_doc:
+        _layers_required = {"host", "exposure", "tissue", "metabolic", "state_quality"}
+        _schema_vars = _schema_doc.get("state_variables", [])
+        _layers_found = {v.get("layer") for v in _schema_vars}
+        check(
+            _layers_required.issubset(_layers_found),
+            f"CEDT: twin_state_schema.json missing layers: {_layers_required - _layers_found}"
+        )
+        if _layers_required.issubset(_layers_found):
+            print(f"   \u2713 twin_state_schema.json: {len(_schema_vars)} variables across 5 layers")
+        # Check each layer has >=1 variable
+        for _lyr in _layers_required:
+            _lyr_vars = [v for v in _schema_vars if v.get("layer") == _lyr]
+            check(
+                len(_lyr_vars) >= 1,
+                f"CEDT: twin_state_schema.json layer '{_lyr}' has no variables"
+            )
+else:
+    errors.append("  ERROR: CEDT: data/adapters/twin_state_schema.json not found")
+
+# 14b. cedt_mappings.json — 8 adapters, all status=active, >=1 mapping each
+_mappings_path = REPO_ROOT / "data/adapters/cedt_mappings.json"
+if _mappings_path.exists():
+    _mappings_doc = load_json(_mappings_path)
+    if _mappings_doc:
+        _adapters = _mappings_doc.get("adapters", [])
+        check(
+            len(_adapters) == 8,
+            f"CEDT: cedt_mappings.json expected 8 adapters, got {len(_adapters)}"
+        )
+        _total_mappings = 0
+        _adapters_ok = 0
+        for _adap in _adapters:
+            _aid = _adap.get("adapter_id", "?")
+            _status = _adap.get("status")
+            _mappings_list = _adap.get("mappings", [])
+            check(
+                _status == "active",
+                f"CEDT: adapter {_aid} status={_status} (expected 'active')"
+            )
+            check(
+                len(_mappings_list) >= 1,
+                f"CEDT: adapter {_aid} has no mappings"
+            )
+            if _status == "active" and len(_mappings_list) >= 1:
+                _adapters_ok += 1
+            _total_mappings += len(_mappings_list)
+        if _adapters_ok == 8:
+            print(f"   \u2713 cedt_mappings.json: {len(_adapters)} active adapters, {_total_mappings} total mappings")
+else:
+    errors.append("  ERROR: CEDT: data/adapters/cedt_mappings.json not found")
+
+# 14c. execution_edges.json — total=94, maps_to_twin_state count=20
+_exec_edges_path = REPO_ROOT / "data/registry/execution_edges.json"
+if _exec_edges_path.exists():
+    _exec_edges_doc = load_json(_exec_edges_path)
+    if _exec_edges_doc:
+        _all_edges = _exec_edges_doc.get("edges", [])
+        _twin_edges = [e for e in _all_edges if e.get("type") == "maps_to_twin_state"]
+        # Phase 3 had 5 maps_to_twin_state edges (0067-0071); Phase 6 adds 20 more (0075-0094)
+        # Total maps_to_twin_state = 25; check total edges = 94
+        check(
+            len(_all_edges) == 94,
+            f"CEDT: execution_edges.json expected 94 total edges, got {len(_all_edges)}"
+        )
+        # Check that the 20 Phase 6 edges (IDs 0075-0094) are all present
+        _twin_ids = {e.get("edge_id") for e in _twin_edges}
+        _expected_ids = {f"EG3.EXEC.EDGE.{i:04d}" for i in range(75, 95)}
+        _missing_ids = _expected_ids - _twin_ids
+        check(
+            not _missing_ids,
+            f"CEDT: missing Phase 6 maps_to_twin_state edge IDs: {sorted(_missing_ids)[:5]}"
+        )
+        _phase6_twin_edges = [e for e in _twin_edges
+                              if e.get("edge_id", "") >= "EG3.EXEC.EDGE.0075"]
+        check(
+            len(_phase6_twin_edges) == 20,
+            f"CEDT: expected 20 Phase 6 maps_to_twin_state edges (0075-0094), got {len(_phase6_twin_edges)}"
+        )
+        if len(_all_edges) == 94 and not _missing_ids and len(_phase6_twin_edges) == 20:
+            print(f"   \u2713 execution_edges.json: 94 total edges, 20 Phase 6 maps_to_twin_state (IDs 0075-0094)")
+else:
+    errors.append("  ERROR: CEDT: data/registry/execution_edges.json not found")
+
+# 14d. twin_states.json — 4 scenarios, all flux values match golden (1e-6)
+_twin_states_path = REPO_ROOT / "data/execution/twin_states.json"
+if _twin_states_path.exists():
+    _twin_states_doc = load_json(_twin_states_path)
+    if _twin_states_doc:
+        _twin_records = _twin_states_doc.get("twin_states", [])
+        check(
+            len(_twin_records) == 4,
+            f"CEDT: twin_states.json expected 4 scenarios, got {len(_twin_records)}"
+        )
+        # Cross-check flux_ratio values against golden runs
+        _golden_runs_path = REPO_ROOT / "data/execution/example_runs.json"
+        if _golden_runs_path.exists():
+            _golden_doc = load_json(_golden_runs_path)
+            _golden_index_t = {r["scenario_id"]: r for r in _golden_doc.get("runs", [])}
+            _twin_flux_fails = 0
+            for _ts in _twin_records:
+                _sid = _ts.get("scenario_id")
+                _twin_flux = _ts.get("twin_state", {}).get("metabolic", {}).get("metabolic_flux_ratio")
+                if _sid in _golden_index_t and _twin_flux is not None:
+                    _golden_flux = float(
+                        _golden_index_t[_sid]["computed_trace"]["flux_step"]["flux_ratio"]
+                    )
+                    _diff = abs(_golden_flux - float(_twin_flux))
+                    if _diff > 1e-6:
+                        errors.append(
+                            f"  ERROR: CEDT: [{_sid}] twin metabolic_flux_ratio={_twin_flux} "
+                            f"!= golden={_golden_flux} diff={_diff:.2e} > 1e-6"
+                        )
+                        _twin_flux_fails += 1
+            if _twin_flux_fails == 0:
+                print(f"   \u2713 twin_states.json: 4 scenarios, all metabolic_flux_ratio match golden at 1e-6")
+        else:
+            warnings.append("  WARNING: CEDT: example_runs.json not found; cannot cross-check twin flux values")
+else:
+    errors.append("  ERROR: CEDT: data/execution/twin_states.json not found")
+
+# 14e. JSON schemas — twin_state_variable.schema.json + cedt_adapter.schema.json
+_tv_schema = REPO_ROOT / "schema/twin_state_variable.schema.json"
+_ca_schema = REPO_ROOT / "schema/cedt_adapter.schema.json"
+_schema_ok = True
+for _sp in [_tv_schema, _ca_schema]:
+    if not _sp.exists():
+        errors.append(f"  ERROR: CEDT: schema file not found: {_sp.name}")
+        _schema_ok = False
+    else:
+        _sd = load_json(_sp)
+        if not _sd or "$schema" not in _sd or "properties" not in _sd:
+            errors.append(f"  ERROR: CEDT: {_sp.name} missing $schema or properties")
+            _schema_ok = False
+if _schema_ok:
+    print(f"   \u2713 JSON schemas: twin_state_variable.schema.json + cedt_adapter.schema.json present and valid")
+
+# 14f. FLUX module maturity T; all other 7 modules twin_ready=false
+_flux_mod_path = REPO_ROOT / "data/modules/EG3_MOD_BIOTRANS_FLUX_v1.json"
+if _flux_mod_path.exists():
+    _flux_mod = load_json(_flux_mod_path)
+    if _flux_mod:
+        _flux_maturity = _flux_mod.get("maturity_class")
+        _flux_twin_ready = _flux_mod.get("cedt_mapping", {}).get("twin_ready")
+        check(
+            _flux_maturity == "T",
+            f"CEDT: FLUX module maturity_class={_flux_maturity} (expected T)"
+        )
+        check(
+            _flux_twin_ready is True,
+            f"CEDT: FLUX module cedt_mapping.twin_ready={_flux_twin_ready} (expected True)"
+        )
+        if _flux_maturity == "T" and _flux_twin_ready is True:
+            print(f"   \u2713 FLUX module: maturity_class=T, twin_ready=True")
+else:
+    errors.append("  ERROR: CEDT: FLUX module JSON not found")
+
+_other_mod_files = [
+    "EG3_MOD_EXPOSURE_WAVE2_v1.json",
+    "EG3_MOD_MECHANISM_INTERACTION_v1.json",
+    "EG3_MOD_MECHANISM_OXSTRESS_v1.json",
+    "EG3_MOD_MODIFIER_POPGEN_v1.json",
+    "EG3_MOD_TISSUE_SUBGRAPH_v1.json",
+    "EG3_MOD_OUTCOME_MUTSIG_v1.json",
+    "EG3_MOD_EVIDENCE_PROVENANCE_v1.json",
+]
+_mods_dir = REPO_ROOT / "data/modules"
+_twin_false_ok = 0
+for _mf in _other_mod_files:
+    _mp = _mods_dir / _mf
+    if _mp.exists():
+        _md = load_json(_mp)
+        if _md:
+            _tr = _md.get("cedt_mapping", {}).get("twin_ready")
+            check(
+                _tr is False,
+                f"CEDT: module {_mf} cedt_mapping.twin_ready={_tr} (expected False)"
+            )
+            if _tr is False:
+                _twin_false_ok += 1
+    else:
+        errors.append(f"  ERROR: CEDT: module file not found: {_mf}")
+if _twin_false_ok == 7:
+    print(f"   \u2713 All 7 non-FLUX modules: twin_ready=False (honest C-maturity assessment)")
+
+
+# ─── 15. Summary ──────────────────────────────────────────────────────────────
 print("\n" + "=" * 50)
 if errors:
     print(f"VALIDATION FAILED — {len(errors)} error(s):")

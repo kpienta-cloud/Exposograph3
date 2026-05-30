@@ -1,0 +1,59 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://exposograph3/schema/twin_state_variable.schema.json",
+  "title": "CEDT Twin State Variable",
+  "description": "Schema for a single Cancer Ecology Digital Twin (CEDT) state variable, as defined in data/adapters/twin_state_schema.json. Each variable belongs to one of five CEDT layers: host, exposure, tissue, metabolic, state_quality.",
+  "type": "object",
+  "required": ["variable_id", "variable_name", "layer", "dtype", "description"],
+  "additionalProperties": false,
+  "properties": {
+    "variable_id": {
+      "type": "string",
+      "description": "Unique identifier for the twin state variable (e.g. 'CEDT.host.enzyme_activity_modifier').",
+      "pattern": "^CEDT\\.(host|exposure|tissue|metabolic|state_quality)\\.[a-z_]+$"
+    },
+    "variable_name": {
+      "type": "string",
+      "description": "Human-readable name of the twin state variable."
+    },
+    "layer": {
+      "type": "string",
+      "description": "CEDT layer this variable belongs to.",
+      "enum": ["host", "exposure", "tissue", "metabolic", "state_quality"]
+    },
+    "dtype": {
+      "type": "string",
+      "description": "Data type of the variable value.",
+      "enum": ["float", "dict", "list", "string", "boolean", "null"]
+    },
+    "unit": {
+      "type": ["string", "null"],
+      "description": "Unit of measurement, or null if categorical/dimensionless."
+    },
+    "description": {
+      "type": "string",
+      "description": "Biological/computational description of the variable."
+    },
+    "source_adapter": {
+      "type": ["string", "null"],
+      "description": "Adapter ID that populates this variable (e.g. 'EG3.ADAPT.FLUX.METABOLIC.v2'), or null if multi-source."
+    },
+    "source_port": {
+      "type": ["string", "null"],
+      "description": "Source module output port name (e.g. 'activation_score'), or null if categorical/derived."
+    },
+    "transform": {
+      "type": "string",
+      "description": "Transformation applied from source port to twin variable.",
+      "enum": ["identity", "normalize", "categorical-lookup", "derived"]
+    },
+    "null_when": {
+      "type": ["string", "null"],
+      "description": "Documented condition under which this variable is null (e.g. 'INTERACTION not run in single-exposure scenarios')."
+    },
+    "version_origin": {
+      "type": ["string", "null"],
+      "description": "Phase in which this variable was introduced."
+    }
+  }
+}

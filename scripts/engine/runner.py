@@ -283,9 +283,21 @@ def run_scenario(
     exposure_scenario: str,
     exposure_class: str = None,
     mutsig_class:   str = None,
+    include_twin_state: bool = False,
+    scenario_id: str = None,
 ) -> dict:
-    """Convenience wrapper around ScenarioRunner.run_scenario."""
-    return get_runner().run_scenario(
+    """
+    Convenience wrapper around ScenarioRunner.run_scenario.
+
+    Parameters
+    ----------
+    include_twin_state : bool, optional
+        If True, attach a 'twin_state' key to the returned trace dict
+        with the CEDT twin state vector populated from the run outputs.
+    scenario_id : str, optional
+        Scenario identifier for twin state metadata (used when include_twin_state=True).
+    """
+    trace = get_runner().run_scenario(
         carcinogen_class=carcinogen_class,
         tissue=tissue,
         genotype_profile=genotype_profile,
@@ -293,3 +305,14 @@ def run_scenario(
         exposure_class=exposure_class,
         mutsig_class=mutsig_class,
     )
+    if include_twin_state:
+        try:
+            from scripts.engine.cedt import build_twin_state
+            trace["twin_state"] = build_twin_state(
+                run_trace=trace,
+                scenario_id=scenario_id or "ad_hoc",
+            )
+        except Exception as _e:
+            logger.warning("CEDT twin state generation failed: %s", _e)
+            trace["twin_state"] = None
+    return trace

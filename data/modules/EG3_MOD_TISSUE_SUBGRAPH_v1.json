@@ -33,7 +33,7 @@
     {
       "name": "tissue",
       "type": "string",
-      "description": "Target tissue \u2014 one of ['Liver', 'Lung', 'Prostate', 'Bladder', 'Colon', 'Breast', 'Kidney', 'Esophagus']",
+      "description": "Target tissue — one of ['Liver', 'Lung', 'Prostate', 'Bladder', 'Colon', 'Breast', 'Kidney', 'Esophagus']",
       "dtype": "category:tissue_name"
     }
   ],
@@ -141,7 +141,7 @@
   ],
   "mechanism_type": "tissue_context_expression_weighting",
   "equation_type": "lookup",
-  "update_rule": "tissue_weighted_flux = flux \u00d7 weight[gene][tissue];  weight[gene][tissue] = nTPM[gene][tissue] / max_tissue_nTPM[gene]",
+  "update_rule": "tissue_weighted_flux = flux × weight[gene][tissue];  weight[gene][tissue] = nTPM[gene][tissue] / max_tissue_nTPM[gene]",
   "parameters": [
     {
       "gene": "CYP1A1",
@@ -1426,18 +1426,37 @@
       "note": "nTPM normalization and tissue panel"
     },
     {
-      "note": "53 genes \u00d7 8 tissues weight table in parameters; date 2026-03-30"
+      "note": "53 genes × 8 tissues weight table in parameters; date 2026-03-30"
     }
   ],
   "uncertainty": {
     "confidence": "high",
     "notes": "GTEx v8 is current gold standard; weight threshold 0.01 applied (below 1% max = 0.0)",
-    "context_sensitivity": "Single cell type not resolved \u2014 tissue-bulk averages used"
+    "context_sensitivity": "Single cell type not resolved — tissue-bulk averages used"
   },
   "validation_status": "curated-causal",
   "cedt_mapping": {
-    "tissue_expression_weight": "tissue_variable \u2192 TissueExpressionContext",
-    "twin_layer": "tissue"
+    "adapter_id": "EG3.ADAPT.TISSUE.STATE.v2",
+    "twin_layer": "tissue",
+    "twin_ready": false,
+    "maturity_evidence": "Maturity C: tissue_expression_weight outputs are GTEx-derived lookup values (curated, not MM-computed). tissue_context_id, tissue_expression_weight, and tissue_sensitivity are real values from Phase 5 run trace. twin_ready=false: no regression-tested kinetic computation; GTEx weights are curated reference data.",
+    "port_mappings": [
+      {
+        "eg3_output_port": "tissue_expression_weight",
+        "twin_variable": "tissue_context_id",
+        "transform": "categorical-lookup"
+      },
+      {
+        "eg3_output_port": "tissue_expression_weight",
+        "twin_variable": "tissue_expression_weight",
+        "transform": "normalize"
+      },
+      {
+        "eg3_output_port": "tissue_expression_weight",
+        "twin_variable": "tissue_sensitivity",
+        "transform": "normalize"
+      }
+    ]
   },
   "promotion_status": "causal",
   "version": "1.0.0",
@@ -1474,6 +1493,6 @@
       }
     ],
     "example_run_ref": "data/execution/example_runs.json#SCN001",
-    "notes": "Maturity C: executable-as-lookup. Returns normalized_weights[gene][tissue] from GTEx v8 data in 53 param records. Not elevated to E \u2014 pure lookup with no computation."
+    "notes": "Maturity C: executable-as-lookup. Returns normalized_weights[gene][tissue] from GTEx v8 data in 53 param records. Not elevated to E — pure lookup with no computation."
   }
 }

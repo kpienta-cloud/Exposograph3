@@ -24,8 +24,101 @@ MODULE_PHASE3_REQUIRED = [
 ]
 
 
+def _build_cedt_stats(repo_root: Path) -> dict:
+    """
+    Build CEDT Phase 6 statistics block for registry_summary.json.
+    Reads data/adapters/twin_state_schema.json, cedt_mappings.json,
+    data/execution/twin_states.json, and data/registry/execution_edges.json.
+    """
+    stats: dict = {
+        "phase": "Phase 6 (CEDT adapter)",
+        "adapter_count": 0,
+        "total_mappings": 0,
+        "layers_covered": [],
+        "twin_state_variable_count": 0,
+        "twin_state_variables_by_layer": {},
+        "modules_twin_ready": 0,
+        "modules_twin_ready_list": [],
+        "modules_twin_not_ready": 0,
+        "maps_to_twin_state_edges": 0,
+        "twin_state_scenario_count": 0,
+        "null_variable_count": 0,
+        "cedt_schemas": [],
+    }
+
+    # twin_state_schema.json
+    schema_path = repo_root / "data/adapters/twin_state_schema.json"
+    if schema_path.exists():
+        doc = json.loads(schema_path.read_text(encoding="utf-8"))
+        vars_list = doc.get("state_variables", [])
+        stats["twin_state_variable_count"] = len(vars_list)
+        by_layer: dict = {}
+        for v in vars_list:
+            lyr = v.get("layer", "unknown")
+            by_layer[lyr] = by_layer.get(lyr, 0) + 1
+        stats["twin_state_variables_by_layer"] = by_layer
+        stats["layers_covered"] = sorted(by_layer.keys())
+
+    # cedt_mappings.json
+    mappings_path = repo_root / "data/adapters/cedt_mappings.json"
+    if mappings_path.exists():
+        doc = json.loads(mappings_path.read_text(encoding="utf-8"))
+        adapters = doc.get("adapters", [])
+        stats["adapter_count"] = len(adapters)
+        total_m = sum(len(a.get("mappings", [])) for a in adapters)
+        stats["total_mappings"] = total_m
+
+    # execution_edges.json — count maps_to_twin_state
+    exec_edges_path = repo_root / "data/registry/execution_edges.json"
+    if exec_edges_path.exists():
+        doc = json.loads(exec_edges_path.read_text(encoding="utf-8"))
+        twin_edges = [e for e in doc.get("edges", []) if e.get("type") == "maps_to_twin_state"]
+        stats["maps_to_twin_state_edges"] = len(twin_edges)
+
+    # twin_states.json
+    twin_states_path = repo_root / "data/execution/twin_states.json"
+    if twin_states_path.exists():
+        doc = json.loads(twin_states_path.read_text(encoding="utf-8"))
+        twin_records = doc.get("twin_states", [])
+        stats["twin_state_scenario_count"] = len(twin_records)
+        # Count null variables across all scenarios
+        null_count = 0
+        for ts in twin_records:
+            for layer_data in ts.get("twin_state", {}).values():
+                if isinstance(layer_data, dict):
+                    null_count += sum(1 for v in layer_data.values() if v is None)
+        stats["null_variable_count"] = null_count
+
+    # Module twin_ready stats
+    mods_dir = repo_root / "data/modules"
+    ready_list = []
+    not_ready = 0
+    for mf in mods_dir.glob("*.json"):
+        try:
+            md = json.loads(mf.read_text(encoding="utf-8"))
+            tr = md.get("cedt_mapping", {}).get("twin_ready")
+            if tr is True:
+                ready_list.append(md.get("module_id", mf.stem))
+            elif tr is False:
+                not_ready += 1
+        except Exception:
+            pass
+    stats["modules_twin_ready"] = len(ready_list)
+    stats["modules_twin_ready_list"] = ready_list
+    stats["modules_twin_not_ready"] = not_ready
+
+    # JSON schemas present
+    schemas = []
+    for sf in ["twin_state_variable.schema.json", "cedt_adapter.schema.json"]:
+        if (repo_root / "schema" / sf).exists():
+            schemas.append(sf)
+    stats["cedt_schemas"] = schemas
+
+    return stats
+
+
 def main():
-    print("=== ExposoGraph 3.0 — Registry Summary Builder (Phase 4) ===\n")
+    print("=== ExposoGraph 3.0 — Registry Summary Builder (Phase 4+6) ===\n")
 
     # ─── Load registry graph ───────────────────────────────────────────────────
     reg_path = REPO_ROOT / "data/registry/registry_graph.json"
@@ -369,10 +462,21 @@ def main():
         print("\n  WARNING: data/execution/ not found (Phase 5 incomplete)", file=sys.stderr)
 
 
+    # ── CEDT Phase 6 stats ────────────────────────────────────────────────────
+    cedt_stats = _build_cedt_stats(REPO_ROOT)
+    print("\n--- CEDT Layer (Phase 6) ---")
+    print(f"  Adapters: {cedt_stats.get('adapter_count', 0)}")
+    print(f"  Total adapter mappings: {cedt_stats.get('total_mappings', 0)}")
+    print(f"  Twin state variables: {cedt_stats.get('twin_state_variable_count', 0)}")
+    print(f"  Twin state layers: {cedt_stats.get('layers_covered', [])}")
+    print(f"  Modules with twin_ready=True: {cedt_stats.get('modules_twin_ready', 0)}")
+    print(f"  maps_to_twin_state edges: {cedt_stats.get('maps_to_twin_state_edges', 0)}")
+    print(f"  Twin state scenarios: {cedt_stats.get('twin_state_scenario_count', 0)}")
+
     summary = {
         "bundle": reg.get("bundle"),
-        "version_origin": reg.get("version_origin"),
-        "phase": "Phase 2+4: Ontology + Causal layer promotion",
+        "version_origin": "ExposoGraph 3.0 Phase 6 (CEDT adapter)",
+        "phase": "Phase 2+4+6: Ontology + Causal + CEDT Digital Twin adapters",
         "node_count": len(nodes),
         "edge_count": len(edges),
         "execution_edge_count": len(exec_edges),
@@ -400,6 +504,7 @@ def main():
         },
         "layer0_ontology": layer0_stats,
         "execution_layer": execution_layer,
+        "cedt_layer": cedt_stats,
     }
 
     out_path = REPO_ROOT / "data/registry/registry_summary.json"

@@ -228,9 +228,22 @@
   },
   "validation_status": "curated-causal",
   "cedt_mapping": {
-    "ROS_burden": "state_quality → oxidative_stress_level",
-    "oxidative_adduct_score": "outcome → adduct_burden",
-    "twin_layer": "state_quality"
+    "adapter_id": "EG3.ADAPT.OXSTRESS.STATE_QUALITY.v2",
+    "twin_layer": "state_quality",
+    "twin_ready": false,
+    "maturity_evidence": "Maturity C: OxStress module not run in Phase 5 canonical scenarios (PAH/Aflatoxin/AromaticAmines/Nitrosamine). oxidative_stress_level and adduct_burden are null in Phase 5 twin states. twin_ready=false: requires HeavyMetal/Arsenic/ROS-generating carcinogen class to produce non-null outputs.",
+    "port_mappings": [
+      {
+        "eg3_output_port": "ROS_burden",
+        "twin_variable": "oxidative_stress_level",
+        "transform": "identity"
+      },
+      {
+        "eg3_output_port": "oxidative_adduct_score",
+        "twin_variable": "adduct_burden",
+        "transform": "identity"
+      }
+    ]
   },
   "promotion_status": "causal",
   "version": "1.0.0",
